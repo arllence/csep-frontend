@@ -1,0 +1,1443 @@
+
+<style>
+   .submission ul a{
+      background-color: #B0DFE5;
+      border: 1px solid #196b75;
+      margin: 2px;
+   }
+   .is-active{
+      background-color: #196b75 !important;
+      color: #fff !important;
+   }
+</style>
+<div class="card border-success">
+   <div class="card-header border-success">
+      Evaluation Reports <span *ngIf="innovation_data">| {{innovation_data?.details?.innovation_name}}</span>
+   </div>
+   <div class="card-body border-success">
+      <div class="animated fadeIn submission">
+         <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+            <li [ngbNavItem]="1">
+              <a ngbNavLink [ngClass]="{'is-active': active == 1}" >1.Submission</a>
+              <ng-template ngbNavContent>
+               <section class="content">
+                  <div class="ro">
+                     <div class="col-lg-12">
+                        <div class="card ">
+                           <div class="card-header bg-success text-white clearfix">
+                              <span class=" float-left">
+                                 <i class="fa fa-file-text" aria-hidden="true"></i> 
+                                 {{innovation_data?.details?.innovation_name}}: Details
+                              </span>
+                                                                      
+                           </div>
+                           <br/>
+                           <div class="card-body">
+                              <!--main content-->
+                              <div class="ro">
+                                 <div class="col-md-12">
+                                    <div class="table-responsive">
+                                       <table
+                                          class="wikitable table-striped table-bordered table-advance table-hover">
+                                          <thead>
+                                             <tr>
+                                                <th>
+                                                   Innovation Field 
+                                                </th>
+                                                <th>
+                                                   Submitted Value
+                                                </th>
+                                             </tr>
+                                          </thead>
+                                          <tbody >
+                                             <tr>
+                                                <td>Innovation Name </td>
+                                                <td>
+                                                   {{innovation_data?.details?.innovation_name}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Innovation brief </td>
+                                                <td>
+                                                   {{innovation_data?.information?.innovation_brief}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Value Proposition </td>
+                                                <td>
+                                                   {{innovation_data?.information?.value_proposition}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Industry </td>
+                                                <td>
+                                                   {{innovation_data?.details?.industry?.name}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Area of focus </td>
+                                                <td>
+                                                   {{innovation_data?.details?.area_of_focus}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Development stage </td>
+                                                <td>
+                                                   {{innovation_data?.details?.development_stage?.name}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Innovation has a prototype </td>
+                                                <td>
+                                                    <!-- {{innovation_data?.details?.development_stage?.name}} -->
+                                                   <span *ngIf="innovation_data?.details?.development_stage?.name == 'I have a prototype'">Yes</span>
+                                                   <span *ngIf="innovation_data?.details?.development_stage?.name !== 'I have a prototype'">No</span>
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Innovation Description video</td>
+                                                <td>
+                                                   <a href="{{innovation_data?.social_links?.innovation_video}}" target="_blank">{{innovation_data?.social_links?.innovation_video}}</a>
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Has innovation been disclosed </td>
+                                                <td>
+                                                   {{innovation_data?.details?.is_pitched_before}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Does innovation needs accreditation </td>
+                                                <td>
+                                                   {{innovation_data?.details?.require_accreditation}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Is Innovation Affiliated to Any Hub? </td>
+                                                <td>
+                                                   {{innovation_data?.details?.hub_affiliation}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Innovation IP </td>
+                                                <td *ngIf="innovation_data?.details?.intellectual_property?.length !== 0">
+                                                    {{innovation_data.details?.intellectual_property?.name}} <br>
+                                                    <span *ngFor="let doc of innovation_data?.details?.ip_document">
+                                                        <a href={{serverurl}}{{doc.document}} target="_blank">{{doc.original_file_name}}</a>
+                                                    </span>
+                                                </td>
+                                                <td *ngIf="innovation_data?.details?.intellectual_property?.length == 0">None</td>
+                                             </tr>
+                                             <tr>
+                                                <td>Problem(s) </td>
+                                                <td>
+                                                   {{innovation_data?.information?.problem_statement}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Target customer </td>
+                                                <td>
+                                                   {{innovation_data?.information?.target_customers}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Solution </td>
+                                                <td>
+                                                   {{innovation_data?.information?.solution}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>How it works </td>
+                                                <td>
+                                                   {{innovation_data?.information?.how_it_works}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Competitors </td>
+                                                <td>
+                                                   {{innovation_data?.information?.competitors}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Competitive advantage </td>
+                                                <td>
+                                                   {{innovation_data?.information?.competitive_advantage}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Background Research </td>
+                                                <td>
+                                                   {{innovation_data?.information?.background_research}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Impact </td>
+                                                <td>
+                                                   {{innovation_data?.information?.impact}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td>Support required</td>
+                                                <td>
+                                                   <ol>
+                                                      <li *ngFor="let service of innovation_data?.support_services">{{service?.service?.service}}</li>
+                                                      <li *ngIf="innovation_data?.other_support_services">{{innovation_data?.other_support_services?.service}}</li>
+                                                   </ol>
+                                                </td>
+                                             </tr>
+                                             <tr *ngFor="let item of innovation_data?.social_links | keyvalue">
+                                               <ng-container *ngIf="item.key != 'date_created' && item.key != 'id' && item.key != 'innovation' && item.key != 'innovation_video'">
+                                                   <td>{{item.key | titlecase }}</td>
+                                                   <td>
+                                                       <span *ngIf="item.value"><a href={{item.value}} target="_blank">{{item.value}}</a></span>
+                                                       <span *ngIf="!item.value">None</span>                                        
+                                                   </td>
+                                               </ng-container>
+                                            </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>
+                                 
+                              </div>
+                              
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <!--row end-->
+               </section>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="2" *ngxPermissionsExcept="['CHIEF_EVALUATOR']">
+              <a ngbNavLink [ngClass]="{'is-active': active == 2}">2.Junior Officer</a>
+              <ng-template ngbNavContent>
+               <div class="card-header bg-transparent border-success">
+                  JO Moderated Evaluation Report
+               </div>
+                  <div class="card">
+                     <div class="card-header bg-success">
+                        {{innovation_data?.details?.innovation_name}} | Junior Officer Review
+                     </div>
+                     <div class="card-body">
+                        <div class="table-responsive table-responsive-sm table-responsive-md">
+                           <table class="wikitable table-striped table-bordered table-advance table-hover" width=100% *ngFor="let reviewer of innovation_data?.review">
+                               <tr *ngIf="reviewer?.is_final">
+                                   <th class="bg-dark text-white" colspan="2">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i> Final Innovation review
+                                   </th>
+                               </tr>
+                               <tr>
+                                   <th>
+                                       Reviewer 
+                                   </th>
+                                   <td>
+                                       {{reviewer?.reviewer?.first_name}} {{reviewer?.reviewer?.last_name}}
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <th>
+                                       Review
+                                   </th>
+                                   <td>
+                                       <div class="m-0 p-0" [innerHTML]="reviewer?.review"></div>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <th>
+                                       Recommendation
+                                   </th>
+                                   <td>
+                                       {{reviewer?.action}}
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <th>
+                                       Reviewer Role
+                                   </th>
+                                   <td>
+                                       <span *ngFor="let role of reviewer?.reviewer?.user_groups">{{role?.name}}<br></span>
+                                   </td>
+                               </tr>                
+                       </table>
+                           <div *ngIf="innovation_data?.review?.length == 0" class="text-warning text-center">
+                           <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Not Reviewed Yet.</h6>
+                       </div>
+                       </div>
+                     </div>
+                  </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+              <a ngbNavLink [ngClass]="{'is-active': active == 3}">3.Innovation Manager</a>
+              <ng-template ngbNavContent>
+                  <div class="card">
+                     <div class="card-header bg-success">
+                        {{innovation_data?.details?.innovation_name}} | Innovation Manager Review
+                     </div>
+                     <div class="card-body">
+                        <section class="content">
+                           <div class="row">
+                              <div class="col-lg-12">
+                                 <div class="ro">
+                                    <div class="col-md-12 mb-3">
+                                       <div class="table-responsive">
+                                             <table
+                                                class="wikitable table-striped table-bordered table-advance table-hover"
+                                                *ngFor="let im_review of innovation_data?.all_im_reviews">
+                                                <thead>
+                                                <tr>
+                                                   <th>
+                                                      Innovation Field
+                                                   </th>
+                                                   <th>
+                                                      Observation
+                                                   </th>
+                                                   <th>
+                                                      Recommendation
+                                                   </th>
+                                                </tr>
+                                                </thead>
+                                                <tbody >
+                                                <tr>
+                                                   <td>
+                                                         <b>Innovation Name</b> 
+                                                         <br> 
+                                                         {{innovation_data?.details?.innovation_name}}
+                                                   </td>
+                                                   <td>                                          
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.innovation_name_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>                                          
+                                                     <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.innovation_name_recommendation}}</p>                                               
+                                                      </div>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                         <b>Innovation brief </b>
+                                                         <br> 
+                                                         {{innovation_data?.information?.innovation_brief}}
+                                                   </td>
+                                                   <td>  
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.innovation_brief_recommendation}}</p>                                               
+                                                      </div>                                         
+                                                   </td>
+                                                   <td>   
+                                                     <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.innovation_brief_recommendation}}</p>                                               
+                                                      </div>                                         
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                         <b>Value Proposition</b>
+                                                         <br>
+                                                         {{innovation_data?.information?.value_proposition}}
+                                                      </td>
+                                                   <td>
+                                                     <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.value_proposition_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.value_proposition_recommendation}} </p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>                                            
+                                                   <td>
+                                                         <b>Industry </b>
+                                                         <br> 
+                                                         {{innovation_data?.details?.industry?.name}} 
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.industry_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.industry_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                      <b>Area of focus</b> <br> {{innovation_data?.details?.area_of_focus}}</td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.area_of_focus_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.area_of_focus_recommendation}}</p>                                               
+                                                      </div>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td> <b>Development stage</b> <br> {{innovation_data?.details?.development_stage?.name}}</td>
+                                                   <td>  
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.development_stage_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.development_stage_recommendation}}</p>                                               
+                                                      </div>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                      <b>Innovation has a prototype</b> <br>
+                                                      <span *ngIf="innovation_data?.details?.development_stage?.name == 'I have a prototype'">Yes</span>
+                                                      <span *ngIf="innovation_data?.details?.development_stage?.name != 'I have a prototype'">No</span>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.prototype_observation}}</p>
+                                                      </div>                                      
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.prototype_recommendation}}</p>                                               
+                                                      </div>                                           
+                                                   </td>
+                                                </tr>
+                                                <tr>                                           
+                                                   <td><b>Start-up or Innovation Description video</b> <br> <a href="{{innovation_data?.social_links?.innovation_video}}" target="_blank">{{innovation_data?.social_links?.innovation_video}}</a> </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.description_video_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.description_video_recommendation}}</p>                                               
+                                                      </div>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Has innovation been disclosed</b> <br> {{innovation_data?.details?.is_pitched_before}}</td>
+                                                   <td>   
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.is_pitched_before_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>   
+                                                     <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.is_pitched_before_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Does innovation needs accreditation</b> <br> {{innovation_data?.details?.require_accreditation}} </td>
+                                                   <td>             
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.require_accreditation_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>             
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.require_accreditation_recommendation}}</p>                                               
+                                                      </div>  
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Is Innovation Affiliated to Any Hub?</b> <br> {{innovation_data?.details?.hub_affiliation}} </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.hub_affiliation_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.hub_affiliation_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Innovation IP</b>
+                                                      <br>
+                                                      <span *ngIf="innovation_data?.details?.intellectual_property?.length !== 0">
+                                                         {{innovation_data.details.intellectual_property.name}}
+                                                      </span>
+                                                      <span *ngIf="innovation_data?.details?.intellectual_property?.length == 0">None</span>
+                                                   </td>                                        
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.intellectual_property_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td> <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.intellectual_property_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Problem(s)</b> <br> {{innovation_data?.information?.problem_statement}} </td>
+                                                   <td>   
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.problem_statement_observation}}</p>
+                                                      </div>                                         
+                                                   </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.problem_statement_recommendation}}</p>                                               
+                                                      </div>                                            
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Target customer</b> <br> {{innovation_data?.information?.target_customers}} </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.target_customers_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.target_customers_recommendation}}</p>                                               
+                                                      </div>  
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Solution</b> <br> {{innovation_data?.information?.solution}}</td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.solution_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.solution_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>How it works</b> <br> {{innovation_data?.information?.how_it_works}}</td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.how_it_works_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.how_it_works_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Competitors</b> <br> {{innovation_data?.information?.competitors}}</td>
+                                                   <td>     
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.competitors_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>    
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.competitors_recommendation}}</p>                                               
+                                                      </div>   
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>Competitive advantage <br> {{innovation_data?.information?.competitive_advantage}} </td>
+                                                   <td>      
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.competitive_advantage_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td> 
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.competitive_advantage_recommendation}}</p>                                               
+                                                      </div> 
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Background Research</b> <br> {{innovation_data?.information?.background_research}} </td>
+                                                   <td>    
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.background_research_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>    
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.background_research_recommendation}}</p>                                               
+                                                      </div>   
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Impact</b> <br> {{innovation_data?.information?.impact}} </td>
+                                                   <td>   
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.impact_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.impact_recommendation}}</p>                                               
+                                                      </div>  
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td>
+                                                         <b>Support required</b>
+                                                         <br>
+                                                         <ol>
+                                                            <li *ngFor="let service of innovation_data.support_services">{{service?.service?.service}}</li>
+                                                            <li *ngIf="innovation_data?.other_support_services">{{innovation_data?.other_support_services?.service}}</li>
+                                                         </ol>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.support_required_observation}}</p>
+                                                      </div>
+                                                   </td>
+                                                   <td>
+                                                      <div class="col-sm-12 col-lg-12">
+                                                         <p>{{im_review?.review.support_required_recommendation}}</p>                                               
+                                                      </div>  
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td colspan="3">
+                                                      <div class="col-sm-12 col-lg-12 mb-2 mt-1">
+                                                         <b>General Verdict:</b>
+                                                         <div class="m-0 p-0" [innerHTML]="im_review?.review?.final_comment"></div>                                  
+                                                      </div>
+                                                   </td>
+                                                </tr>
+                                                </tbody>
+                                             </table>
+                                             
+                                       </div>
+                                    </div>
+                                   
+                                    
+                                 </div>
+                              </div>
+                           </div>
+                           <!--row end-->
+                        </section>
+                     </div>
+                  </div>
+              </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+               <a ngbNavLink [ngClass]="{'is-active': active == 4}">4.Internal Evaluator</a>
+               <ng-template ngbNavContent>
+                  <div  id="ie_preview">
+                     <div class="table-responsive" id="ie_summary">
+                         <div class="tab-pane">
+                             <div class="table-responsive" id="ie_summary">
+                              <!-- <div class="card-header bg-transparent border-success mb-4">
+                                 IE Moderated Evaluation Report
+                              </div> -->
+                              <ng-container *ngFor="let reviewer of innovation_data?.evaluator_comments?.general">
+                                 <table class="wikitable table-striped table-bordered table-advance table-hover" width=100% *ngIf="reviewer?.stage == 'IV'">
+                                     <tr>
+                                         <th class="bg-dark text-white" colspan="2">
+                                          <i class="fa fa-check-circle" aria-hidden="true"></i> IE Moderated Evaluation report
+                                         </th>
+                                     </tr>
+                                     <tr>
+                                         <th>
+                                             Reviewers 
+                                         </th>
+                                         <td>
+                                             <span *ngFor="let xreviewer of innovation_data?.ie_reviews">
+                                                {{xreviewer?.evaluator?.first_name}} {{xreviewer?.evaluator?.last_name}}<br>
+                                             </span>
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                       <th>
+                                           System Average Score 
+                                       </th>
+                                       <td >
+                                             {{innovation_data?.evaluation_averages?.ie_average}} / 50
+                                       </td>
+                                     </tr>
+                                     <tr>
+                                          <th>
+                                             Moderated Verdict
+                                          </th>
+                                          <td>
+                                             <div class="m-0 p-0" [innerHTML]="reviewer?.review"></div>
+                                          </td>
+                                     </tr>
+                                     <tr>
+                                         <th>
+                                             Recommendation
+                                         </th>
+                                         <td>
+                                             {{reviewer?.action}}
+                                         </td>
+                                     </tr>
+                                 </table>
+                             </ng-container>
+                             <div class="text-center m-5">
+                              <button class="btn btn-sm btn-primary col-6" (click)="toggle_view_all_ie_reviews()" *ngIf="!view_all_ie_reviews">View Individual Reviews</button>
+                             </div>                              
+                              <section *ngIf="view_all_ie_reviews" class="mt-5">
+                                 <ng-container *ngFor="let ie_review of innovation_data?.ie_reviews">
+                                    <div class="card">
+                                       <div class="card-header bg-success">
+                                          Innovation: {{innovation_data?.details?.innovation_name}} | Internal Evaluator: {{ie_review?.evaluator?.first_name}} {{ie_review?.evaluator?.last_name}} 
+                                       </div>
+                                       <div class="card-body">
+                                          <table class="wikitable table-responsive table-striped table-bordered" width="100%">
+                                             <thead>
+                                                <tr class="bg-success text-dark">
+                                                   <th>Field</th>
+                                                   <th>Observation</th>
+                                                   <th>Comment</th>
+                                                   <th>Score</th>
+                                                </tr>
+                                             </thead>
+                                             <tbody>
+                                                <tr>
+                                                   <td><b>Innovation Brief</b> <br>
+                                                         {{innovation_data?.information?.innovation_brief}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.innovation_brief_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.innovation_brief_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.innovation_brief_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Problem Statement</b> <br> 
+                                                         {{innovation_data?.information?.problem_statement}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.problem_statement_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.problem_statement_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.problem_statement_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Background research</b> <br>
+                                                         {{innovation_data?.information?.background_research}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.background_research_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.background_research_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.background_research_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Target Customers</b> <br>
+                                                         {{innovation_data?.information?.target_customers}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.target_customers_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.target_customers_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.target_customers_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Value Proposition</b> <br> 
+                                                         {{innovation_data?.information?.value_proposition}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.value_proposition_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.value_proposition_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.value_proposition_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Solution</b> <br> 
+                                                         {{innovation_data?.information?.solution}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.solution_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.solution_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.solution_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>How it works</b> <br> 
+                                                         {{innovation_data?.information?.how_it_works}}        
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.how_it_works_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.how_it_works_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.how_it_works_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Impact</b> <br> 
+                                                         {{innovation_data?.information?.impact}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.impact_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.impact_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.impact_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Competitors</b> <br> 
+                                                         {{innovation_data?.information?.competitors}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitors_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitors_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitors_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Competitive Advantage</b> <br> 
+                                                         {{innovation_data?.information?.competitive_advantage}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitive_advantage_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitive_advantage_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.competitive_advantage_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td><b>Final Observation and Comment</b> </td>
+                                                   <td>
+                                                         {{ie_review?.final_observation}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.final_comment}}
+                                                   </td>
+                                                   <td>
+                                                         {{ie_review?.final_score}}
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td colspan="2"> 
+                                                      Final verdict:- 
+                                                      <b> 
+                                                         <span *ngIf="ie_review?.outcome == 'viable'">Innovation is viable and should proceed to next phase</span>
+                                                         <span *ngIf="ie_review?.outcome == 'viable_pitch'">Innovation May be viable but subject to pitching</span>
+                                                         <span *ngIf="ie_review?.outcome == 'not_viable'">Innovation is not viable</span>
+                                                      </b> 
+                                                   </td>
+                                                   <td colspan="2" class="text-right"> 
+                                                      <span *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER','INTERNAL_EVALUATOR','CHIEF_EVALUATOR']">
+                                                         Total Evaluation Score: &nbsp; <b> {{ie_review?.total_score}} / 50</b> 
+                                                      </span>
+                                                   </td>
+                                                </tr>
+                                             </tbody>
+                                          </table>
+                                       </div>
+                                     </div>
+                                       
+                                    </ng-container>
+                              </section>                                 
+                             </div>
+                          </div>
+                     </div>
+                  </div>
+               </ng-template>
+             </li>
+             <li [ngbNavItem]="5">
+               <a ngbNavLink [ngClass]="{'is-active': active == 5}">5.Subject Matter Evaluator</a>
+               <ng-template ngbNavContent>
+                  <div  id="ie_preview">
+                     <div class="table-responsive" id="sme_summary">
+                         <div class="tab-pane">
+                             <div class="table-responsive" id="sme_summary">
+                              <!-- <div class="card-header bg-transparent border-success mb-4">
+                                 SME Moderated Evaluation Report
+                              </div> -->
+                              <ng-container *ngFor="let reviewer of innovation_data?.evaluator_comments?.general">
+                                 <table class="wikitable table-striped table-bordered table-advance table-hover" width=100% *ngIf="reviewer?.stage == 'V'">
+                                     <tr>
+                                         <th class="bg-dark text-white" colspan="2">
+                                          <i class="fa fa-check-circle" aria-hidden="true"></i> SME Moderated Evaluation report
+                                         </th>
+                                     </tr>
+                                     <tr>
+                                         <th>
+                                             Reviewers 
+                                         </th>
+                                         <td>
+                                             <span *ngFor="let xreviewer of innovation_data?.sme_reviews">
+                                                {{xreviewer?.evaluator?.first_name}} {{xreviewer?.evaluator?.last_name}}<br>
+                                             </span>
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                       <th>
+                                           System Average Score 
+                                       </th>
+                                       <td >
+                                             {{innovation_data?.evaluation_averages?.sme_average}} / 50
+                                       </td>
+                                     </tr>
+                                     <tr>
+                                          <th>
+                                             Moderated Verdict
+                                          </th>
+                                          <td>
+                                             <div class="m-0 p-0" [innerHTML]="reviewer?.review"></div>
+                                          </td>
+                                     </tr>
+                                     <tr>
+                                         <th>
+                                             Recommendation
+                                         </th>
+                                         <td>
+                                             {{reviewer?.action}}
+                                         </td>
+                                     </tr>
+                                 </table>
+                             </ng-container>
+                             <div class="text-center m-5">
+                              <button class="btn btn-sm btn-primary col-6" (click)="toggle_view_all_sme_reviews()" *ngIf="!view_all_sme_reviews">View Individual Reviews</button>
+                             </div>  
+                             <section *ngIf="view_all_sme_reviews" class="mt-5">
+                              <ng-container *ngFor="let ie_review of innovation_data?.sme_reviews">
+                                 <div class="card">
+                                    <div class="card-header bg-success">
+                                       Innovation: {{innovation_data?.details?.innovation_name}} | Subject Mattetr Evaluator: {{ie_review?.evaluator?.first_name}} {{ie_review?.evaluator?.last_name}}
+                                    </div>
+                                    <div class="card-body">
+                                       <table class="wikitable table-responsive table-striped table-bordered" width="100%">
+                                          <thead>
+                                             <tr class="bg-success text-dark">
+                                                <th>Field</th>
+                                                <th>Observation</th>
+                                                <th>Comment</th>
+                                                <th>Score</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td><b>Innovation Brief</b> <br>
+                                                      {{innovation_data?.information?.innovation_brief}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Problem Statement</b> <br> 
+                                                      {{innovation_data?.information?.problem_statement}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Background research</b> <br>
+                                                      {{innovation_data?.information?.background_research}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Target Customers</b> <br>
+                                                      {{innovation_data?.information?.target_customers}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Value Proposition</b> <br> 
+                                                      {{innovation_data?.information?.value_proposition}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Solution</b> <br> 
+                                                      {{innovation_data?.information?.solution}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>How it works</b> <br> 
+                                                      {{innovation_data?.information?.how_it_works}}        
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Impact</b> <br> 
+                                                      {{innovation_data?.information?.impact}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Competitors</b> <br> 
+                                                      {{innovation_data?.information?.competitors}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Competitive Advantage</b> <br> 
+                                                      {{innovation_data?.information?.competitive_advantage}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Final Observation and Comment</b> </td>
+                                                <td>
+                                                      {{ie_review?.final_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.final_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.final_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td colspan="2"> 
+                                                   Final verdict:- <b> 
+                                                      <span *ngIf="ie_review?.outcome == 'viable'">Innovation is viable and should proceed to next phase</span>
+                                                      <span *ngIf="ie_review?.outcome == 'viable_pitch'">Innovation May be viable but subject to pitching</span>
+                                                      <span *ngIf="ie_review?.outcome == 'not_viable'">Innovation is not viable</span>
+                                                   </b>
+                                                </td>
+                                                <td colspan="2" class="text-right"> 
+                                                   <span *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER','INTERNAL_EVALUATOR','CHIEF_EVALUATOR']">
+                                                      Total Evaluation Score: &nbsp; <b> {{ie_review?.total_score}} / 50</b> 
+                                                   </span>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                 </div>                                    
+                              </ng-container>
+                             </section>
+                                
+                             </div>
+                          </div>
+                     </div>
+                  </div>
+               </ng-template>
+             </li>
+             <li [ngbNavItem]="6">
+               <a ngbNavLink [ngClass]="{'is-active': active == 6}">6.External Evaluator</a>
+               <ng-template ngbNavContent>
+                  <div  id="ie_preview">
+                     <div class="table-responsive" id="ee_summary">
+                         <div class="tab-pane">
+                             <div class="table-responsive" id="ee_summary">
+                              <!-- <div class="card-header bg-transparent border-success mb-4">
+                                 EE Moderated Evaluation Report
+                              </div> -->
+                              <ng-container *ngFor="let reviewer of innovation_data?.evaluator_comments?.general">
+                                 <table class="wikitable table-striped table-bordered table-advance table-hover" width=100% *ngIf="reviewer?.stage == 'VI'">
+                                     <tr>
+                                         <th class="bg-dark text-white" colspan="2">
+                                          <i class="fa fa-check-circle" aria-hidden="true"></i> EE Moderated Evaluation report
+                                         </th>
+                                     </tr>
+                                     <tr>
+                                         <th>
+                                             Reviewers 
+                                         </th>
+                                         <td>
+                                             <span *ngFor="let xreviewer of innovation_data?.ee_reviews">
+                                                {{xreviewer?.evaluator?.first_name}} {{xreviewer?.evaluator?.last_name}}
+                                             </span>
+                                         </td>
+                                     </tr>
+                                     <tr>
+                                       <th>
+                                           System Average Score 
+                                       </th>
+                                       <td >
+                                             {{innovation_data?.evaluation_averages?.ie_average}} / 50
+                                       </td>
+                                     </tr>
+                                     <tr>
+                                          <th>
+                                          Moderated Verdict
+                                          </th>
+                                          <td>
+                                             <div class="m-0 p-0" [innerHTML]="reviewer?.review"></div>
+                                          </td>
+                                     </tr>
+                                       <tr>
+                                          <th>
+                                             Recommendation
+                                          </th>
+                                          <td>
+                                             {{reviewer?.action}}
+                                          </td>
+                                     </tr>
+                                 </table>
+                             </ng-container>
+                             <div class="text-center m-5">
+                              <button class="btn btn-sm btn-primary col-6" (click)="toggle_view_all_ee_reviews()" *ngIf="!view_all_ee_reviews">View Individual Reviews</button>
+                             </div>
+                              <section *ngIf="view_all_ee_reviews" class="mt-5">
+                                 
+                                 <ng-container *ngFor="let ie_review of innovation_data?.ee_reviews">
+                                 <div class="card">
+                                    <div class="card-header bg-success">
+                                       Innovation: {{innovation_data?.details?.innovation_name}} | External Evaluator: {{ie_review?.evaluator?.first_name}} {{ie_review?.evaluator?.last_name}}
+                                    </div>
+                                    <div class="card-body">
+                                       <table class="wikitable table-responsive table-striped table-bordered" width="100%">
+                                          <thead>
+                                             <tr class="bg-success text-dark">
+                                                <th>Field</th>
+                                                <th>Observation</th>
+                                                <th>Comment</th>
+                                                <th>Score</th>
+                                             </tr>
+                                          </thead>
+                                          <tbody>
+                                             <tr>
+                                                <td><b>Innovation Brief</b> <br>
+                                                      {{innovation_data?.information?.innovation_brief}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.innovation_brief_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Problem Statement</b> <br> 
+                                                      {{innovation_data?.information?.problem_statement}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.problem_statement_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Background research</b> <br>
+                                                      {{innovation_data?.information?.background_research}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.background_research_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Target Customers</b> <br>
+                                                      {{innovation_data?.information?.target_customers}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.target_customers_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Value Proposition</b> <br> 
+                                                      {{innovation_data?.information?.value_proposition}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.value_proposition_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Solution</b> <br> 
+                                                      {{innovation_data?.information?.solution}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.solution_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>How it works</b> <br> 
+                                                      {{innovation_data?.information?.how_it_works}}        
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.how_it_works_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Impact</b> <br> 
+                                                      {{innovation_data?.information?.impact}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.impact_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Competitors</b> <br> 
+                                                      {{innovation_data?.information?.competitors}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitors_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Competitive Advantage</b> <br> 
+                                                      {{innovation_data?.information?.competitive_advantage}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.competitive_advantage_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td><b>Final Observation and Comment</b> </td>
+                                                <td>
+                                                      {{ie_review?.final_observation}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.final_comment}}
+                                                </td>
+                                                <td>
+                                                      {{ie_review?.final_score}}
+                                                </td>
+                                             </tr>
+                                             <tr>
+                                                <td colspan="2"> 
+                                                   Final verdict:- 
+                                                   <b> 
+                                                      <span *ngIf="ie_review?.outcome == 'viable'">Innovation is viable and should proceed to next phase</span>
+                                                      <span *ngIf="ie_review?.outcome == 'viable_pitch'">Innovation May be viable but subject to pitching</span>
+                                                      <span *ngIf="ie_review?.outcome == 'not_viable'">Innovation is not viable</span>
+                                                   </b>
+                                                </td>
+                                                <td colspan="2" class="text-right"> 
+                                                   <span *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER','INTERNAL_EVALUATOR','CHIEF_EVALUATOR']">
+                                                      Total Evaluation Score: &nbsp; <b> {{ie_review?.total_score}} / 50</b> 
+                                                   </span>
+                                                </td>
+                                             </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                  </div>
+                                    
+                                 </ng-container>
+                              </section>
+                             </div>
+                          </div>
+                     </div>
+                  </div>
+               </ng-template>
+             </li>
+             <li [ngbNavItem]="7">
+               <a ngbNavLink [ngClass]="{'is-active': active == 7}">7.Chief Evaluator</a>
+               <ng-template ngbNavContent>
+                  <!-- <div class="card-header">
+                     CE Moderated Evaluation Report
+                  </div> -->
+                  <ng-container *ngFor="let reviewer of innovation_data?.evaluator_comments?.general">
+                     
+                     <table class="wikitable table-striped table-bordered table-advance table-hover" width=100% *ngIf="reviewer?.stage == 'VII'" >
+                         <tr>
+                             <th class="bg-dark text-white" colspan="2">
+                                 Chief Evaluator Report
+                             </th>
+                         </tr>
+                         <tr>
+                             <th>
+                                 Reviewer 
+                             </th>
+                             <td>
+                                 {{reviewer?.reviewer?.first_name}} {{reviewer?.reviewer?.last_name}}
+                             </td>
+                         </tr>
+                         <tr>
+                             <th>
+                                 Recommendation
+                             </th>
+                             <td>
+                                 {{reviewer?.action}}
+                             </td>
+                         </tr>
+                         <tr>
+                             <th>
+                                 Review
+                             </th>
+                             <td>
+                                 <div class="m-0 p-0" [innerHTML]="reviewer?.review"></div>
+                             </td>
+                         </tr>
+                     </table>
+                     <p *ngIf="!reviewer" class="text-warning">No Review</p>
+                 </ng-container>
+                 
+               </ng-template>
+             </li>
+          </ul>
+          
+          <div [ngbNavOutlet]="nav" class="mt-2"></div>
+         
+      </div>
+   </div>
+ </div>
+
+  

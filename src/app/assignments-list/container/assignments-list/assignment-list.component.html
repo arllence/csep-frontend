@@ -1,0 +1,155 @@
+<section class="content pr-3 pl-3">
+  <div class="row">
+     <div class="col-lg-12">
+        <div class="card ">
+           <div class="card-header bg-primary text-white clearfix">
+              <h5>
+                  <span class=" float-left">
+                     <i class="fa fa-files-o" aria-hidden="true"></i>
+                     Assignment List
+                  </span>
+               </h5>
+              <div class="float-right">
+               <button type="button" class="btn btn-primary mr-2" (click)="addAssignmentModal.show()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Assignment</button>
+              </div>
+           </div>
+           <br />
+           <div class="card-body">
+              <div class="table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+                 <table class="wikitable table-bordered width100" id="table">
+                    <thead>
+                       <tr class="filters">
+                          <th>ID</th>
+                          <th>Innovation</th>
+                          <th>Subject</th>
+                          <th>Deadline</th>
+                          <th>Submitted On</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                       </tr>
+                       <tr *ngFor="let assignment of assignments; let i = index">
+                           <td>{{i+1}}</td>
+                           <td>{{assignment?.innovation?.details?.innovation_name}}</td>
+                           <td>{{assignment?.title}}</td>
+                           <td>{{assignment?.deadline}}</td>
+                           <td>{{assignment?.date_created | date}}</td>
+                           <td>{{assignment?.assignment_status}}</td>
+                           <td>
+                              <button class="btn btn-info" (click)="view_assignment(assignment?.id); addAssignmentModal.show()">View</button>
+                                <button class="btn btn-danger" (click)="delete_assignment(assignment?.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                           </td>
+                       </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                 </table>
+                 <div *ngIf="assignments?.length == 0" class="text-danger text-center">
+                     <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Assignments Found.</h6>
+                </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <!-- row-->
+</section>
+<!-- modal -->
+<div bsModal #addAssignmentModal="bs-modal" class="modal fade" >
+   <div class="modal-dialog modal-primary" role="document">
+     <div class="modal-content">
+       <div class="modal-header bg-primary">
+         <h5 class="modal-title">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i> &nbsp;
+             <span *ngIf="formState == 'add'">Add Assignment</span> 
+             <span *ngIf="formState == 'edit'" class="text-white">View / Edit Assignment</span>             
+           </h5>
+         <button type="button" class="close" (click)="addAssignmentModal.hide(); reset_form()" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body container">
+         <form id="add-assignment-form" [formGroup]="AddAssignmentsForm" enctype="multipart/form-data">
+            <div class="form-group row">
+               <div class="col-sm-12">                                    
+                  <label class="control-label" for="title">
+                  Assignment Title
+                  <span class="text-danger">*</span>
+                  </label>
+               </div>
+               <div class="col-sm-12">                                    
+                  <input type="text" value="" required class="form-control required" formControlName="title" id="title" placeholder="">
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-12">                                    
+                  <label class="control-label" for="innovation_id">
+                  Innovation Name
+                  <span class="text-danger">*</span>
+                  </label>
+               </div>
+               <div class="col-sm-12">
+                  <div class="form-group row">                    
+                     <div class="col-sm-12 col-lg-12">
+                         <ng-select  class="required" formControlName="innovation">
+                             <ng-option selected disabled value="">Select the Innovation</ng-option>
+                             <ng-option value="{{innovation?.id}}" *ngFor="let innovation of innovations">{{innovation?.details?.innovation_name}}</ng-option> 
+                         </ng-select>
+                     </div>
+                 </div>                 
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-12">                                    
+                  <label class="control-label" for="deadline">
+                  Assignment Due Date
+                  <span class="text-danger">*</span>
+                  </label>
+               </div>
+               <div class="col-sm-12">
+                  <div class="input-group">
+                     <div class="input-group-append">
+                        <span class="input-group-text">
+                        <i class="livicon" data-name="calendar" data-size="16" data-c="#007cdc" data-hc="#c1272d" data-loop="true"></i>
+                        </span>
+                     </div>
+                     <input class="form-control required" value="" required min="2025-09-15" type="date" formControlName="deadline" placeholder="">
+                  </div>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-12">                                    
+                  <label class="control-label" for="file">
+                  Assignment file
+                  <!-- <span class="text-danger">*</span> -->
+                  </label>
+               </div>
+               <div class="col-sm-12 mb-2">
+                  <small *ngIf="file_url !== ''">Current File: <a href="{{file_url}}" >View</a></small>
+               </div>
+               <div class="col-sm-12">
+                  <div class="custom-file">
+                     <input type="file" class="form-control required" id="file" formControlName="file"  (change)="handleFileupload($event)">
+                     <!-- <label class="custom-file-labe" for="file">Choose file</label> -->
+                  </div>
+               </div>
+            </div>
+            <div class="form-group row">
+               <div class="col-sm-12">
+                  <label class="control-label" for="description">
+                  Assignment Description
+                  </label>
+               </div>
+               <div class="col-sm-12">
+                  <quill-editor formControlName="description" class="content-editor" [placeholder]="'Type here ...'"> </quill-editor>
+               </div>
+            </div>
+         </form>
+       </div>        
+       <br><br><br><br>
+       <div class="modal-footer ">
+         <button  type="submit"  (click)="addAssignmentModal.hide(); reset_form()" aria-label="Close" class="btn btn-secondary col-md-4 m-1">Close</button>
+         <button   class="btn btn-success col-md-4 m-1" (click)="add_assignment()">Submit</button>        
+       </div>
+     </div><!-- /.modal-content -->
+   </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

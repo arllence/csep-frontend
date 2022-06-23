@@ -1,0 +1,973 @@
+<div class="app-body">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row" *ngIf="verify_email == false">
+                <div class="col-md-12 mx-auto">
+                    <div class="card-group">
+                        <div class="card text-black  d-md-down-none" style="width:35%">
+                            <div class="card-body text-center">
+                                <div>
+                                    <p class="mt-4"></p >
+                                    <img src='assets/csep-logo.png' heigh="160" loading="lazy"/>
+                                   
+                                    <br>
+                                     <p class="text-muted mt-5">Campus Social Election Platform - CSEP is an enterprise that provides Campuses an end-to-end digital election management platform and support to document, develop, and track voters progress.
+                                    </p>
+                                <!-- <p class="text-muted"> The platform facilitates auditable growth through digital innovation submission, expert evaluation, startup management coaching, and curated linkage to mentorship, business strategy advisory, qualified investors, and market access opportunities.</p>
+                                -->
+                          
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card p-4">
+                            <div class="card-body login-block">
+                                <div *ngIf="is_login">
+                                    <form [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+                                        <h1 class="text-primary primary"><strong>Sign in</strong> </h1>
+                                        <p class="text-muted">Welcome back to CSEP</p>
+                                        <div class="row">
+                                            <div class="input-group mb-0">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="icon-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Registration No" autocomplete="email" 
+                                                formControlName="email" required 
+                                                [ngClass]="{ 'is-invalid': loginformstatus &amp;&amp; LoginForm.controls.email.errors }">
+                                              
+                                            </div>
+                                            <error-message [control]="LoginForm.controls.email" *ngIf="loginformstatus">email</error-message>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mt-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                                                </div>
+                                                <input [type]="passwordFieldType ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password" autocomplete="current-password"
+                                                [ngClass]="{ 'is-invalid': loginformstatus &amp;&amp; LoginForm.controls.password.errors }" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" >
+                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !passwordFieldType,
+                                                        'fa-eye': passwordFieldType}" (click)="showPassword()"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <error-message [control]="LoginForm.controls.password" *ngIf="loginformstatus">password</error-message>
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="col-12">
+                                                <button type="button" class="btn btn-primary btn-block px-4 login-btn"  type="submit" >Login</button>
+                                            </div>
+                                            <!-- <div class="col-6 text-right">
+                                                <button type="button" class="btn btn-link px-0" (click)="resetpassword()">Forgot password?</button>
+                                            </div> -->
+                                        </div>
+
+                                    </form>
+                                                                       
+                                    <div class="row separator m-3 text-dark">
+                                        <hr>
+                                        <span>Or</span>
+                                        <hr>
+                                    </div>
+                                    <span>
+                                        <p>
+                                            Forgot Password? 
+                                                <span class="btn-link" (click)="is_reset_password_fn()">
+                                                    Reset Here
+                                                </span>
+                                            <br>
+                                            Don't have an account? 
+                                                <span class="btn-link" (click)="is_login_fn();">
+                                                    Register Here
+                                                </span>
+                                        </p>
+                                    </span>
+                                </div>
+                                <!-- Sign up -->
+                                <div *ngIf="!is_login" class="col-12">
+                                    <form [formGroup]="SignupForm" (ngSubmit)="onSignup()">
+                                        <h1 class="text-primary primary"><strong>Sign up</strong> </h1>
+                                        <p class="text-muted">Create your account</p>
+                                        <div class="row">
+                                            <div class="input-group mt-2 ">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="First Name" autocomplete="" 
+                                                    formControlName="first_name" required 
+                                                    [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.first_name.errors }">
+                                                
+                                                </div>
+                                                <error-message [control]="SignupForm.controls.first_name" *ngIf="signupformstatus"></error-message>
+                                            </div>
+                                          
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mt-2 ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="icon-user"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Last Name" autocomplete="" 
+                                                formControlName="last_name" required 
+                                                [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.last_name.errors }">
+                                            </div>
+                                            <error-message [control]="SignupForm.controls.last_name" *ngIf="signupformstatus"></error-message>    
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mt-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-envelope-o"></i></span>
+                                                </div>
+                                                <input type="email" class="form-control" placeholder="Email" autocomplete="email" 
+                                                formControlName="email" required 
+                                                [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.email.errors }">
+                                            </div>
+                                            <error-message [control]="SignupForm.controls.email" *ngIf="signupformstatus"></error-message>
+
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-group mt-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-registered"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Registration No" autocomplete="" 
+                                                formControlName="registration_no" required 
+                                                [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.registration_no.errors }">                                              
+                                            </div>
+                                            
+                                            <error-message [control]="SignupForm.controls.registration_no" *ngIf="signupformstatus"></error-message>
+                                            <div *ngIf="SignupForm.get('registration_no').invalid && SignupForm.get('registration_no').touched">
+                                                <small class="text-danger" *ngIf="SignupForm.get('registration_no').errors?.pattern">Enter Valid Reg No </small>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mt-2">
+                                            <div class="input-group ">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-wpexplorer"></i></span>
+                                                </div>
+                                                <select class="form-control" formControlName="role" required >
+                                                    <option value="" disabled>Join as?</option>
+                                                    <option *ngFor="let role of roles" value="{{role}}">
+                                                        {{role}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <error-message [control]="SignupForm.controls.role" *ngIf="signupformstatus"></error-message>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                                                </div>
+                                                <input [type]="passwordFieldType ? 'text' : 'password'" class="form-control" placeholder="Password" formControlName="password" autocomplete="current-password"
+                                                [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.password.errors }" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" >
+                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !passwordFieldType,
+                                                        'fa-eye': passwordFieldType}" (click)="showPassword()"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <error-message [control]="SignupForm.controls.password" *ngIf="signupformstatus"></error-message>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                                                </div>
+                                                <input [type]="passwordFieldType ? 'text' : 'password'" class="form-control" placeholder="Confirm Password" formControlName="confirm_password" autocomplete="current-password"
+                                                [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.password.errors }" required>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text" >
+                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !passwordFieldType,
+                                                        'fa-eye': passwordFieldType}" (click)="showPassword()"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <error-message [control]="SignupForm.controls.password" *ngIf="signupformstatus"></error-message>
+                                        </div>
+                                        
+                                        
+                                        
+                                        <div class="input-group mt-4">
+                                            <input type="checkbox" class="form-check-input" 
+                                                    formControlName="accepted_terms" required 
+                                                    [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.accepted_terms.errors }" value="True" id="accepted_terms"> 
+                                                    <label class="form-check-label" for="accepted_terms">
+                                                        By checking the box you confirm to have read and accepted CSEP <span class="btn-link" (click)="termsModal.show()">Terms and Conditions</span>.
+                                                    </label>
+                                        </div>
+                                        <div class="input-group mt-2">
+                                            <input type="checkbox" class="form-check-input" 
+                                                    formControlName="newsletter" 
+                                                    [ngClass]="{ 'is-invalid': signupformstatus &amp;&amp; SignupForm.controls.newsletter.errors }" value="True" id="newsletter">
+                                                    <label class="form-check-label" for="newsletter">
+                                                        I agree to receive innovation content from CSEP.
+                                                    </label>    
+                                        </div>
+
+                                        <br>
+                                                                           
+                                     
+                                       
+                                       
+
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <button class="btn btn-block btn-primary px-4 login-btn"  type="submit" >Sign Up</button>
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                    <div class="row separator m-3 text-dark">
+                                        <hr>
+                                        <span>Or</span>
+                                        <hr>
+                                    </div>
+                                    <span>
+                                        <p>
+                                            Already have an account? 
+                                            <span class="btn-link" (click)="is_login_fn()">
+                                                Sign In
+                                            </span>
+                                        </p>
+                                    </span>
+                                </div>                      
+                            </div>
+                        </div>
+                   
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mx-auto">
+                <div class="card card-group" >
+                    <!-- verify email -->
+                    <div class="row" *ngIf="verify_email == true">
+                        <!-- <div  > -->
+                            <div class="col-sm-12 col-lg-6 py-5 pl-4 pr-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <strong>Verify Email</strong>
+                                    </div>
+                                    <div class="card-body">
+                                    
+                                        <form [formGroup]="VerifyEmailForm" (ngSubmit)="verifyemail()">
+                                            <div class="row">
+                                                <div class="form-group col-12">
+                                                    <label>OTP Code</label>
+                                                    <div class="input-group ">
+                        
+                                                        <input type="text" class="form-control" formControlName="otp" />
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text" >
+                                                                <i class="icon-lock"></i>
+                                                            </span>
+                                                        </div>        
+                                                    </div>
+                                                </div>        
+                                            </div>                          
+                                            <div class="form-group col-12">
+                                                <button type="submit" class="btn btn-success col-sm-12" >
+                                                    <i class="fa fa-check"></i> 
+                                                    &nbsp;Verify
+                                                </button>
+                                            </div>                          
+                                        </form>                            
+                                            <div class="form-group col-12">
+                                                <button type="submit" class="btn btn-info col-sm-12" (click)="resend_otp()" >
+                                                    <i class="fa fa-circle-o-notch"></i> 
+                                                    &nbsp;Resend OTP
+                                                </button>
+                                            </div>       
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-md-down-none col-lg-6 text-center py-4">
+                                <img src="assets/verifyemail.jpg" style="width:60%" loading="lazy">  
+                            </div> 
+                        <!-- </div> -->
+                    </div>
+                    
+                    <!-- reset password -->
+                    <div class="row " *ngIf="reset_password">
+                        <div class="card-group">
+                            <div class=" card text-black d-md-down-none col=md-5" style="width:35%" *ngIf="reset_password || verify_email">                        
+                                <div class="card-body text-center">
+                                    <div>
+                                        <p class="mt-5"></p>
+                                        <img src='assets/csep-logo.png' height="160" alt="CSEP" loading="lazy"/>   
+                                       
+                                      <br>
+                                      <br>
+                                      <p class="text-muted mt-5">Campus Social Election Platform - CSEP is an enterprise that provides Campuses an end-to-end digital election management platform and support to document, develop, and track voters progress.
+                                     </p>
+                                                  
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="card border-success  col-md-7" style="width:65%">
+                                <div class="card-header">
+                                    <h3 class="text-primary primary pt-5"><strong>Forgot Password</strong> </h3>
+                                    <p class="text-muted pb-3">Confirm your email to reset password
+                                    </p>
+                                    <!-- <strong>Reset Password</strong> -->
+                                </div>
+                                <div class="card-body">                       
+                                    <form [formGroup]="resetPasswordForm" (ngSubmit)="sendPasswordLink()">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label>Email Address</label>
+                                                <div class="input-group ">        
+                                                    <input type="text" class="form-control" formControlName="email" placeholder="Enter your email..."/>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text" >
+                                                            <i class="fa fa-envelope"></i>
+                                                        </span>
+                                                    </div>        
+                                                </div>
+                                            </div>        
+                                        </div>                                 
+                                            <div class="form-group col-sm-12">
+                                                <button type="submit" class="btn btn-primary login-btn col-sm-12" >
+                                                    Reset Password
+                                                </button>
+                                            </div>                             
+                                    </form>
+                                    <div class="row separator m-3 text-dark">
+                                        <hr>
+                                        <span>Or</span>
+                                        <hr>
+                                    </div>
+                                    <span>
+                                        <p>
+                                            Remember Password? 
+                                            <span class="btn-link" (click)="is_reset_fn()">
+                                                Sign In
+                                            </span>
+                                        </p>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    
+                                      
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+<!--Terms Info modal -->
+<div bsModal #termsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title">
+                    CSEP Registration Terms and Conditions            
+                </h5>
+                <button type="button" class="close" (click)="termsModal.hide();" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container">
+
+                <div class="default-page-content">
+                    <p>This platform/website is provided on an “as is” basis by ...
+                       (hereinafter referred to as<b> ‘Company’ </b>or<b> ‘CSEP’</b>). Any user using this
+                       website in any form be and is hereby agrees to the terms and conditions mentioned herein.
+                       This platform/website
+                       is offered to you conditioned on your acceptance without modification of the terms and
+                       conditions contained
+                       herein. Your use of this platform/website constitutes your agreement to all such terms and
+                       conditions.
+                    </p>
+                    <p><b>Terms of Use</b></p>
+                    <p>PLEASE READ THESE TERMS OF USE (“AGREEMENT” OR “TERMS OF USE”) CAREFULLY BEFORE USING THE
+                       SERVICES OFFERED BY
+                       ... (“CSEP”). THIS AGREEMENT SETS FORTH THE LEGALLY
+                       BINDING TERMS AND CONDITIONS FOR YOUR USE OF THE WEBSITE AT HTTPS://WWW.CSEP.ORG
+                       (THE “SITE”) AND THE
+                       SERVICES, FEATURES, CONTENT, APPLICATIONS OR WIDGETS OFFERED BY CSEP (COLLECTIVELY
+                       WITH THE SITE,
+                       THE “SERVICE”). BY REGISTERING FOR AND/OR USING THE SITE OR SERVICE IN ANY MANNER, INCLUDING
+                       BUT NOT LIMITED TO
+                       VISITING OR BROWSING THE SITE, YOU AGREE TO BE BOUND BY THIS AGREEMENT. THIS AGREEMENT
+                       APPLIES TO ALL USERS OF
+                       THE SITE OR SERVICE, INCLUDING USERS WHO ARE ALSO CONTRIBUTORS OF CONTENT, INFORMATION, AND
+                       OTHER MATERIALS OR
+                       SERVICES ON THE SITE.
+                    </p>
+                    <p><b>Acceptance of Terms</b></p>
+                    <p>The Service is offered subject to acceptance without modification of all of the terms and
+                       conditions contained
+                       herein (the “Terms of Use”), which terms also incorporates CSEP’s Privacy Policy,
+                       CSEP’s Copyright
+                       Policy and all other operating rules, policies and procedures that may be published from
+                       time to time on the
+                       Site by CSEP, each of which is incorporated by reference and each of which may be
+                       updated by
+                       CSEP from time to time without notice to you. In addition, some services offered may
+                       be subject to
+                       additional terms and conditions promulgated by CSEP from time to time; your use of
+                       such services is
+                       subject to those additional terms and conditions, which are incorporated into these Terms of
+                       Use by this
+                       reference.
+                    </p>
+                    <p><b>Access</b></p>
+                    <p>Subject to these Terms of Use, CSEP may offer to provide the services, as described
+                       more fully on the
+                       Site, and which are selected by you, solely for your own use, and not for the use or benefit
+                       of any third party.
+                       Services shall include, but not be limited to, any services CSEP performs for you,
+                       any applications
+                       or widgets offered by CSEP that you download from the Site or from third party
+                       application stores
+                       authorized by CSEP, as well as the offering of any materials displayed or performed
+                       on or through the
+                       Site or the services, including Content,as defined below.
+                    </p>
+                    <p><b> </b></p>
+                    <p><b>Eligibility</b></p>
+                    <p>The service is available only to individuals who are at least 14 years old. All users
+                       represents and warrants
+                       that if you are an individual, you are of legal age to form a binding contract, and that all
+                       registration
+                       information you submit is accurate and truthful. CSEP may, in its sole discretion,
+                       refuse to offer
+                       the services to any person or entity and change its eligibility criteria at any time. This
+                       provision is void
+                       where prohibited by law and the right to access the service is revoked in such
+                       jurisdictions.
+                    </p>
+                    <p><b>Modification of Terms of Use</b></p>
+                    <p>CSEP reserves the right, at its sole discretion, to modify or replace any of the
+                       Terms of Use, or
+                       change, suspend, or discontinue the services (including without limitation, the availability
+                       of any feature,
+                       database, or content) at any time by posting a notice on the Site or by sending an email to
+                       users.
+                       CSEP may also impose limits on certain features and services or restrict your access
+                       to parts or all
+                       of the services without notice or liability. It is your responsibility to check the Terms of
+                       Use periodically
+                       for changes. Your continued use of the services, following the posting of any changes, to
+                       the Terms of Use,
+                       constitutes acceptance of those changes.
+                    </p>
+                    <p><b>Rules and Conduct</b></p>
+                    <p>As a condition of use, you promise not to use the services for any purpose that is prohibited
+                       by the Terms of
+                       Use. The services (including, without limitation, any Content or User Submissions, both as
+                       defined below, is
+                       provided only for your own personal use. You are responsible for all of your activity in
+                       connection with the
+                       services. For purposes of the Terms of Use, the term “Content” includes, without limitation,
+                       any User
+                       Submissions, videos, audio clips, written forum comments, information, data, text,
+                       photographs, software,
+                       scripts, graphics, and interactive features generated, provided, or otherwise made
+                       accessible by
+                       CSEP or its partners on or through the services. By way of example, and not as a
+                       limitation, you
+                       shall not (and shall not permit any third party to, either (a) take any action or (b)
+                       upload, download, post,
+                       submit or otherwise distribute or facilitate distribution of any Content on or through the
+                       services, including
+                       without limitation any User Submission, that:
+                    </p>
+                    <ul>
+                       <li>infringes any patent, trademark, trade secret, copyright, right of publicity or other
+                          right of any other
+                          person or entity
+                       </li>
+                       <li>violates any law or contractual duty; you know is false, misleading, untruthful or
+                          inaccurate
+                       </li>
+                       <li>is unlawful, threatening, abusive, harassing, defamatory, libelous, deceptive,
+                          fraudulent, invasive of
+                          another’s privacy
+                       </li>
+                       <li>is tortuous, obscene, vulgar, pornographic, offensive, profane, or otherwise
+                          inappropriate as determined by
+                          CSEP in its sole discretion
+                       </li>
+                       <li>constitutes unauthorized or unsolicited advertising, junk or bulk e-mail (“spamming”)
+                       </li>
+                       <li>involves commercial activities and/or sales without CSEP’s prior written consent
+                          such as contests,
+                          sweepstakes, barter, advertising, or pyramid schemes
+                       </li>
+                       <li>contains software viruses or any other computer codes, files, or programs that are
+                          designed or intended to
+                          disrupt, damage, limit or interfere with the proper function of any software, hardware,
+                          or
+                          telecommunications equipment or to damage or obtain unauthorized access to any system,
+                          data, password or
+                          other information of CSEP or any third party; or
+                       </li>
+                       <li>impersonates any person or entity, including any employee or representative of Smart
+                          Beaver.
+                       </li>
+                    </ul>
+                    <p>Additionally, you shall not:</p>
+                    <ul>
+                       <li> take any action that imposes or may impose (as determined by CSEP in its sole
+                          discretion)
+                          an unreasonable or disproportionately large load on CSEP’s (or its third party
+                          providers’)
+                          infrastructure;
+                       </li>
+                       <li>interfere or attempt to interfere with the proper working of the services or any
+                          activities conducted on the
+                          services;
+                       </li>
+                       <li>bypass any measures CSEP may use to prevent or restrict access to the service
+                          (or other
+                          accounts, computer systems or networks connected to the service);
+                       </li>
+                       <li>run any form of auto-responder or “spam” on the service; or</li>
+                       <li>use manual or automated software, devices, or other processes to “crawl” or “spider” any
+                          page of the Site.
+                       </li>
+                    </ul>
+                    <p>You shall not (directly or indirectly):</p>
+                    <ul>
+                       <li>decipher, compile, disassemble, reverse engineer or otherwise attempt to derive any
+                          source code or
+                          underlying ideas or algorithms of any part of the Service, except to the limited extent
+                          applicable laws
+                          specifically prohibit such restriction,
+                       </li>
+                       <li>modify, translate, or otherwise create derivative works of any part of the service, or
+                       </li>
+                       <li>copy, rent, lease, distribute, or otherwise transfer any of the rights that you receive
+                          here under.
+                       </li>
+                    </ul>
+                    <p>You shall abide by all applicable local, state, national and international laws and
+                       regulations.
+                       CSEP does not guarantee that any Content or User Submissions (as defined below) will
+                       be made
+                       available on the Site or through the service. CSEP has no obligation to monitor the
+                       Site, service,
+                       Content, or User Submissions. However, CSEP reserves the right to
+                    </p>
+                    <ul>
+                       <li>remove, edit or modify any Content in its sole discretion, including without limitation
+                          any User
+                          Submissions, from the Site or Service at any time, without notice to you and for any
+                          reason (including, but
+                          not limited to, upon receipt of claims or allegations from third parties or authorities
+                          relating to such
+                          Content or if CSEP is concerned that you may have violated the Terms of Use), or
+                          for no reason
+                          at all and
+                       </li>
+                       <li>to remove or block any User Submissions from the services.</li>
+                    </ul>
+                    <p><b>Registration</b></p>
+                    <p>You may browse the Site and view Content without registering, but as a condition to using
+                       certain aspects of the
+                       services, you are required to register with CSEP and provide CSEP with
+                       accurate,
+                       truthful, and complete registration information (including, but not limited to your name,
+                       e-mail (“User Name”)
+                       address and a password you will use to access the service) and to keep your registration
+                       information accurate
+                       and up-to-date. Failure to do so shall constitute a breach of the Terms of Use, which may
+                       result in immediate
+                       termination of your CSEP account. You shall not provide any false personal
+                       information to
+                       CSEP (including a false User Name) or create any account for anyone other than
+                       yourself without
+                       prior permission; use a User Name that belongs to another person with the intent to
+                       impersonate that person;
+                       use a User Name that is subject to any rights of a person other than you without appropriate
+                       authorization;
+                       or use a User Name that is a name and it is not offensive, vulgar or obscene. CSEP
+                       reserves the
+                       right to refuse registration of, or cancel a User Name in its sole discretion. You are
+                       solely responsible for
+                       activity that occurs on your account and shall be responsible for maintaining the
+                       confidentiality of your
+                       CSEP password. You shall never use another user’s account without such other user’s
+                       express
+                       permission. You will immediately notify CSEP in writing of any unauthorized use of
+                       your account, or
+                       other account related security breach of which you are aware.
+                    </p>
+                    <p><b>Third Party Sites and services</b></p>
+                    <p>The services may permit you to link to other websites, services or resources on the Internet,
+                       and other websites,
+                       services or resources may contain links to the Site. When you access third party websites,
+                       you do so at your own
+                       risk. These other websites are not under CSEP’s control, and you acknowledge that
+                       CSEP is not
+                       responsible or liable for the content, functions, accuracy, legality, appropriateness or any
+                       other aspect of
+                       such websites or resources. The inclusion of any such link does not imply endorsement by
+                       CSEP or any
+                       association with its operators. You further acknowledge and agree that CSEP shall
+                       not be responsible
+                       or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by
+                       or in connection
+                       with the use of or reliance on any such Content, goods or services available on or through
+                       any such website or
+                       resource.
+                    </p>
+                    <p>The services may permit you to interact with advisors, mentors, investors, corporates,
+                       service providers and
+                       other such associated persons that may be related to various different services. When you
+                       act upon their advice
+                       or enter into any formal/informal business agreement with them, you do so at your own risk.
+                       These associated
+                       persons are not under CSEP’s control, and you acknowledge that neither CSEP
+                       nor these
+                       associated persons are responsible or liable for the content, functions, accuracy, legality,
+                       appropriateness or
+                       any other aspect of such associated persons. You further acknowledge and agree that Smart
+                       Beaver or these
+                       associated persons, shall not be responsible or liable, directly or indirectly, for any
+                       damage or loss caused or
+                       alleged to be caused by or in connection with the use of or reliance on any such Content,
+                       goods or services
+                       available on or through any such website or resource.
+                    </p>
+                    <p><b>Content and License</b></p>
+                    <p>You agree that the service contains Content specifically provided by CSEP or its
+                       Partners (Partners
+                       include Evaluation Committee Members,Mentors, Incubators, Funds, Investors, Service
+                       Providers, Other related
+                       users) and that such Content may be protected by copyrights, trademarks, service marks,
+                       patents, trade
+                       secrets or other proprietary rights and laws. You agree to abide by and maintain all
+                       copyright notices,
+                       information, and restrictions contained in any Content accessed through the services, if
+                       any.
+                       CSEP grants each user of the Site and/or service a worldwide, non-exclusive,
+                       non-sublicensable and
+                       non-transferable license to use, modify and reproduce the Content, solely for personal,
+                       non-commercial use. Use,
+                       reproduction, modification, distribution or storage of any Content for other than personal,
+                       non-commercial use
+                       is expressly prohibited without prior written permission from CSEP, or from the
+                       copyright holder
+                       identified in such Content’s copyright notice. You shall not sell, license, rent, or
+                       otherwise use or exploit
+                       any Content for commercial use or in any way that violates any third party right.
+                    </p>
+                    <p><b>User Submissions</b></p>
+                    <p>These services provide you with the ability to add, create, upload, submit, distribute or
+                       post (“Submitting” or
+                       “Submission”) content, videos, audio clips, written forum comments, data, text, photographs,
+                       software, scripts,
+                       graphics, or other information to the Site (collectively, the “User Submissions”). By
+                       Submitting User
+                       Submissions on the Site or otherwise through the service, you:
+                    </p>
+                    <ul>
+                       <li>acknowledge that you are publishing that User Submission, and that you may be identified
+                          publicly by your
+                          User Name ("e-mail") in association with any such User Submission;
+                       </li>
+                       <li>hereby do and shall take responsibility for registering and protecting your intellectual
+                          property through
+                          appropriate means. CSEP will in no way be responsible for the protection of your
+                          intellectual
+                          property; except by way of ensuring that user submissions where marked “private” by user
+                          are not shared
+                          publicly and that all user submissions are only visible to CSEP partners who are
+                          responsible for
+                          evaluating, mentoring and otherwise supporting users
+                       </li>
+                       <li>by publishing User Submissions on CSEP you agree to use of our services in
+                          pre-incubation and
+                          incubation, which involve online and in-person interactions with CSEP partners
+                          who will have access
+                          to user submissions.
+                       </li>
+                    </ul>
+                    <p><i>For clarity, the foregoing license grant to CSEP does not affect your other
+                       ownership or license
+                       rights in your User Submission(s), including the right to grant additional licenses to
+                       the material in your
+                       User Submission(s), unless otherwise agreed in writing; represent and warrant, and can
+                       demonstrate to
+                       CSEP’s full satisfaction upon request that you (i) own or otherwise control all
+                       rights to all content
+                       in your User Submissions, or that the content in such User Submissions is in the public
+                       domain, except those
+                       contents which are earmarked as “Private”,(ii) you have the permission to use the name
+                       and likeness of each
+                       identifiable individual person and to use such individual’s identifying or personal
+                       information as
+                       contemplated by these Terms of Use; and (iii) you are authorized to grant all of the
+                       aforementioned rights
+                       to the User Submissions to CSEP and all users of the services; you agrees to pay
+                       all
+                       royalties and other amounts owed to any person or entity due to your Submission of any
+                       User Submissions to
+                       the services; you represent and warrant that the use of such User Submissions by Smart
+                       Beaver and
+                       use of such other information by users of the Site and services as contemplated by this
+                       Agreement will not
+                       infringe or violate the rights of any third party, including without limitation any
+                       privacy rights,
+                       publicity rights, copyrights, contract rights, or any other intellectual property or
+                       proprietary rights;
+                       and understands that CSEP shall have the right to delete, edit, modify,
+                       reformat, excerpt,
+                       or translate any materials, content or information submitted by you, such that the
+                       variation of information
+                       made by CSEP, does not materially change the intent of the information
+                       submitted; and that all
+                       information publicly posted or privately transmitted through the Site is the sole
+                       responsibility of the
+                       person from whom such content originated and that CSEP will not be liable for
+                       any errors or
+                       omissions in any content; and that CSEP cannot guarantee the identity of any
+                       other users with
+                       whom you may interact in the course of using the services. CSEP does not endorse
+                       and has no
+                       control over any User Submission. <b>You shall be solely responsible to protect your
+                       intellectual
+                       property rights and trademark/patent./register your ideas /innovation, wherever
+                       possible</b>.
+                       CSEP shall not guarantee the authenticity of any data which users may provide
+                       about themselves.
+                       Also, CSEP<b>, in no event, takes any responsibility of any damages resulting
+                       from screened
+                       application of advice given through videos and other content; or through mentors and
+                       investors or
+                       through any other manner, registered with CSEP.</b> You acknowledge that all
+                       Content
+                       accessed by you using the services is at your own risk and you will be solely
+                       responsible for any damage or
+                       loss to any party resulting therefrom.</i>
+                    </p>
+                    <p><b>Termination</b></p>
+                    <p>CSEP may terminate your access to all or any part of the services and/or Add-to Link
+                       at any time,
+                       with or without cause, with or without notice, effective immediately, which may result in
+                       the forfeiture and
+                       destruction of all information associated with your membership. If you wish to terminate
+                       your account, you may
+                       do so by following the instructions on the Site. Any fees paid hereunder are non-refundable.
+                       All provisions of
+                       the Terms of Use which by their nature should survive termination shall survive termination,
+                       including, without
+                       limitation, ownership provisions, warranty disclaimers, indemnity and limitations of
+                       liability.
+                    </p>
+                    <p><b>Warranty Disclaimer</b></p>
+                    <p>CSEP has no special relationship with or fiduciary duty to you. You acknowledge that
+                       CSEP has no control over, and no duty to take any action regarding, which users
+                       gains access to the
+                       Site; what Content you access via the Site; what effects the Content may have on you; how
+                       you may interpret or
+                       use the Content; or what actions you may take as a result of having been exposed to the
+                       Content. You release
+                       CSEP from all liability, for you having acquired or not acquired Content through the
+                       Site.
+                       CSEP makes no representations concerning any Content contained in or accessed
+                       through the Site, and
+                       CSEP will not be responsible or liable for the accuracy, copyright compliance,
+                       legality or decency
+                       of material contained in or accessed through the Site or the Service. THE SERVICES ARE
+                       PROVIDED “AS IS” AND “AS
+                       AVAILABLE” AND IS WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING, BUT NOT
+                       LIMITED TO, THE IMPLIED
+                       WARRANTIES OF TITLE, NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE,
+                       AND ANY WARRANTIES
+                       IMPLIED BY ANY COURSE OF PERFORMANCE OR USAGE OF TRADE, ALL OF WHICH ARE EXPRESSLY
+                       DISCLAIMED. CSEP, AND
+                       ITS DIRECTORS, EMPLOYEES, AGENTS, SUPPLIERS, PARTNERS AND CONTENT PROVIDERS DO NOT WARRANT
+                       THAT: (A) THE SERVICE
+                       WILL BE SECURE OR AVAILABLE AT ANY PARTICULAR TIME OR LOCATION; (B) ANY DEFECTS OR ERRORS
+                       WILL BE CORRECTED; (C)
+                       ANY CONTENT OR SOFTWARE AVAILABLE AT OR THROUGH THE SERVICE IS FREE OF VIRUSES OR OTHER
+                       HARMFUL COMPONENTS; OR
+                       (D) THE RESULTS OF USING THE SERVICE WILL MEET YOUR REQUIREMENTS.SOME STATES DO NOT ALLOW
+                       LIMITATIONS ON HOW
+                       LONG AN IMPLIED WARRANTY LASTS, SO THE ABOVE LIMITATIONS MAY NOT APPLY TO YOU. CSEP
+                       will not
+                       be liable for the privacy of email addresses, registration and identification information,
+                       disk space,
+                       communications, confidential or trade-secret information, or any other Content stored on
+                       CSEP’s
+                       equipment, transmitted over networks accessed by the Site, or otherwise connected with your
+                       use of the Service.
+                    </p>
+                    <p><b>Indemnification</b></p>
+                    <p>You shall defend, indemnify, and hold harmless CSEP, its affiliates and each of its,
+                       and its affiliates
+                       employees, contractors, directors, suppliers and representatives from all liabilities,
+                       claims, and expenses,
+                       including reasonable attorneys’ fees, that arise from or relate to your use or misuse of, or
+                       access to, the
+                       Site, services, Content, Add-to Link or otherwise from your User Submissions, violation of
+                       the Terms of Use, or
+                       infringement by you, or any third party using the your account, of any intellectual property
+                       or other right of
+                       any person or entity. CSEP reserves the right to assume the exclusive defense and
+                       control of any
+                       matter otherwise subject to indemnification by you, in which event you will assist and
+                       cooperate with
+                       CSEP in asserting any available defenses.
+                    </p>
+                    <p><b>Limitation of Liability</b></p>
+                    <p>IN NO EVENT SHALL CSEP, NOR ITS DIRECTORS, EMPLOYEES, AGENTS, PARTNERS, SUPPLIERS OR
+                       CONTENT PROVIDERS, BE
+                       LIABLE UNDER CONTRACT, TORT, STRICT LIABILITY, NEGLIGENCE OR ANY OTHER LEGAL OR EQUITABLE
+                       THEORY WITH RESPECT TO
+                       THE SERVICE OR ADD-TO LINK (I) FOR ANY LOST PROFITS, DATA LOSS, COST OF PROCUREMENT OF
+                       SUBSTITUTE GOODS OR
+                       SERVICES, OR SPECIAL, INDIRECT, INCIDENTAL, PUNITIVE, OR CONSEQUENTIAL DAMAGES OF ANY KIND
+                       WHATSOEVER,
+                       SUBSTITUTE GOODS OR SERVICES (HOWEVER ARISING), (II) FOR ANY BUGS, VIRUSES, TROJAN HORSES,
+                       OR THE LIKE
+                       (REGARDLESS OF THE SOURCE OF ORIGINATION),
+                    </p>
+                    <p><b>Dispute Resolution</b></p>
+                    <p>A printed version of the Terms of Use and of any notice given in electronic form shall be
+                       admissible in judicial
+                       or administrative proceedings based upon or relating to the Terms of Use to the same extent
+                       and subject to the
+                       same conditions as other business documents and records originally generated and maintained
+                       in printed form. You
+                       and CSEP agree that any cause of action arising out of or related to the services
+                       must commence
+                       within one (1) year after the cause of action arose; otherwise, such cause of action is
+                       permanently barred. The
+                       Terms of Use shall be governed by and construed in accordance with the laws of the State of
+                       Andhra Pradesh,
+                       excluding its conflicts of law rules, and India. Any dispute arising from or relating to the
+                       subject matter of
+                       this Agreement shall be finally settled by arbitration in Hyderabad, India using English
+                       language in accordance
+                       with the Arbitration Rules and Procedures of Arbitration and Conciliation Act, 1996 then in
+                       effect, by one
+                       commercial arbitrator with substantial experience in resolving intellectual property and
+                       commercial contract
+                       disputes, who shall be selected from the appropriate list of arbitrators in accordance with
+                       the Arbitration
+                       Rules and Procedures of Arbitration and Conciliation Act, 1996. The prevailing party in any
+                       arbitration or other
+                       proceeding arising under these Terms of Use shall be entitled to receive reimbursement of
+                       its reasonable
+                       expenses (including reasonable attorneys’ fees, expert witness fees and all other expenses)
+                       incurred in
+                       connection therewith. Judgment upon the award so rendered may be entered in a court having
+                       jurisdiction or
+                       application may be made to such court for judicial acceptance of any award and an order of
+                       enforcement, as the
+                       case may be. Notwithstanding the foregoing, each party shall have the right to institute an
+                       action in a court of
+                       proper jurisdiction for injunctive or other equitable relief pending a final decision by the
+                       arbitrator. For all
+                       purposes of this Agreement, the parties consent to exclusive jurisdiction and venue in the
+                       Hyderabad High Court.
+                       Use of the services is not authorized in any jurisdiction that does not give effect to all
+                       provisions of the
+                       Terms of Use, including without limitation, this section.
+                    </p>
+                    <p><b>Integration and Severability</b></p>
+                    <p>The Terms of Use are the entire agreement between you and CSEP with respect to the
+                       services and use
+                       of the Site, and supersede all prior or contemporaneous communications and proposals
+                       (whether oral, written or
+                       electronic) between you and CSEP with respect to the Site. If any provision of the
+                       Terms of Use is
+                       found to be unenforceable or invalid, that provision will be limited or eliminated to the
+                       minimum extent
+                       necessary so that the Terms of Use will otherwise remain in full force and effect and
+                       enforceable. The failure
+                       of either party to exercise in any respect any right provided for herein shall not be deemed
+                       a waiver of any
+                       further rights hereunder.
+                    </p>
+                    <p><b>Miscellaneous</b></p>
+                    <p>CSEP shall not be liable for any failure to perform its obligations hereunder where
+                       such failure
+                       results from any cause beyond CSEP’s reasonable control, including, without
+                       limitation, mechanical,
+                       electronic or communications failure or degradation (including “line-noise” interference).
+                       The Terms of Use are
+                       personal to you, and are not assignable, transferable or sublicensable by you. CSEP
+                       may assign,
+                       transfer or delegate any of its rights and obligations hereunder without consent. No agency,
+                       partnership, joint
+                       venture, or employment relationship is created as a result of the Terms of Use and neither
+                       party has any
+                       authority of any kind to bind the other in any respect. All notices under the Terms of Use
+                       will be in writing
+                       and will be deemed to have been duly given when received, if personally delivered or sent by
+                       certified or
+                       registered mail, return receipt requested; when receipt is electronically confirmed, if
+                       transmitted by facsimile
+                       or e-mail; or the day after it is sent, if sent for next day delivery by recognized
+                       overnight delivery service.
+                    </p>
+                    <p><b>Contact</b></p>
+                    <p>We are located at ... , ... Road, Nairobi, Kenya. These terms are
+                       effective January 1, 2020.
+                    </p>
+                    <p>Any user registers with the Company under this platform/website should conduct its own
+                       investigation and analysis
+                       of any such information, data, contained or disseminate under this platform/website. Company
+                       makes no
+                       representations and warranties regarding the accuracy or completeness of such information
+                       and expressly
+                       disclaims and all liabilities based on such information or any omission therefrom. Smart
+                       Beaver does not
+                       accept responsibility for any losses or damages arising directly, or indirectly, from the
+                       use of this
+                       platform/website.
+                    </p>
+                    <p>Company also does not provide any protection of Intellectual Property or any such right of
+                       any information,
+                       ideas, suggestions, advices, services shared under this platform/website. It is the sole
+                       discretion of the user
+                       to use any information, ideas, suggestions, advices, services shared under this
+                       platform/website and arrive at
+                       any decision.
+                    </p>
+                    <p>As a condition of your use of this platform/website you warrant to the Company that you will
+                       not use the
+                       platform/website for any purpose that is unlawful or prohibited by these terms, conditions,
+                       and notices. User
+                       shall not use this platform/website in any manner which could damage, disable, overburden,
+                       or impair the Company
+                       or interfere with any other party’s use and enjoyment of this platform/website.
+                    </p>
+                    <p>Company also reserves the right in its sole discretion, to terminate your access to the
+                       platform/website and the
+                       related services or any portion thereof at any time, without notice.
+                    </p>
+                 </div>
+
+            </div>      
+            <div class="modal-footer">
+                <button  type="submit"  (click)="termsModal.hide()" aria-label="Close" class="btn btn-secondary col-md-6">Close</button>
+                <button  type="submit"  (click)="acceptTerms();termsModal.hide()" aria-label="Close" class="btn btn-primary col-md-6">I Accept</button>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+</div>
+<!-- /.modal -->
+
+<br>
+<br>
+
+<p style="text-align:center;"><a href="/" target="_blank"><strong>CSEP</strong></a> &copy; 2021 | All Rights Reserved</p>
+<app-common-loader></app-common-loader>

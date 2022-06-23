@@ -1,0 +1,165 @@
+<style>
+    .squarebox i{
+    font-size: 50px !important;
+  }
+  .square_box .number {
+    font-size: 30px !important;
+    text-align: left;
+    font-weight: 700;
+}
+</style>
+<section class="content indexpage evaluator" *ngxPermissionsOnly="['INTERNAL_EVALUATOR','JUNIOR_OFFICER','INTERNAL_EVALUATOR','INNOVATION_MANAGER','LEAD_INNOVATION_MANAGER','SUBJECT_MATTER_EVALUATOR', 'EXTERNAL_EVALUATOR']">
+  <div class="row">
+     <div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig">
+        <!-- Trans label pie charts strats here-->
+        <div class="palebluecolorbg bg-success text-white no-radius">
+           <div class="card-body squarebox square_boxs cardpaddng">
+              <div class="row">
+                 <div class="col-12 float-left nopadmar">
+                    <div class="row">
+                       <div class="square_box col-6 float-left">
+                          <span>Innovators</span>
+                          <div class="number" id="myTargetElement4">
+                             {{general_counts?.innovators}}
+                          </div>
+                       </div>
+                       <div class="col-6">
+                          <i class="fa fa-users float-right" aria-hidden="true"></i>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-6 col-xl-3 col-sm-6 col-md-6 margin_10 animated fadeInDownBig">
+        <!-- Trans label pie charts strats here-->
+        <div class="goldbg bg-warning text-white no-radius">
+           <div class="card-body squarebox square_boxs cardpaddng">
+              <div class="row">
+                 <div class="col-12 float-left nopadmar">
+                    <div class="row">
+                       <div class="square_box col-6 float-left">
+                          <span>Innovations</span>
+                          <div class="number" id="myTargetElement3">
+                             {{general_counts?.innovations}}
+                          </div>
+                       </div>
+                       <div class="col-6">
+                          <i class="fa fa-wpexplorer  float-right"></i>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig">
+        <!-- Trans label pie charts strats here-->
+        <div class="lightbluebg bg-primary text-white no-radius">
+           <div class="card-body squarebox square_boxs cardpaddng">
+              <div class="row">
+                 <div class="col-12 float-left nopadmar">
+                    <div class="row">
+                       <div class="square_box col-6 text-left">
+                          <span>Evaluators</span>
+                          <div class="number" id="myTargetElement1">
+                             {{general_counts?.evaluators}}
+                          </div>
+                       </div>
+                       <div class="col-6">
+                          <i class="fa fa-filter  float-right" ></i>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+     <div class="col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInUpBig">
+        <!-- Trans label pie charts strats here-->
+        <div class="redbg no-radius">
+           <div class="card-body bg-danger text-white squarebox square_boxs cardpaddng">
+              <div class="row">
+                 <div class="col-12 float-left nopadmar">
+                    <div class="row">
+                       <div class="square_box col-6 float-left">
+                          <span>Managers</span>
+                          <div class="number" id="myTargetElement2">
+                             {{general_counts?.managers}}
+                          </div>
+                       </div>
+                       <div class="col-6">
+                          <i class="fa fa-briefcase float-right" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+</section>
+
+<br><br>
+
+<section class="row">
+  <div class="col-6 margin_10 animated fadeInLeftBig">
+    <div class="card">
+      <div class="card-header bg-primary">
+        Registered Users
+      </div>
+      <div class="card-body">
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                      [datasets]="registeredUsersData"
+                      [labels]="monthsLabels"
+                      [options]="barChartOptions"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+  <div class="col-6 margin_10 animated fadeInLeftBig">
+    <div class="card">
+      <div class="card-header bg-primary">
+        User by Roles
+      </div>
+      <div class="card-body">
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                      [datasets]="generalCountData"
+                      [labels]="userRole"
+                      [options]="barChartOptions"
+                      [legend]="barChartLegend"
+                      [chartType]="barChartType">
+              </canvas>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-6 margin_10 animated fadeInLeftBig">
+    <div class="card">
+      <div class="card-header bg-primary">
+        Users by Gender
+      </div>
+      <div class="card-body">
+          <div style="display: block">
+            <canvas baseChart
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType">
+            </canvas>
+          </div>
+      </div>
+  </div>
+</div>
+</section>

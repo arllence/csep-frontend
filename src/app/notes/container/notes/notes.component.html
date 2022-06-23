@@ -1,0 +1,107 @@
+<section class="content pr-3 pl-3">
+    <div class="row">
+       <div class="col-lg-12">
+          <div class="card ">
+             <div class="card-header bg-primary text-white clearfix">
+               <h5>
+                  <span class=" float-left">
+                    <i class="fa fa-files-o" aria-hidden="true"></i>
+                     Notes List
+                  </span>
+                </h5>
+                <div class="float-right">
+                   <button type="button" class="btn btn-info mr-2" (click)="addNotesModal.show()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add a Note</button>
+                </div>
+             </div>
+             <br />
+             <div class="card-body">
+                <div class="table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+                   <table class="wikitable table-bordered width100" id="table">
+                      <thead>
+                         <tr class="filters">
+                            <th>ID</th>
+                            <th>Note Title</th>
+                            <th>Innovation name</th>
+                            <th>Created on</th>
+                            <th>Actions</th>
+                         </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let note of notes; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{note?.title}}</td>
+                            <td>{{note?.innovation?.details?.innovation_name}}</td>
+                            <td>{{note?.date_created | date}}</td>
+                            <td>
+                                <button class="btn btn-info" (click)="view_note(note?.id); addNotesModal.show()">View</button>
+                                <button class="btn btn-danger" (click)="delete_note(note?.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            </td>
+                          </tr>
+                      </tbody>
+                   </table>
+                   <div *ngIf="notes?.length == 0" class="text-danger text-center">
+                          <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Notes Found.</h6>
+                    </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+    <!-- row-->
+ </section>
+ 
+
+
+
+<!-- modal -->
+<div bsModal #addNotesModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+              <span *ngIf="noteState == 'add'" class="text-white">Add a Note</span> 
+              <span *ngIf="noteState == 'edit'" class="text-white">View or Edit Note</span>             
+            </h5>
+          <button type="button" class="close" (click)="addNotesModal.hide(); reset_form()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body container">
+            <form id="add-note-form" class="form-horizontal" [formGroup]="AddNotesForm">
+                <div class="form-group row">
+                    <div class="col-sm-12 col-lg-12">
+                        <label class="control-label" for="title">Title:</label>
+                        <input type="text" required class="form-control" formControlName="title" id="title"
+                            placeholder="Enter Note Title ">
+                    </div>
+                </div>
+                <div class="form-group row">                    
+                    <div class="col-sm-12 col-lg-12">
+                        <label class="control-label" for="innovation_name">Innovation Name:</label>
+                        <ng-select  class="required" formControlName="innovation">
+                            <ng-option selected disabled value="">Select the Innovation</ng-option>
+                            <ng-option value="{{innovation?.id}}" *ngFor="let innovation of innovations">{{innovation?.details?.innovation_name}}</ng-option> 
+                        </ng-select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-sm-12">
+                     <label class="control-label" for="description">
+                     Your Note:
+                     </label>
+                  </div>
+                  <div class="col-sm-12">
+                    <quill-editor formControlName="note" class="content-editor" [placeholder]="'Type here ...'"> </quill-editor>
+                  </div>
+               </div>
+            </form>
+        </div>     
+        <br><br><br><br>   
+        <div class="modal-footer">
+          <button  type="submit"  (click)="addNotesModal.hide(); reset_form()" aria-label="Close" class="btn btn-secondary col-md-4">Close</button>
+          <button   class="btn btn-success col-md-4" (click)="add_notes();addNotesModal.hide(); reset_form()">Submit</button>        
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

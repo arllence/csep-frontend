@@ -1,0 +1,89 @@
+<section class="" *ngxPermissionsOnly="['CANDIDATE']">
+   <div class="row" >
+      <div class="col-12">
+         <div class="card " id="innovation_list">
+            <div class="card-header text-dark">
+               <h5 class="card-title my-2 "> 
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                        &nbsp;My Positions
+                    
+                    <button class="btn btn-info btn-sm text-white float-right" styleSheetFile="assets/css/custom_table.css" printSectionId="innovation_list" ngxPrint>
+                        Print/Export
+                    </button>
+
+                    <button class="btn btn-success btn-sm text-white float-right col-2 ml-1 mr-1" (click)="CreatePositionModal.show()">
+                        Apply
+                    </button>
+               </h5>
+            </div>
+            <div class="card-body">
+               <div class="table-responsive table-responsive-sm table-responsive-md">
+                  <table class="wikitable table-bordered width100" id="table">
+                     <thead>
+                        <tr class="filters">
+                           <th>Position</th>
+                           <th>Application Status</th>
+                           <th>Applied On</th>
+                           <th class="hide">Actions</th>
+                        </tr>
+                     </thead>
+                     <tbody *ngIf="my_positions?.length !== 0">
+                        <tr>
+                           <td>{{my_positions.position?.name}}</td>
+                           <td>{{my_positions.application_status}}</td>
+                           <td>
+                              {{my_positions?.date_created | date}}
+                           </td>
+                           <td>
+                                <button class="btn btn-sm btn-danger mr-2 mb-1" (click)="delete_position()"><i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                           </td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div *ngIf="my_positions?.length == 0" class="text-danger text-center">
+                     <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Positions Applied.</h6>
+                 </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- row-->
+</section>
+
+
+<!--Assign modal -->
+<div bsModal #CreatePositionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fa fa-file-o" aria-hidden="true"></i>
+              Position Application             
+            </h5>
+          <button type="button" class="close" (click)="CreatePositionModal.hide();" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body container">
+            <form id="add-note-form" class="form-horizontal" [formGroup]="positionForm">
+                <div class="form-group row">                    
+                    <div class="col-sm-12 col-lg-12">
+                        <label class="control-label" for="assignee_name">Position</label>
+                        <ng-select  class="required" formControlName="position" >
+                            <ng-option selected disabled value="">---Select Position---</ng-option>
+                            <ng-option value="{{position?.id}}" *ngFor="let position of positions">{{position?.name}}</ng-option> 
+                        </ng-select>
+                    </div>
+                </div>  
+            </form>
+        </div>      
+        <div class="modal-footer">
+          <button  type="submit"  (click)="CreatePositionModal.hide(); reset_form()" aria-label="Close" class="btn btn-secondary col-md-4">Close</button>
+          <button  class="btn btn-success col-md-4" (click)="create_position();CreatePositionModal.hide();"><i class="fa fa-check" aria-hidden="true"></i> Apply</button>        
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->

@@ -1,0 +1,237 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { ValidationErrorMessages } from '../validators/authentication.messages';
+import { NameValidator, PasswordValidator, OtpValidator } from '../validators/authentication.validators';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../authentication/services/authentication.service';
+import { ToastService } from '../../common-module/shared-service/toast.service';
+import { LoadingService } from '../../common-module/shared-service/loading.service';
+import { AdministrationService } from '../../administration/services/administration.service';
+import { verify_email_url,resend_otp_url,reset_password_page_url,send_password_reset_link_url,user_reset_password_url } from '../../app.constants';
+import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
+
+import { Country, State, City }  from 'country-state-city';
+
+
+
+@Component({
+  selector: 'app-dashboard',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  public LoginForm: FormGroup;
+  public SignupForm: FormGroup;
+  public VerifyEmailForm: FormGroup;
+  public resetPasswordForm: FormGroup;
+  validation_messages: any;
+  submitted: false;
+  passwordFieldType: boolean;
+  loginformstatus: any;
+  signupformstatus:any;
+  is_login:any = true;
+  verify_email:any = false;
+  user_email = null
+  gender_list = ['Male', 'Female']
+  roles = ["VOTER", "CANDIDATE"]
+  reset_password = false;
+
+
+  constructor(private toastService: ToastService, private router: Router,
+     private formBuilder: FormBuilder, public administrationService: AdministrationService, public sweetalertService: SweetalertService, public authservice: AuthenticationService,
+     public loadingService: LoadingService) {
+    // login form
+    this.LoginForm = this.formBuilder.group({
+      email: new FormControl('',
+      Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(100)])),
+      password: new FormControl('',
+       Validators.compose([PasswordValidator.validPassword, Validators.required, Validators.minLength(3), Validators.maxLength(100)])),
+    });
+
+    // signup form
+    this.SignupForm = this.formBuilder.group({
+      first_name: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
+      last_name: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
+      registration_no: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
+      // gender: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40)])),
+      role: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(1), Validators.maxLength(40)])),
+      newsletter: new FormControl(false,),
+      accepted_terms: new FormControl('',),
+      email: new FormControl('', Validators.compose([NameValidator.validName, Validators.required, Validators.minLength(2), Validators.maxLength(40), Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])),
+      password: new FormControl('', Validators.compose([PasswordValidator.validPassword, Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
+      confirm_password: new FormControl('',Validators.compose([PasswordValidator.validPassword, Validators.required, Validators.minLength(3), Validators.maxLength(20)])),
+    });
+
+    this.VerifyEmailForm = this.formBuilder.group({
+      otp: new FormControl('', Validators.compose([Validators.required])),
+      email: new FormControl('', Validators.compose([Validators.required])),
+    });
+
+    this.resetPasswordForm = this.formBuilder.group({
+      email: new FormControl('', Validators.compose([Validators.required])),
+    });
+
+
+
+    this.validation_messages = ValidationErrorMessages.validationMessages;
+  }
+
+  ngOnInit(): void {
+
+  }
+
+
+
+  acceptTerms(){
+    this.SignupForm.patchValue({"accepted_terms": true});
+  }
+
+  is_login_fn() {
+    this.is_login = !this.is_login
+  }
+
+  is_reset_fn() {
+    this.is_login = true;
+    this.reset_password = false;
+    this.verify_email = false;
+  }
+
+  is_reset_password_fn() {
+    // this.reset_password = true;
+    if(this.reset_password){
+      this.reset_password = false;
+      this.verify_email = false;
+    } else {
+      this.verify_email = null;
+      this.reset_password = true;
+    }
+  }
+
+  showPassword() {
+    this.passwordFieldType = !this.passwordFieldType;
+  }
+
+  onSubmit() {
+    if (this.LoginForm.valid) {
+      this.loadingService.showloading();
+      const credentials = {
+        'email': this.LoginForm.value['email'],
+        'password': this.LoginForm.value['password'],
+      };
+      this.authservice.login(credentials).subscribe((data) => {
+        if (data) {
+          // console.log(data);
+          if(data['verified_email'] == false){
+            this.verify_email = true;
+            this.VerifyEmailForm.patchValue(data);
+            this.toastService.showToastNotification('warning', 'Activate Your Account', '');
+          }else {
+            this.toastService.showToastNotification('success', 'Login Successful', '');
+          }
+        } else {
+          this.toastService.showToastNotification('error', 'Could Not Authenticate You', '');
+        }
+        this.loadingService.hideloading();
+      });
+    } else {
+      this.loginformstatus = true;
+      this.toastService.showToastNotification('error', 'Fill in the blanks', '');
+    }
+  }
+
+  onSignup() {
+    if (this.SignupForm.valid) {
+
+      const payload = this.SignupForm.value;
+
+        this.loadingService.showloading();
+        this.authservice.signup(payload).subscribe((data) => {
+          if (data) {
+            this.verify_email = true;
+            this.user_email = data['email'];
+            this.LoginForm.patchValue(data);
+            this.VerifyEmailForm.patchValue(data);
+            this.SignupForm.reset();
+            this.sweetalertService.showAlert('Success', 'Check Your Email For Acount Activation Code.', 'success');
+          } else {
+            this.toastService.showToastNotification('error', 'Could Not Create Account', '');
+          }
+          this.loadingService.hideloading();
+        });
+
+    } else {
+      console.log(this.SignupForm.value);
+      this.signupformstatus = true;
+      this.toastService.showToastNotification('error', 'Fill in the blanks', '');
+
+    }
+  }
+
+
+  verifyemail() {
+
+    if (this.VerifyEmailForm.valid) {
+
+      const payload = this.VerifyEmailForm.value;
+
+      this.loadingService.showloading();
+      this.administrationService.postrecord(verify_email_url, payload).subscribe((res) => {
+        if (res) {
+          this.loadingService.hideloading();
+          this.VerifyEmailForm.reset();
+          this.is_login = true;
+          this.verify_email = false;
+          this.sweetalertService.showAlert('Success', 'Account Verification Successful', 'success');
+        } else {
+          this.loadingService.hideloading();
+        }
+      });
+
+    } else {
+      this.toastService.showToastNotification('error', 'Kindly correct the errors highlighted to proceed', '');
+      this.administrationService.markFormAsDirty(this.VerifyEmailForm);
+    }
+  }
+
+  resend_otp() {
+    const payload= this.VerifyEmailForm.value;
+    this.loadingService.showloading();
+    this.administrationService.postrecord(resend_otp_url, payload).subscribe((res) => {
+      if (res) {
+        this.loadingService.hideloading();
+        this.sweetalertService.showAlert('Success', 'Sent Successfully, Check Email', 'success');
+      } else {
+        this.loadingService.hideloading();
+        this.toastService.showToastNotification('error', 'Unable to complete request', '');
+      }
+    });
+  }
+
+  sendPasswordLink() {
+    let payload = this.resetPasswordForm.value;
+    let current_url = window.location.href;
+    var re = /login/gi; 
+    var serverurl = current_url.replace(re, "reset-password"); 
+    payload['serverurl'] = serverurl;
+    console.log(payload);
+    this.loadingService.showloading();
+    this.administrationService.postrecord(send_password_reset_link_url, payload).subscribe((res) => {
+      if (res) {
+        this.loadingService.hideloading();
+        this.sweetalertService.showAlert('Success', 'Reset Password Link Sent Successfully, Check your Email', 'success');
+      } else {
+        this.loadingService.hideloading();
+        this.toastService.showToastNotification('error', 'Unable to complete request', '');
+      }
+    });
+  }
+
+
+
+
+
+
+
+
+
+}

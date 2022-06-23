@@ -1,0 +1,374 @@
+<style>
+   
+</style>
+<div class="card panel-primary">
+   <div class="card-header bg-success text-white clearfix">
+      <h4 class="card-title">
+          <i class="fa fa-id-card" aria-hidden="true"></i>
+          Update Profile 
+      </h4>
+   </div>
+   <div class="card-body">
+      <div class="mb-3">
+         <button class="btn btn-sm btn-primary mr-1" [disabled]="active === 1" (click)="nav.select(1)">Section I</button>
+         <button class="btn btn-sm btn-warning mr-1" [disabled]="active === 2" (click)="changer(nav,2)">Section II</button>
+         <button class="btn btn-sm btn-success mr-1" [disabled]="active === 3" (click)="changer(nav,3)">Section III</button>
+         <!-- <button class="btn btn-sm btn-outline-primary ml-2" (click)="toggleDisabled()">Toggle last disabled</button> -->
+      </div>
+      
+      <form [formGroup]="CreateProfileForm" (ngSubmit)="create_profile()">
+      
+         <ul ngbNav #nav="ngbNav" [(activeId)]="active" (navChange)="onNavChange($event)" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                  <a ngbNavLink class="bg-primary text-white"><strong>Personal Information</strong> </a>
+          <ng-template ngbNavContent>
+               <div id="personal_info_tab" disabled="disabled">
+                  <div class="form-group ">
+                     <div class="row">
+                        <label class="col-sm-3 control-label"><strong>Profile picture</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                        <div class="col-sm-9">
+                           <div class="fileinput fileinput-new" data-provides="fileinput">
+                              <div class="fileinput-new thumbnail" styl="height: 100px;" *ngIf="!picture_link">
+                                 <img src="assets/img/avatars/dp-avatar.png" height="60px" alt="..." class="img-responsiv" />
+                              </div>
+                              <div class="fileinput-new thumbnail" style ="width: 200px; height: 200px;" *ngIf="picture_link">
+                                 <img src="{{picture_link}}" style="width: 200px; height: 200px;" class="img-fluid"/>
+                              </div>
+                              <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 200px; max-height: 200px;">
+                              </div>
+                              <div>                           
+                                 <input id="pic" formControlName="pic_file" type="file" class="form-control"  (change)="handleFileupload($event)"/>                                 
+                              </div>
+                           </div>
+                        </div>
+                        <span class="help-block"></span>
+                     </div>
+                  </div>
+                  <br>
+                  
+                  <div class="row">
+                     <div class="form-group col-md-6 ">
+                        <label for="first_name" class=" control-label"><strong>First Name</strong>  <span class="mark-required text-danger ml-1">*</span></label>
+                        <input id="first_name" formControlName="first_name" type="text" placeholder="First Name" class="form-control required"/>
+                    </div>
+                     <div class="form-group col-md-6">
+                        <label for="last_name" class="control-label"><strong>Last Name</strong>
+                           <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="last_name" formControlName="last_name" type="text" placeholder="Last Name" class="form-control required"/>
+                      </div>
+                  </div>
+              
+                  <div class="form-group">
+                     <div class="row ">
+                        <div class="col-sm-9">
+                           <label for="bio" class=" control-label"><strong>About me</strong>  <a href="javaScript:void()" (click)="exampleModal.show()"><small>
+                              (Example)<span class="mark-required text-danger ml-1">*</span></small></a></label>
+                           <textarea formControlName="bio" id="bio" class="form-control resize_vertical" maxlength="600" data-toggle="tooltip" placement="left" data-html="true"
+                           ngbTooltip="Example: I am a software engineer by profession and an enthusiast of innovations,
+                              having graduated from Moi University in 2017 with BSc. Informatics. I have 3 years of work
+                              experience in software design and development. My career started with a one-year internship
+                              at the ICT Authority from where I Co-founded TotoSci Limited and was head of Operations until
+                              April 2020. I then re-joined ICT Authority in May 2020 as the WhiteBox innovations’ management incubatee.
+                              I then co-founded Innovation Enterprise Network (IEN) Africa, an Innovation aggregation and management service enterprise."
+                              rows="4" required placeholder="Bio..."></textarea>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-6 form-group">
+                        <label for="email" class="control-label"><strong>Email </strong><span class="mark-required text-danger ml-1">*</span></label>
+                        <input id="email" formControlName="email" placeholder="E-mail" type="text" class="form-control required email"/>
+                     </div>
+                     <div class="col-sm-6 " *ngIf="!is_underage">
+                        <label for="phone" class="control-label"><strong>Phone Number</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                        <div class="form-group row" *ngIf="!is_underage">
+                           <div class="col-sm-6">
+                              <ng-select formControlName="phonecode" style="border: 0px !important">
+                                 <ng-option selected value='' disabled>Country Code</ng-option>
+                                 <ng-option *ngFor="let country of all_countries" [value]="country?.phonecode" >{{country?.flag}} {{country?.phonecode}}</ng-option>
+                              </ng-select>
+                              <span class="help-block"></span>
+                           </div>
+                           <div class="col-sm-6">
+                              <input type="text" class="form-control required" id="phone" formControlName="phone" placeholder="Phone Number">
+                           </div>
+                        </div>
+                     </div>
+
+                  </div>
+                  
+                     <div class="row">
+                       <div class="col-sm-6 form-group">
+                           <label for="gender" class=" control-label"> <strong>Gender</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                           <select class="form-control" title="Select your appropriate gender..." formControlName="gender" required>
+                              <option selected disabled value="">Select your appropriate gender</option>
+                              <option value="Male" selected >Male</option>
+                              <option value="Female"  >Female</option>
+                           </select>
+                           <span class="help-block"></span>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                           <label for="age_group" class="control-label"> <strong>Age Group</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                           <select required formControlName="age_group" id="age_group" class="form-control" required (change)="age_checker($event.target.value)">
+                              <option selected disabled value="">Select Your Age Group</option>
+                              <option  value="14-17">14 - 17 Years</option>
+                              <option  value="18-24">18 - 24 Years</option>
+                              <option  value="25-34">25 - 34 Years</option>
+                              <option  value="35-44">35 - 44 Years</option>
+                              <option  value="45-54">45 - 54 Years</option>
+                              <option  value="Above 55">Above 55 Years</option>
+                           </select>
+                           <span class="help-block"></span>
+                        </div>
+                       
+                     </div>
+
+                 
+                     <div class="row">
+                       <!-- <div class="form-group col-sm-6" *ngIf="!is_underage" >
+                           <label for="id_number" class="control-label"> <strong>ID Number</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="id_number" formControlName="id_number" placeholder="ID Number" type="text" class="form-control" />
+                        </div> -->
+                        <div class="form-group col-sm-6">
+                           <label for="disability" class="control-label"><strong>Disability</strong></label>
+                           <select required formControlName="disability" id="disability" class="form-control" required >
+                              <option selected disabled value="">Are you limited on your day-to-day activities because of disability?</option>
+                              <option  value="No Disability">None/No Disability</option>
+                              <option  value="Physical Disability">Physical Disability</option>
+                              <option  value="Hearing Disability">Deaf or Hard hearing</option>
+                              <option  value="Mental Health">Mental Health</option>
+                              <option  value="Intellectual Disability">Intellectual Disability</option>
+                              <option  value="Acquired Brain Injury">Acquired Brain Injury</option>
+                              <option  value="Autism Spectrum Disorder">Autism Spectrum Disorder</option>
+                           </select>
+                           <span class="help-block"></span>
+                        </div>
+                     </div>
+
+                  <div *ngIf="is_underage">
+                     <div class="form-group">
+                        <div class="row">
+                           <label for="postal" class="col-sm-3 control-label"> <strong>Parent/Guardian Name</strong><span class="mark-required text-danger ml-1">*</span></label>
+                           <div class="col-sm-9">
+                              <input id="postal" formControlName="guardian_name" type="text" class="form-control" placeholder="Guardian Name" />
+                           </div>
+                           <span class="help-block"></span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="row">
+                           <label for="postal" class="col-sm-3 control-label"><strong>Parent/Guardian Contact</strong> <span class="mark-required text-danger ml-1">*</span></label>
+                           <div class="col-sm-9">
+                              <input id="postal" formControlName="guardian_contact" type="text" class="form-control" placeholder="Guardian Contact" />
+                           </div>
+                           <span class="help-block"></span>
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <div class="row">
+                           <label for="id_number" class="col-sm-3 control-label"> <strong>Parent/Guardian ID Number</strong><span class="mark-required text-danger ml-1">*</span></label>
+                           <div class="col-sm-9">
+                              <input id="id_number" formControlName="guardian_id_number" placeholder="Guardian ID Number" type="text" class="form-control" />
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+                  <hr>
+                  <button class="btn btn-sm btn-block btn-success" [disabled]="active === 2" (click)="changer(nav,2)"> Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+               </div>
+            </ng-template>
+            </li>
+            <li [ngbNavItem]="2" disabled="disabled">
+                  <a ngbNavLink class="bg-warning text-dark">Physical Address</a>          
+            <ng-template ngbNavContent>
+               <div class="" id="physical_address_tab" >
+                  <div class="row">
+                     <div class="form-group col-sm-6">
+                        <label for="country" class=" control-label">Country <span class="mark-required text-danger ml-1">*</span></label>
+                        <ng-select formControlName="country" (change)="get_states($event)">
+                           <ng-option selected value='' disabled>Select Your Country</ng-option>
+                            <ng-option *ngFor="let country of all_countries" [value]="country?.isoCode" >{{country?.name}}</ng-option>
+                           </ng-select>
+                           <span class="help-block"></span>
+                        </div>
+                     <div class="form-group col-sm-6">
+                         <label for="state" class=" control-label">County/State <span class="mark-required text-danger ml-1">*</span></label>
+                           <ng-select formControlName="state">
+                              <ng-option selected value='' disabled>Select Your State/County</ng-option>
+                              <ng-option *ngFor="let state of selected_states" [value]="state.name">{{state.name}}</ng-option>
+                           </ng-select>
+                           <span class="help-block"></span>
+                     </div>
+                  </div>
+                  <br>
+                  <div class="row py-5">
+                     <div class="form-group col-sm-6">
+                           <label for="city" class="control-label">City/Town <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="city" formControlName="city" type="text" class="form-control"
+                              value="" required />
+                              <span class="help-block"></span>
+                     </div>
+                     <div class="form-group col-sm-6">
+                           <label for="address" class="control-label">Physical Address <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="address" formControlName="address" type="text" class="form-control"
+                              value="" required />
+                              <span class="help-block"></span>
+                        </div>                        
+                  </div>
+                  <br>
+                  <div class="row py5">
+                        
+                        <div class=" form-group col-sm-6">
+                           <label for="postal" class="control-label">Postal Address <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="" formControlName="postal" type="text" class="form-control"
+                              value=""  />
+                              <span class="help-block"></span>
+                        </div>
+                        <div class=" form-group col-sm-6">
+                           <label for="postal" class=" control-label">Postal/Zip Code <span class="mark-required text-danger ml-1">*</span></label>
+                           <input id="postal" formControlName="postal" type="text" class="form-control"
+                              value="" required />
+                              <span class="help-block"></span>
+                        </div>
+                  </div>
+               </div>
+               
+               <div class="py-3">
+                  <hr>
+                  <button class="btn btn-sm col-3  btn-success float-left" [disabled]="active === 1" (click)="changer(nav,1)"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back </button>
+                  <button class="btn btn-sm col-3 btn-success float-right" [disabled]="active === 3" (click)="changer(nav,3)">Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></button>
+               </div>
+            </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+            <a ngbNavLink class="bg-success text-white"><strong>Additional Information</strong></a>
+            <ng-template ngbNavContent>
+               <div class="tab-pane" id="additional_info_tab" disabled="disabled">
+                  <div class="form-group required">
+                     <div class="row">
+                        <label for="level_of_education" class="col-sm-3 control-label">Education Level </label>
+                        <div class="col-sm-9">
+                           <select formControlName="level_of_education" id="level_of_education" class="form-control" (change)="check_education($event.target.value)">
+                              <option selected value="" disabled>Select your higest academic qualification </option>
+                              <option value="Primary">Primary School & Below</option>
+                              <option value="High School">High School</option>
+                              <option value="College">College & TVET</option>
+                              <option value="Undergraduate">Undergraduate</option>
+                              <option value="Graduate">Post Graduate</option>
+                              <option value="Doctoral">Doctoral Degree</option>
+                           </select>
+                           <span class="help-block"></span>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <div class="row">
+                        <label for="institution_name" class="col-sm-3 control-label">Institution Name </label>
+                        <div class="col-sm-9">
+                           <input id="institution_name" formControlName="institution_name" type="text" class="form-control" placeholder="Institution Name"  />
+                        </div>
+                        <span class="help-block"></span>
+                     </div>
+                  </div>
+                  <div class="form-group" *ngIf="is_primary == false">
+                     <div class="row">
+                        <label for="course_name" class="col-sm-3 control-label">Course Name </label>
+                        <div class="col-sm-9">
+                           <input id="course_name" formControlName="course_name" type="text" class="form-control" placeholder="Course Name"  />
+                        </div>
+                        <span class="help-block"></span>
+                     </div>
+                     <!-- <div class="row">
+                        <label for="grade" class="col-sm-3 control-label">Grade </label>
+                        <div class="col-sm-9">
+                           <input id="grade" formControlName="grade" type="text" class="form-control" placeholder="Grade"  />
+                        </div>
+                        <span class="help-block"></span>
+                     </div> -->
+                     <div class="row mt-4">
+                        <label for="study_summary" class="col-sm-3 control-label">Study Summary </label>
+                        <div class="col-sm-9">
+                           <textarea id="study_summary" formControlName="study_summary" type="text" class="form-control" placeholder="Study summary" rows="3"></textarea>
+                        </div>
+                        <span class="help-block"></span>
+                     </div>
+                  </div>
+                  <div class="form-group required">
+                     <div class="row">
+                        <label for="employment" class="col-sm-3 control-label">Employment Status <span class="mark-required text-danger ml-1">*</span></label>
+                        <div class="col-sm-9">
+                           <ng-select formControlName="employment">
+                              <ng-option selected value='' disabled>What is your current employment status? </ng-option>
+                              <ng-option *ngFor="let status of employment_status" [value]="status.name">{{status.name}}</ng-option>
+                           </ng-select>                           
+                        </div>
+                        <span class="help-block"></span>
+                     </div>
+                  </div>
+                  <div class="form-group required">
+                     <div class="row">
+                        <label for="skills" class="col-sm-3 control-label">Skills <span class="mark-required text-danger ml-1">*</span></label>
+                        <div class="col-sm-9">
+                           <ng-select [multiple]="true" formControlName="skills">
+                              <ng-option selected value='' disabled>What skills do you have? </ng-option>
+                              <ng-option *ngFor="let skill of innovation_skills" [value]="skill.name">{{skill.name}}</ng-option>
+                           </ng-select>                           
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="py-3 col-12">
+                  <hr>
+                  <button class="btn btn-sm col-3  btn-success float-left" [disabled]="active === 2" (click)="changer(nav,2)"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back </button>
+                  <!-- <div *ngIf="form_type == 'creat'" class="float-right">
+                     <button type="submit" class="btn btn-sm btn-success col-3 float-right" (click)="create_profile()">Finish</button>
+                  </div> -->
+                  <div>
+                     <button type="submit" class="btn btn-sm btn-success col-3 float-right" (click)="create_profile()" >                        
+                        <span *ngIf="form_type == 'create'">Finish</span>
+                        <span *ngIf="form_type == 'edit'">Update Profile</span>
+                     </button>
+                  </div>
+               </div>
+               
+            </ng-template>
+            </li>
+         </ul>
+      </form>
+      
+       <div [ngbNavOutlet]="nav" class="mt-2"></div>
+   </div>
+</div>
+
+<!--Example Info modal -->
+<div bsModal #exampleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-primary modal-lg" role="document">
+       <div class="modal-content">
+           <div class="modal-header bg-primary">
+               <h5 class="modal-title">
+                   Bio Example            
+               </h5>
+               <button type="button" class="close" (click)="exampleModal.hide();" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+           <div class="modal-body container">
+
+            <p>
+               I am a software engineer by profession and an enthusiast of innovations,
+               having graduated from Moi University in 2017 with BSc. Informatics. I have 3 years of work
+               experience in software design and development. My career started with a one-year internship
+               at the ICT Authority from where I Co-founded TotoSci Limited and was head of Operations until
+               April 2020. I then re-joined ICT Authority in May 2020 as the WhiteBox innovations’ management incubatee.
+               I then co-founded Innovation Enterprise Network (IEN) Africa, an Innovation aggregation and management service enterprise.
+            </p>
+
+           </div>      
+           <div class="modal-footer">
+               <button  type="submit"  (click)="exampleModal.hide()" aria-label="Close" class="btn btn-secondary col-md-6">Close</button>
+           </div><!-- /.modal-content -->
+       </div><!-- /.modal-dialog -->
+   </div>
+</div>
+<!-- /.modal -->

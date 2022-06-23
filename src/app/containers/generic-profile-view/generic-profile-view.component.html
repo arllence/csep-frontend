@@ -1,0 +1,1147 @@
+<div class="card  panel-primary">
+    <div class="card-heading bg-primary">
+        <h4 class="card-title ml-2 mt-2">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            Profile                                
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="cover-profile">
+                    <div class="profile-bg-img">
+                        <!-- <img class="profile-bg-img img-fluid" src="https://app.ienafrica.org/images/profile/bg-img1.jpg" alt="bg-img">
+                        <br> -->
+                        <!-- <hr> -->
+                        <div class="card-block user-info">
+                            <div class="col-md-12">
+                                <div class="media-left">
+                                    <a href="#" class="profile-image" *ngIf="picture_link !== null"><img src="{{picture_link}}" alt="img" class="img-responsive rounded" height="200" />
+                                    </a>
+                                    <div class="fileinput-new thumbnail" style="width: 100px; height: 100px;" *ngIf="picture_link == null">
+                                        <img src="assets/img/avatars/dp-avatar.png" alt="..." class="img-responsive" height="100" />
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="media-body row">
+                                    <div class="col-lg-6">
+                                        <div class="user-title">
+                                            <h2>{{profile_info?.user.first_name}} {{profile_info?.user.last_name}}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="pull-right cover-btn float-right">
+                                            <a (click)="update_profile()" class="btn btn-primary text-white m-r-10">
+                                                <i class="fa fa-plus mr-1"></i>Update
+                                            </a>
+                                            <button class="btn btn-success text-white m-r-10" styleSheetFile="assets/css/custom_table.css" printSectionId="print_profile" ngxPrint>
+                                                <i class="fa fa-id-badge mr-1"></i>Print/Export
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <nav ngbNav #nav="ngbNav" class="nav-tabs" >
+                <ng-container ngbNavItem>
+                    <a ngbNavLink> Personal Information</a>
+                    <ng-template ngbNavContent>
+                        <div >
+                            <!-- personal card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card  panel-primary">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Personal Information                                
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="rw">
+                                                <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                                    <table class="wikitable table-bordered width100" id="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">Full Name</th>
+                                                                <td>{{profile_info?.user.first_name}} {{profile_info?.user.last_name}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Gender</th>
+                                                                <td>{{profile_info?.profile_info?.gender}}</td>
+                                                            </tr>
+                                                            <tr *ngIf="profile_info?.profile_info?.phone">
+                                                                <th scope="row">Mobile Number</th>
+                                                                <td>{{profile_info?.profile_info?.phone}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Email Address</th>
+                                                                <td>{{profile_info?.user.email}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">Disability</th>
+                                                                <td>{{profile_info?.profile_info?.disability}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>       
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                About Me
+                                                
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <p>
+                                                {{profile_info?.profile_info?.bio}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- personal card end-->
+                        </div>
+                    </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                    <a ngbNavLink>Additional Information</a>
+                    <ng-template ngbNavContent>
+                        <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                                Address Information
+                                                
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                                <table class="wikitable table-bordered width100" id="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Country</th>
+                                                            <td>{{profile_info?.profile_info?.country}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">State/County</th>
+                                                            <td>{{profile_info?.profile_info?.state}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">City/Town</th>
+                                                            <td>{{profile_info?.profile_info?.city}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Adress</th>
+                                                            <td>{{profile_info?.profile_info?.physical_address}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Postal/Zip</th>
+                                                            <td>{{profile_info?.profile_info?.postal_code}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- info card end -->
+                                                    <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Education Bckground Information                                
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                            <table class="wikitable table-bordered width100" id="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" width=50%>Highest Level of Education</th>
+                                                        <td>{{profile_info?.profile_info?.education_level}}</td>
+                                                    </tr>   
+                                                    <tr>
+                                                        <th scope="row" width=50%>Institution</th>
+                                                        <td>{{profile_info?.education?.institution_name}}</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <th scope="row" width=50%>Course</th>
+                                                        <td>{{profile_info?.education?.course_name}}</td>
+                                                    </tr> 
+                                                    <!-- <tr>
+                                                        <th scope="row" width=50%>Grade</th>
+                                                        <td>{{profile_info?.education?.grade}}</td>
+                                                    </tr>   -->
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- info card end -->
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Other Details
+                                                
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                            <table class="wikitable table-bordered width100" id="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th width=50%>Employment Status</th>
+                                                        <td>{{profile_info?.profile_info?.employment_status}}</td>
+                                                    </tr>  
+                                                </tbody>
+                                            </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- info card end -->
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                                Skills
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                        <ul>
+                                                <li style="list-style: none" *ngFor="let skill of profile_info?.skills">
+                                                        {{skill.name}}
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- info card end -->
+                            
+                        </div>
+                    </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                    <a ngbNavLink>Certifications</a>
+                    <ng-template ngbNavContent>
+                        <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-file" aria-hidden="true"></i>
+                                                Academic & Professional Certifications                                            
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                                <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.certification.length > 0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="row" class="text-center">#</th>
+                                                            <th scope="row">Name</th>
+                                                            <th scope="row">Registration Status</th>
+                                                            <th scope="row">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let cert of profile_info?.certification; let i = index">
+                                                            <td scope="row">{{i+1}}</td>
+                                                            <td>{{cert.name}}</td>
+                                                            <td>{{cert.expiration_date}}</td>
+                                                            <td>
+                                                                <button class="btn btn-success" (click)="edit_certification(cert.id,cert.name,cert.expiration_date)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                                <button class="btn btn-warning" (click)="delete_certification(cert.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="profile_info?.certification.length == 0" class="text-danger text-center">
+                                                    <h6 ><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Certifications Found. Please Add.</h6>
+                                                </div>
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="add_cert">
+                                                <h5 *ngIf="cert_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                                <h5 *ngIf="!cert_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                                <form [formGroup]="AddCertificationForm" (ngSubmit)="save_certification()">
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                        <label for="name" class="col-sm-3 control-label">Certificate Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                        <div class="col-sm-9">
+                                                            <input id="name" formControlName="name" placeholder="Certificate Name" type="text"
+                                                                class="form-control" required/>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <label for="expiration_date" class="col-sm-3 control-label">Registration Status</label>
+                                                            <div class="col-sm-9">
+                                                                <ng-select id="expiration_date" class="required" formControlName="expiration_date" >
+                                                                    <ng-option selected disabled value="">--Select Registration Status--</ng-option>
+                                                                    <ng-option value="Current">Current</ng-option>
+                                                                    <ng-option value="Expired">Expired</ng-option>
+                                                                </ng-select>
+
+                                                            <!-- <input id="expiration_date" formControlName="expiration_date" placeholder="Expiration Date" type="text"
+                                                                class="form-control"/> -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                                </form>
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="!add_cert">
+                                                <button class="btn btn-primary btn-block text-white" (click)="add_certification()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Certification</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    
+                        </div>
+                    </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                    <a ngbNavLink>Memberships</a>
+                    <ng-template ngbNavContent>
+                        <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-link" aria-hidden="true"></i>
+                                                Professional Bodies Membership and Certificates                                           
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                                <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.association.length > 0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="row">#</th>
+                                                            <th scope="row">Name</th>
+                                                            <th scope="row">Role</th>
+                                                            <th scope="row">Certificate</th>
+                                                            <th scope="row">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let data of profile_info?.association; let i = index">
+                                                            <td scope="row">{{i+1}}</td>
+                                                            <td>{{data.name}}</td>
+                                                            <td>{{data.role}}</td>
+                                                            <td><a href={{serverurl}}{{data.document.document}} >View</a></td>
+                                                            <td>
+                                                                <button class="btn btn-success" (click)="edit_association(data.id,data.name,data.role,data.expiration,data.document.id)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                                <button class="btn btn-warning" (click)="delete_association(data.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="profile_info?.association.length == 0" class="text-danger text-center">
+                                                    <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Associations Found. Please Add.</h6>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="add_association">
+                                                <h5 *ngIf="association_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                                <h5 *ngIf="!association_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                                <form [formGroup]="AddAssociationForm" (ngSubmit)="save_association()">
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                        <label for="name" class="col-sm-3 control-label">Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                        <div class="col-sm-9">
+                                                            <input id="name" formControlName="name" placeholder="Name" type="text"
+                                                                class="form-control" required/>
+                                                        </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <label for="role" class="col-sm-3 control-label">Role <span class="mark-required text-danger ml-1">*</span></label>
+                                                            <div class="col-sm-9">
+                                                            <input id="role" formControlName="role" placeholder="Role" type="text"
+                                                                class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <label for="role" class="col-sm-3 control-label">Expiration Date <span class="mark-required text-danger ml-1">*</span></label>
+                                                            <div class="col-sm-9">
+                                                            <input id="role" formControlName="expiration" placeholder="Expiration Date" type="date"
+                                                                class="form-control"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-3">
+                                                            <label for="role" class="col-sm-3 control-label">Upload Certificate <span class="mark-required text-danger ml-1">*</span></label>
+                                                            <div class="col-sm-9">
+                                                                <input id="pic" type="file" class="form-control"  (change)="handleFileupload($event)"/> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                                </form>
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="!add_association">
+                                                <button class="btn btn-primary btn-block text-white" (click)="toggle_association()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Association</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    
+                        </div>
+                    </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                    <a ngbNavLink>Talent</a>
+                    <ng-template ngbNavContent>
+                        <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                            <!-- info card start -->
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="card panel-primary ">
+                                        <div class="card-heading bg-primary">
+                                            <h4 class="card-title ml-2 mt-2">
+                                                <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                                Hobbies & Talent                                            
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                                <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.hobby.length > 0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="row">#</th>
+                                                            <th scope="row">Name</th>
+                                                            <th scope="row">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let data of profile_info?.hobby; let i = index">
+                                                            <td scope="row">{{i+1}}</td>
+                                                            <td>{{data.name}}</td>
+                                                            <td>
+                                                                <button class="btn btn-success" (click)="edit_hobby(data.id,data.name,data.role)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                                <button class="btn btn-warning" (click)="delete_hobby(data.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div *ngIf="profile_info?.hobby.length == 0" class="text-danger text-center">
+                                                    <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Hobbies Found. Please Add.</h6>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="add_hobby">
+                                                <h5 *ngIf="hobby_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                                <h5 *ngIf="!hobby_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                                <form [formGroup]="AddHobbyForm" (ngSubmit)="save_hobby()">
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                        <label for="name" class="col-sm-3 control-label">Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                        <div class="col-sm-9">
+                                                            <input id="name" formControlName="name" placeholder="Eg. Tennis Player" type="text"
+                                                                class="form-control" required/>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                                </form>
+                                            </div>
+                                            <div class="mt-5 container" *ngIf="!add_hobby">
+                                                <button class="btn btn-primary btn-block text-white" (click)="toggle_hobby()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Hobby</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                                    
+                        </div>
+                    </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                <a ngbNavLink>Account Information</a>
+                <ng-template ngbNavContent>
+                    <div class="tab-pane" id="account_info_tab" role="tabpanel">
+                        <!-- info card start -->
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                                <div class="card panel-primary ">
+                                    <div class="card-heading bg-primary">
+                                        <h4 class="card-title ml-2 mt-2">
+                                            <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                            Account Overview
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Last Login</th>
+                                                    <td>{{profile_info?.user.last_login |date : 'short' }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Joined</th>
+                                                    <td>{{profile_info?.user.date_created | date}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Status</th>
+                                                    <td *ngIf="profile_info?.user.is_active">
+                                                        Activated
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- info card end -->
+                    </div>
+                </ng-template>
+                </ng-container>
+                <ng-container ngbNavItem>
+                    <a ngbNavLink>Change Password</a>
+                    <ng-template ngbNavContent>
+                        <div class="tab-pane" id="account_setting_tab" role="tabpanel">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-lock"></i>
+                                        Change Password
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="col-12 col-lg-12">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <strong>User Details</strong>
+                                            </div>
+                                            <div class="card-body">
+                                            
+                                                <form [formGroup]="ChangePasswordForm" (ngSubmit)="changepassword()">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Current Password</label>
+                                                            <div class="input-group ">
+                                
+                                                                <input [type]="current_passwordFieldType ? 'text' : 'password'" class="form-control"
+                                                                    formControlName="current_password" />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" >
+                                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !current_passwordFieldType,
+                                                                        'fa-eye': current_passwordFieldType}" (click)="togglecurrent_passwordFieldType()"></i>
+                                                                    </span>
+                                                                </div>
+                                
+                                                            </div>
+                                                        </div>
+                                
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>New Password</label>
+                                                            <div class="input-group ">
+                                
+                                                                <input [type]="newpasswordFieldType ? 'text' : 'password'" class="form-control"
+                                                                    formControlName="new_password" />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text">
+                                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !newpasswordFieldType,
+                                                                        'fa-eye': newpasswordFieldType}" (click)="togglenewpasswordFieldType()"></i>
+                                                                    </span>
+                                                                </div>
+                                
+                                                            </div>
+                                                        </div>
+                                
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Confirm Password</label>
+                                                            <div class="input-group ">
+                                
+                                                                <input [type]="confirm_passwordFieldType ? 'text' : 'password'" class="form-control"
+                                                                    formControlName="confirm_password" />
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" >
+                                                                        <i class="fa" [ngClass]="{'fa-eye-slash': !confirm_passwordFieldType,
+                                                                        'fa-eye': confirm_passwordFieldType}" (click)="toggleconfirm_passwordFieldType()"></i>
+                                                                    </span>
+                                                                </div>
+                                
+                                                            </div>
+                                                        </div>
+                                
+                                                    </div>
+                                                    <div class="row">
+                                                        
+                                                        <div class="form-group col-sm-12">
+                                                            <label for="lastname">&nbsp;</label>
+                                                            <button type="submit" class="btn btn-success col-sm-12" >
+                                                                Submit</button>
+                                                        </div>
+                                
+                                                    </div>
+                                                </form>
+                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </nav>
+        
+        <div [ngbNavOutlet]="nav" class="mt-2"></div>
+    </div>
+</div>
+
+
+
+
+<!-- PRINT -->
+<section class="container" id="print_profile" style="display: none">
+    <div>
+        <div>
+            <!-- <a> Personal Information</a> -->
+                <div >
+                    <!-- personal card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card  panel-primary">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        Personal Information                                
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="rw">
+                                        <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                            <table class="wikitable table-bordered width100" id="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">Full Name</th>
+                                                        <td>{{profile_info?.user.first_name}} {{profile_info?.user.last_name}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Gender</th>
+                                                        <td>{{profile_info?.profile_info?.gender}}</td>
+                                                    </tr>
+                                                    <tr *ngIf="profile_info?.profile_info?.phone">
+                                                        <th scope="row">Mobile Number</th>
+                                                        <td>{{profile_info?.profile_info?.phone}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Email Address</th>
+                                                        <td>{{profile_info?.user.email}}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row">Disability</th>
+                                                        <td>{{profile_info?.profile_info?.disability}}</td>
+                                                    </tr>
+                                                    <tr  *ngIf="profile_info?.guardian?.length != 0">
+                                                        <th scope="row">Guardian Name</th>
+                                                        <td>{{profile_info?.guardian?.name}}</td>
+                                                    </tr>
+                                                    <tr  *ngIf="profile_info?.guardian?.length != 0">
+                                                        <th scope="row">Guardian Contact</th>
+                                                        <td>{{profile_info?.guardian?.contact}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        About Me
+                                        
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <p>
+                                        {{profile_info?.profile_info?.bio}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- personal card end-->
+                </div>
+            </div>
+        <div>
+            <!-- <a >Additional Information</a> -->
+                <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
+                                        Address Information
+                                        
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Country</th>
+                                                    <td>{{profile_info?.profile_info?.country}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">State/County</th>
+                                                    <td>{{profile_info?.profile_info?.state}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">City/Town</th>
+                                                    <td>{{profile_info?.profile_info?.city}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Adress</th>
+                                                    <td>{{profile_info?.profile_info?.physical_address}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Postal/Zip</th>
+                                                    <td>{{profile_info?.profile_info?.postal_code}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- info card end -->
+                                            <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-book" aria-hidden="true"></i>
+                                        Education Bckground Information                             
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" width=50%>Highest Level of Education</th>
+                                                    <td>{{profile_info?.profile_info?.education_level}}</td>
+                                                </tr>  
+                                                <tr>
+                                                    <th scope="row" width=50%>Institution</th>
+                                                    <td>{{profile_info?.education?.institution_name}}</td>
+                                                </tr> 
+                                                <tr>
+                                                    <th scope="row" width=50%>Course</th>
+                                                    <td>{{profile_info?.education?.course_name}}</td>
+                                                </tr> 
+                                                <tr>
+                                                    <th scope="row" width=50%>Grade</th>
+                                                    <td>{{profile_info?.education?.grade}}</td>
+                                                </tr>   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- info card end -->
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        Other Details
+                                        
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                    <table class="wikitable table-bordered width100" id="table">
+                                        <tbody>
+                                            <tr>
+                                                <th width=50%>Employment Status</th>
+                                                <td>{{profile_info?.profile_info?.employment_status}}</td>
+                                            </tr>  
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- info card end -->
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                        Skills
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                <ul>
+                                        <li style="list-style: none" *ngFor="let skill of profile_info?.skills">
+                                                {{skill.name}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- info card end -->
+                    
+                </div>
+        </div>
+        <div>
+            <!-- <a >Certifications</a> -->
+                <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-file" aria-hidden="true"></i>
+                                        Academic & Professional Certifications                                            
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.certification.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="row" class="text-center">#</th>
+                                                    <th scope="row">Name</th>
+                                                    <th scope="row">Registration Status</th>
+                                                    <th scope="row">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let cert of profile_info?.certification; let i = index">
+                                                    <td scope="row">{{i+1}}</td>
+                                                    <td>{{cert.name}}</td>
+                                                    <td>{{cert.expiration_date}}</td>
+                                                    <td>
+                                                        <button class="btn btn-success" (click)="edit_certification(cert.id,cert.name,cert.expiration_date)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                        <button class="btn btn-warning" (click)="delete_certification(cert.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div *ngIf="profile_info?.certification.length == 0" class="text-danger text-center">
+                                            <h6 ><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Certifications Found. Please Add.</h6>
+                                        </div>
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="add_cert">
+                                        <h5 *ngIf="cert_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                        <h5 *ngIf="!cert_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                        <form [formGroup]="AddCertificationForm" (ngSubmit)="save_certification()">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                <label for="name" class="col-sm-3 control-label">Certificate Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input id="name" formControlName="name" placeholder="Certificate Name" type="text"
+                                                        class="form-control" required/>
+                                                </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <label for="expiration_date" class="col-sm-3 control-label">Registration Status</label>
+                                                    <div class="col-sm-9">
+                                                        <ng-select id="expiration_date" class="required" formControlName="expiration_date" >
+                                                            <ng-option selected disabled value="">--Select Registration Status--</ng-option>
+                                                            <ng-option value="Current">Current</ng-option>
+                                                            <ng-option value="Expired">Expired</ng-option>
+                                                        </ng-select>
+
+                                                    <!-- <input id="expiration_date" formControlName="expiration_date" placeholder="Expiration Date" type="text"
+                                                        class="form-control"/> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                        </form>
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="!add_cert">
+                                        <button class="btn btn-primary btn-block text-white" (click)="add_certification()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Certification</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                            
+                </div>
+            </div>
+        <div>
+            <!-- <a >Memberships</a> -->
+            
+                <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-link" aria-hidden="true"></i>
+                                        Professional Bodies Membership and Certificates                                           
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.association.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="row">#</th>
+                                                    <th scope="row">Name</th>
+                                                    <th scope="row">Role</th>
+                                                    <th scope="row">Certificate</th>
+                                                    <th scope="row">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of profile_info?.association; let i = index">
+                                                    <td scope="row">{{i+1}}</td>
+                                                    <td>{{data.name}}</td>
+                                                    <td>{{data.role}}</td>
+                                                    <td><a href={{serverurl}}{{data.document.document}} >View</a></td>
+                                                    <td>
+                                                        <button class="btn btn-success" (click)="edit_association(data.id,data.name,data.role,data.expiration,data.document.id)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                        <button class="btn btn-warning" (click)="delete_association(data.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div *ngIf="profile_info?.association.length == 0" class="text-danger text-center">
+                                            <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Associations Found. Please Add.</h6>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="add_association">
+                                        <h5 *ngIf="association_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                        <h5 *ngIf="!association_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                        <form [formGroup]="AddAssociationForm" (ngSubmit)="save_association()">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                <label for="name" class="col-sm-3 control-label">Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input id="name" formControlName="name" placeholder="Name" type="text"
+                                                        class="form-control" required/>
+                                                </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <label for="role" class="col-sm-3 control-label">Role <span class="mark-required text-danger ml-1">*</span></label>
+                                                    <div class="col-sm-9">
+                                                    <input id="role" formControlName="role" placeholder="Role" type="text"
+                                                        class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <label for="role" class="col-sm-3 control-label">Expiration Date <span class="mark-required text-danger ml-1">*</span></label>
+                                                    <div class="col-sm-9">
+                                                    <input id="role" formControlName="expiration" placeholder="Expiration Date" type="date"
+                                                        class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                <div class="row mt-3">
+                                                    <label for="role" class="col-sm-3 control-label">Upload Certificate <span class="mark-required text-danger ml-1">*</span></label>
+                                                    <div class="col-sm-9">
+                                                        <input id="pic" type="file" class="form-control"  (change)="handleFileupload($event)"/> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                        </form>
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="!add_association">
+                                        <button class="btn btn-primary btn-block text-white" (click)="toggle_association()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Association</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                            
+                </div>
+            </div>
+        <div>
+            <!-- <a >Talent</a> -->
+                <div class="tab-pane" id="additional_info_tab" role="tabpanel">
+                    <!-- info card start -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="card panel-primary ">
+                                <div class="card-heading bg-primary">
+                                    <h4 class="card-title ml-2 mt-2">
+                                        <i class="fa fa-gamepad" aria-hidden="true"></i>
+                                        Hobbies & Talent                                            
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                        <table class="wikitable table-bordered width100" id="table" *ngIf="profile_info?.hobby.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="row">#</th>
+                                                    <th scope="row">Name</th>
+                                                    <th scope="row">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let data of profile_info?.hobby; let i = index">
+                                                    <td scope="row">{{i+1}}</td>
+                                                    <td>{{data.name}}</td>
+                                                    <td>
+                                                        <button class="btn btn-success" (click)="edit_hobby(data.id,data.name,data.role)"><i class="fa fa-pencil" aria-hidden="true"></i></button>    
+                                                        <button class="btn btn-warning" (click)="delete_hobby(data.id)"><i class="fa fa-trash" aria-hidden="true"></i></button>                                                
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div *ngIf="profile_info?.hobby.length == 0" class="text-danger text-center">
+                                            <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Hobbies Found. Please Add.</h6>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="add_hobby">
+                                        <h5 *ngIf="hobby_id" class="text-info" ><i class="fa fa-pencil" aria-hidden="true"></i> Edit</h5>
+                                        <h5 *ngIf="!hobby_id" class="text-warning"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</h5>
+                                        <form [formGroup]="AddHobbyForm" (ngSubmit)="save_hobby()">
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                <label for="name" class="col-sm-3 control-label">Name <span class="mark-required text-danger ml-1">*</span></label>
+                                                <div class="col-sm-9">
+                                                    <input id="name" formControlName="name" placeholder="Eg. Tennis Player" type="text"
+                                                        class="form-control" required/>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-info btn-block"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button>
+                                        </form>
+                                    </div>
+                                    <div class="mt-5 container" *ngIf="!add_hobby">
+                                        <button class="btn btn-primary btn-block text-white" (click)="toggle_hobby()"><i class="fa fa-plus-circle" aria-hidden="true"></i>  Add Hobby</button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                            
+                </div>
+            </div>
+        <div>
+        <a >Account Information</a>
+            <div class="tab-pane" id="account_info_tab" role="tabpanel">
+                <!-- info card start -->
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="card panel-primary ">
+                            <div class="card-heading bg-primary">
+                                <h4 class="card-title ml-2 mt-2">
+                                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                                    Account Overview
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive-lg table-responsive-sm table-responsive-md">
+                                <table class="wikitable table-bordered width100" id="table">
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">Last Login</th>
+                                            <td>{{profile_info?.user.last_login |date : 'short' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Joined</th>
+                                            <td>{{profile_info?.user.date_created | date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">Status</th>
+                                            <td *ngIf="profile_info?.user.is_active">
+                                                Activated
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- info card end -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+

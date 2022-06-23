@@ -1,0 +1,337 @@
+<style>
+  .btn-success {
+    color: #fff !important;
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+}
+</style>
+
+<div class="animated fadeIn" *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER']">
+  <div class="card" *ngIf="!hide_filter_form">
+    <div class="card-header">
+      <strong>General Submissions Analytics</strong>&nbsp;&nbsp; (<small class="pointer bg-info rounded" (click)="gsa_toggler()">&nbsp;{{gsa_toggler_name}}&nbsp;</small>)
+    </div>
+    <div class="card-body" *ngIf="gsa_toggler_status">
+      <section class="content indexpage evaluator mb-5">
+        <div class="row">
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig pointer">
+              <!-- Trans label pie charts strats here-->
+              <div class="palebluecolorbg bg-success text-white no-radius">
+                 <div class="card-body squarebox square_boxs cardpaddng">
+                    <div class="row">
+                       <div class="col-12 float-left nopadmar">
+                          <div class="row">
+                             <div class="square_box col-8 float-left">
+                                <span>Approved</span>
+                                
+                             </div>
+                             <div class="col-4">
+                                <div class="number" id="myTargetElement4">
+                                   {{im_analytics?.approved}}
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig pointer" (click)="assigned()" disabled>
+               <!-- Trans label pie charts strats here-->
+               <div class="palebluecolorbg bg-primary text-white no-radius">
+                  <div class="card-body squarebox square_boxs cardpaddng">
+                     <div class="row">
+                        <div class="col-12 float-left nopadmar">
+                           <div class="row">
+                              <div class="square_box col-8 float-left">
+                                 <span>Submitted</span>
+                                 
+                              </div>
+                              <div class="col-4">
+                                 <div class="number" id="myTargetElement4">
+                                    {{im_analytics?.completed}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInRightBig pointer" (click)="assigned()" disabled>
+               <!-- Trans label pie charts strats here-->
+               <div class="palebluecolorbg bg-success text-white no-radius">
+                  <div class="card-body squarebox square_boxs cardpaddng">
+                     <div class="row">
+                        <div class="col-12 float-left nopadmar">
+                           <div class="row">
+                              <div class="square_box col-8 float-left">
+                                 <span>Evaluated</span>
+                                 
+                              </div>
+                              <div class="col-4">
+                                 <div class="number" id="myTargetElement4">
+                                    {{im_analytics?.evaluated}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+           <div class="col-lg-6 col-xl-3 col-sm-6 col-md-6 margin_10 animated fadeInDownBig">
+              <!-- Trans label pie charts strats here-->
+              <div class="goldbg bg-warning text-white no-radius">
+                 <div class="card-body squarebox square_boxs cardpaddng">
+                    <div class="row">
+                       <div class="col-12 float-left nopadmar">
+                          <div class="row">
+                             <div class="square_box col-8 float-left">
+                                <span>Resubmitted</span>
+                                
+                             </div>
+                             <div class="col-4">
+                                <div class="number" id="myTargetElement3">
+                                  {{im_analytics?.resubmitted}}
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInLeftBig">
+              <!-- Trans label pie charts strats here-->
+              <div class="lightbluebg bg-dark text-white no-radius">
+                 <div class="card-body squarebox square_boxs cardpaddng">
+                    <div class="row">
+                       <div class="col-12 float-left nopadmar">
+                          <div class="row">
+                             <div class="square_box col-8 text-left">
+                                <span>Under Review</span>
+                                
+                             </div>
+                             <div class="col-4">
+                                <div class="number" id="myTargetElement1">
+                                  {{im_analytics?.under_review}}
+                                </div>
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInUpBig">
+              <!-- Trans label pie charts strats here-->
+              <div class="redbg no-radius">
+                 <div class="card-body bg-info text-white squarebox square_boxs cardpaddng">
+                    <div class="row">
+                       <div class="col-12 float-left nopadmar">
+                          <div class="row">
+                             <div class="square_box col-8 float-left">
+                                <span>Incomplete</span>
+                                
+                             </div>
+                             <div class="col-4">
+                                <div class="number" id="myTargetElement2">
+                                  {{im_analytics?.incomplete}}
+                                </div>
+                              </div>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+           </div>
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInUpBig">
+            <!-- Trans label pie charts strats here-->
+            <div class="redbg no-radius">
+               <div class="card-body bg-dark text-white squarebox square_boxs cardpaddng">
+                  <div class="row">
+                     <div class="col-12 float-left nopadmar">
+                        <div class="row">
+                           <div class="square_box col-10 float-left">
+                              <span>Pending Resubmission</span>
+                              
+                           </div>
+                           <div class="col-2">
+                              <div class="number" id="myTargetElement2">
+                                {{im_analytics?.pending_resubmission}}
+                              </div>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+           </div>
+           <div class="mb-3 col-lg-6 col-xl-3 col-md-6 col-sm-6 margin_10 animated fadeInUpBig">
+            <!-- Trans label pie charts strats here-->
+            <div class="redbg no-radius">
+               <div class="card-body bg-danger text-white squarebox square_boxs cardpaddng">
+                  <div class="row">
+                     <div class="col-12 float-left nopadmar">
+                        <div class="row">
+                           <div class="square_box col-8 float-left">
+                              <span>Dropped</span>
+                              
+                           </div>
+                           <div class="col-4">
+                              <div class="number" id="myTargetElement2">
+                                {{im_analytics?.dropped}}
+                              </div>
+                            </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+        </div>
+       </section>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="animated fadeIn">
+    <div class="card">
+      <div class="card-header">
+        <strong>
+           <span *ngIf="pending_report">
+               Pending Reports
+           </span>
+           <span *ngIf="!pending_report">
+            Filter Submissions Analytics
+           </span>
+           
+         </strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="searchForm" (ngSubmit)="filterinnovations()" *ngIf="!hide_filter_form">
+          <div class="row">           
+            <div class="form-group col-sm-4">
+              <label for="searchby">Status</label>
+              <select class="form-control" id="searchby" formControlName="status" required>
+                <option value="ALL" selected>All</option>
+                <option value="APPROVED">Approved</option>
+                <option value="COMPLETED">Submitted</option>
+                <option value="UNDER_REVIEW">Under Review</option>
+                <option value="RESUBMITTED">Resubmitted</option>
+                <option value="RESUBMIT">Pending Resubmittion</option>
+                <option value="ONGOING">Incomplete</option>
+                <option value="DROPPED">Dropped</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="stage">Stage</label>
+              <select class="form-control" id="stage" formControlName="stage" required>
+                <option value="ALL" selected>All</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+                <option value="V">V</option>
+                <option value="VI">VI</option>
+                <option value="VII">VII</option>
+              </select>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="country">&nbsp;&nbsp;</label>
+              <button type="submit" class="btn form-control  btn-success btn-md "> <i
+                  class="fa fa-search"></i> &nbsp;Search Submissions </button>
+            </div>
+         
+          </div>
+        </form>
+
+        <div class="row mt-3">
+          <div class="col-sm-4 col-md-4 col-lg-4 offset-md-8">
+            <div class="input-group">
+              <div class="input-group-prepend"><span class="input-group-text"><i class="fa fa-search"></i></span></div>
+              <input class="form-control " placeholder="Search Results Here" type="text" [(ngModel)]="searchString">
+            </div>
+          </div>
+          </div>
+          <br>
+          <div class="table-responsive">
+        <!-- <button disabled="disabled" class="btn btn-primary mb-2" *ngIf="records?.length">Total Innovations Found: {{records?.length}}</button> -->
+        <table [mfData]="records" #mf="mfDataTable"
+        [mfRowsOnPage]="10"
+          class="wikitable table-bordered table-sm table-striped row-border hover" style="width:100%">
+          <thead>
+             <tr>
+               <th colspan="9" *ngIf="records?.length" class="text-info">Total Innovations Found: {{records?.length}}</th>
+             </tr>
+            <tr>
+              <th>#</th>
+              <th>Innovation Name</th>
+              <th>Industry</th>
+              <th>Development stage</th>
+              <th>Status</th>
+              <th class="text-center">Progress Stage</th>
+              <th *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER']">Submitted On</th>
+              <th *ngxPermissionsOnly="['JUNIOR_OFFICER','INTERNAL_EVALUATOR','EXTERNAL_EVALUATOR','SUBJECT_MATTER_EVALUATOR']">Date Assigned</th>
+              <th *ngxPermissionsOnly="['JUNIOR_OFFICER','INTERNAL_EVALUATOR','EXTERNAL_EVALUATOR','SUBJECT_MATTER_EVALUATOR']">Date Evaluated</th>
+              <th *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER','LEAD_INTERNAL_EVALUATOR','CHIEF_EVALUATOR']">Action</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="records?.length != 0">
+            <tr *ngFor="let recordinstance of mf.data | filter : searchString ; let i = index">
+              <td>{{i + 1}}</td>
+              <td>{{ recordinstance.details?.innovation_name }}</td>
+              <td>{{ recordinstance.details?.industry?.name }}</td>
+              <td>{{ recordinstance.details?.development_stage?.name }}</td>
+              <td>
+                  <span *ngIf="recordinstance.status === 'COMPLETED'">SUBMITTED</span>
+                  <span *ngIf="recordinstance.status !== 'COMPLETED'">{{ recordinstance.status }}</span>
+              </td>
+              <td class="text-center">{{ recordinstance.stage }} / VII</td>
+              <td *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER']">{{ recordinstance.date_created | date }}</td>
+              <td *ngxPermissionsOnly="['JUNIOR_OFFICER','INTERNAL_EVALUATOR','EXTERNAL_EVALUATOR','SUBJECT_MATTER_EVALUATOR']">
+                 <span *ngxPermissionsOnly="['JUNIOR_OFFICER']">{{ recordinstance.date_assigned.jo | date }}</span>                 
+                 <span *ngxPermissionsOnly="['INTERNAL_EVALUATOR']">{{ recordinstance.date_assigned.ie | date }}</span>                 
+                 <span *ngxPermissionsOnly="['EXTERNAL_EVALUATOR']">{{ recordinstance.date_assigned.ee | date }}</span>                 
+                 <span *ngxPermissionsOnly="['SUBJECT_MATTER_EVALUATOR']">{{ recordinstance.date_assigned.sme | date }}</span>             
+               </td>
+              <td *ngxPermissionsOnly="['JUNIOR_OFFICER','INTERNAL_EVALUATOR','EXTERNAL_EVALUATOR','SUBJECT_MATTER_EVALUATOR']">
+                 <span class="text-danger" *ngIf="recordinstance.date_evaluated == 'Pending'">Pending</span>
+                 <span *ngIf="recordinstance.date_evaluated !== 'Pending'">{{ recordinstance.date_evaluated | date }}</span>                 
+               </td>             
+             
+              <td *ngxPermissionsOnly="['LEAD_INNOVATION_MANAGER','LEAD_INTERNAL_EVALUATOR','CHIEF_EVALUATOR','LEAD_SUBJECT_MATTER_EVALUATOR']">
+                <button type="button" class="btn btn-success  btn-sm" (click)="view_records(recordinstance.id)">Reports</button>   
+                <span *ngIf="pending_report">
+                  <button type="button" class="btn btn-danger  btn-sm " (click)="complete_pending_report(recordinstance.id)"
+                  *ngxPermissionsOnly="['LEAD_INTERNAL_EVALUATOR','LEAD_INNOVATION_MANAGER']">
+                  Remove
+                  </button>   
+                </span>             
+                             
+              </td>
+  
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="12" *ngIf="records?.length">
+                Select Records in a page : <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+          <tbody *ngIf="records?.length == 0">
+            <tr>
+              <td colspan="9" class="no-data-available">No records to show</td>
+            </tr>
+          <tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  

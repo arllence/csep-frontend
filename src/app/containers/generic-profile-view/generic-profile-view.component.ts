@@ -30,7 +30,11 @@ export class GenericProfileViewComponent implements OnInit {
       public loadingService: LoadingService,
       public administrationService: AdministrationService,
       public authenticationService: AuthenticationService, private route: ActivatedRoute) {
-        this.candidate_id = this.route.snapshot.paramMap.get('candidate_id');
+        this.candidate_id = this.route.snapshot.paramMap.get('id');
+        console.log(this.candidate_id);
+        if(this.candidate_id){
+          this.get_complete_profile();
+        }
   }
 
   get_complete_profile(){

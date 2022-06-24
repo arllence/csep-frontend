@@ -30,7 +30,28 @@
                      <tbody *ngIf="my_positions?.length !== 0">
                         <tr>
                            <td>{{my_positions.position?.name}}</td>
-                           <td>{{my_positions.application_status}}</td>
+                           <td>
+                              <div *ngIf="my_positions?.application_status == 'REJECTED'">
+                                 <span class="badge badge-danger">
+                                    REJECTED
+                                 </span>
+                               </div>
+                               <div *ngIf="my_positions?.application_status == 'DELETED'">
+                                 <span class="badge badge-danger">
+                                    DELETED
+                                 </span>
+                               </div>
+                               <div *ngIf="my_positions?.application_status == 'APPROVED'">
+                                 <span class="badge badge-success">
+                                    APPROVED
+                                   </span>
+                               </div>
+                               <div *ngIf="my_positions?.application_status == 'PENDING'">
+                                 <span class="badge badge-info">
+                                    PENDING
+                                   </span>
+                               </div>
+                           </td>
                            <td>
                               {{my_positions?.date_created | date}}
                            </td>

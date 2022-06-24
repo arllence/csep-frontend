@@ -114,23 +114,24 @@ export class PositionViewComponent implements OnInit {
       "candidate_id":candidate_id,
       "action":action
     }
-      this.sweetalertService.showConfirmation('Confirmation',
-      'Do you wish to proceed with this Action?').then((res) => {
-        if (res) {
-          this.loadingService.showloading();
-          this.administrationService.postrecord(approve_candidate_position_url, payload).subscribe((res) => {
-            if (res) {
-              this.get_candidates();
-              this.loadingService.hideloading();
-              this.toastService.showToastNotification('success', 'Action Successful', ''); 
-            } 
-          });
-        }
-      });
-    } 
+    this.sweetalertService.showConfirmation('Confirmation',
+    'Do you wish to proceed with this Action?').then((res) => {
+      if (res) {
+        this.loadingService.showloading();
+        this.administrationService.postrecord(approve_candidate_position_url, payload).subscribe((res) => {
+          if (res) {
+            this.get_candidates();
+            this.loadingService.hideloading();
+            this.toastService.showToastNotification('success', 'Action Successful', ''); 
+          } 
+        });
+      }
+    });
+  } 
 
-
-  
+  view_applicant(candidate_id){
+    this.router.navigate(['candidate-profile', candidate_id]);
+  }  
 
   
 

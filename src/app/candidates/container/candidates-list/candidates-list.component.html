@@ -1,0 +1,20 @@
+<section class="content pr-3 pl-3">
+   <div class="row">
+       <div class="col-lg-12">
+          <div class="card ">
+               <div class="card-body">
+                  <div class="card" style="width: 18rem; border: 1px solid;" *ngFor="let candidate of candidates">
+                     <img class="card-img-top" src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="Card image cap" height="100vh">
+                     <div class="card-body">
+                        <h6 class="card-title m-0 p-0">{{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}</h6>
+                        <p class="m-0 p-0">{{candidate?.position?.name}}</p>
+                        <button  class="btn btn-link m-0 p-0" (click)="view_applicant(candidate?.candidate?.id)">View Profile</button>
+                     </div>
+                  </div>
+               </div>
+          </div>
+       </div>
+   </div>
+</section>
+ 
+

@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { EvaluationNotesComponent } from '../container/notes/notes.component';
+import { CandidatesListComponent } from '../container/candidates-list/candidates-list.component';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module';
 import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-nested-form.module';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
-import { NotesRoutingModule } from './notes-routing.module';
+import { CandidatesListRoutingModule } from './candidates-list-routing.module';
 
 import { TagInputModule } from 'ngx-chips';
 import { QuillModule } from 'ngx-quill'
@@ -18,7 +18,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
 
 @NgModule({
   declarations: [
-    EvaluationNotesComponent, 
+    CandidatesListComponent, 
   ],
 
   imports: [
@@ -29,7 +29,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     DynamicFormModule,
     DynamicNestedFormModule,
     ReactiveFormsModule,
-    NotesRoutingModule,
+    CandidatesListRoutingModule,
 
     TagInputModule,
     QuillModule,
@@ -38,5 +38,5 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     AccordionModule
   ]
 })
-export class NotesModule { }
+export class CandidatesListModule { }
 

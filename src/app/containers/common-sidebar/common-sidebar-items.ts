@@ -99,10 +99,10 @@ export const navItems: INavData[] = [
     ]
   },
   {
-    name: 'Notes',
-    url: '/notes/list',
-    icon: 'fa fa-book',
-    permission: ['JUNIOR_OFFICER','INTERNAL_EVALUATOR','INNOVATION_MANAGER','LEAD_INNOVATION_MANAGER','SUBJECT_MATTER_EVALUATOR', 'EXTERNAL_EVALUATOR','CHIEF_EVALUATOR'],
+    name: 'Candidates',
+    url: '/candidates/list',
+    icon: 'fa fa-users',
+    // permission: [''],
   },
   {
     name: 'Assignments',
@@ -133,7 +133,7 @@ export const navItems: INavData[] = [
   {
     name: 'User Management',
     url: '/administration/staff-registration',
-    icon: 'fa fa-users',
+    icon: 'fa fa-user',
     permission: ['USER_MANAGER', 'TEAM_LEADER', ],
     children: [
       {

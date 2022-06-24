@@ -32,7 +32,28 @@
                            <td>{{candidate?.candidate?.first_name}} {{candidate.candidate?.last_name}}</td>
                            <td>{{candidate?.candidate?.registration_no}}</td>
                            <td>{{candidate?.position?.name}}</td>
-                           <td>{{candidate?.application_status}}</td>
+                           <td>
+                              <div *ngIf="candidate?.application_status == 'REJECTED'">
+                                 <span class="badge badge-danger">
+                                    REJECTED
+                                 </span>
+                               </div>
+                               <div *ngIf="candidate?.application_status == 'DELETED'">
+                                 <span class="badge badge-danger">
+                                    DELETED
+                                 </span>
+                               </div>
+                               <div *ngIf="candidate?.application_status == 'APPROVED'">
+                                 <span class="badge badge-success">
+                                    APPROVED
+                                   </span>
+                               </div>
+                               <div *ngIf="candidate?.application_status == 'PENDING'">
+                                 <span class="badge badge-info">
+                                    PENDING
+                                   </span>
+                               </div>
+                           </td>
                            <td>
                               {{candidate?.date_created | date}}
                            </td>

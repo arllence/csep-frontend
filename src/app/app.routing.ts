@@ -57,7 +57,7 @@ export const routes: Routes = [
         canActivate: [AuthenticationGuard,VerifyEmailGuard]
       },
       {
-        path: 'candidate-profile',
+        path: 'candidate-profile/:id',
         component: GenericProfileViewComponent,
         data: {
           title: 'Candidate Profile Details'
@@ -80,6 +80,13 @@ export const routes: Routes = [
         path: 'candidate',
         loadChildren:
         () => import('./positions/module/positions.module').then(m => m.PositionsModule),
+        canActivate: [AuthenticationGuard,VerifyEmailGuard],
+        // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
+      },
+      {
+        path: 'candidates',
+        loadChildren:
+        () => import('./candidates/module/candidates-list.module').then(m => m.CandidatesListModule),
         canActivate: [AuthenticationGuard,VerifyEmailGuard],
         // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
       },
@@ -111,13 +118,7 @@ export const routes: Routes = [
         canActivate: [AuthenticationGuard,VerifyEmailGuard],
         // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
       },
-      {
-        path: 'notes',
-        loadChildren:
-        () => import('./notes/module/notes.module').then(m => m.NotesModule),
-        canActivate: [AuthenticationGuard,VerifyEmailGuard],
-        // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
-      },
+      
       {
         path: 'analytics',
         loadChildren:

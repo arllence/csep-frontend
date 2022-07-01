@@ -69,6 +69,7 @@ export class HomePageComponent implements OnInit {
         formData.append('post', payload['post']);
         this.administrationService.postrecord(create_post_url, formData).subscribe((res) => {
           if (res) {
+            this.get_posts();
             this.toastService.showToastNotification('success', 'Post Shared!', '');
           } 
         });
@@ -87,6 +88,7 @@ export class HomePageComponent implements OnInit {
       console.log(this.PostForm.value);
     }
   }
+
   save_comment(post_id: string){
     this.CommentForm.patchValue({"post": post_id});
     this.loadingService.showloading();
@@ -160,20 +162,6 @@ export class HomePageComponent implements OnInit {
     this.router.navigate(['candidate-profile', candidate_id]);
   } 
 
-  assigned(){
-    this.router.navigate(['/startup/innovations']);
-  }
-
-  submissions_slug(action){
-    this.router.navigate(['/reports/submissions', action]);
-  }
-  
-  myInnocationsClick(){
-    this.router.navigate(['dashboard/innovations']);
-  }
-  // routeToInnovations(){
-  //   this.router.navigate(['startup/innovations']);
-  // }
 
   check_completed_profile(){
     const payload = {
@@ -211,42 +199,7 @@ export class HomePageComponent implements OnInit {
     })
   }
 
-  get_general_counts(){
-    const payload = {
-
-    }
-    this.administrationService.getrecords(general_counts_url,payload).subscribe((res) => {
-      if(res) {
-        // console.log(res);
-        this.general_counts = res;
-      }
-    })
-  }
-
-  get_junior_counts(){
-    const payload = {
-
-    }
-    this.administrationService.getrecords(junior_counts_url,payload).subscribe((res) => {
-      if(res) {
-        console.log(res);
-        this.junior_counts = res;
-      }
-    })
-  }
-
-
-  create_innovation(){
-    this.router.navigate(['/profile/add-innovation']);
-  }
-  review_completed(id,status){
-    this.administrationService.set_innovation_id(id);
-    this.administrationService.set_innovation_status(status);
-    this.router.navigate(['/profile/add-innovation']);
-  }
-  check_my_innovations(){
-    this.router.navigate(['/dashboard/innovations']);
-  }
+ 
   fetch_notices(){
     // let payload = {};
     // this.loadingService.showloading();

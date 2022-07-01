@@ -1,16 +1,48 @@
+<style>
+   figure {
+      box-sizing: border-box;
+      margin: 0 0 1rem;
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+      width: 100%;
+   }
+   img {
+      border-radius: 100%;
+      height: auto;
+      max-width: 100%;
+      vertical-align: middle;
+      border-style: none;
+      box-sizing: border-box;
+   }
+</style>
+
+
 <section class="content pr-3 pl-3">
    <div class="row">
        <div class="col-lg-12">
           <div class="card ">
                <div class="card-body">
-                  <div class="card" style="width: 18rem; border: 1px solid;" *ngFor="let candidate of candidates">
-                     <img class="card-img-top" src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="Card image cap" height="100vh">
-                     <div class="card-body">
-                        <h6 class="card-title m-0 p-0">{{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}</h6>
-                        <p class="m-0 p-0">{{candidate?.position?.name}}</p>
-                        <button  class="btn btn-link m-0 p-0" (click)="view_applicant(candidate?.candidate?.id)">View Profile</button>
-                     </div>
+                  <div class="card " style="width: 15rem; border: 3px solid #1769ff ;" *ngFor="let candidate of candidates">
+                     <table class="tble">
+                        <tr>
+                           <td style="width:40%" class="bg-behance">
+                              <figure >
+                                 <img class="card-img-top text-center" src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="Card image cap" height="100vh">
+                              </figure>
+                           </td>
+                           <td style="width:60%" class="text-right">
+                              <p class=" m-0 pb-0 pr-1">{{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}</p>
+                              <p class="m-0 pb-0 pr-1 text-capitalize text-info font-weight-bold">{{candidate?.position?.name}}</p>
+                              <button  class="btn btn-link m-0 pb-0 pr-1" (click)="view_applicant(candidate?.candidate?.id)">View Profile</button>
+                           </td>
+                        </tr>
+                     </table>
+                     
                   </div>
+                  <!-- <figure >
+                     <img  loading="lazy" src="http://127.0.0.1:8000/media/profile_images/nar.jpg">
+                  </figure> -->
                </div>
           </div>
        </div>

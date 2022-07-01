@@ -31,6 +31,8 @@ export let create_hobby_url = serverurl + API_VERSION + 'account-management/crea
 export let delete_hobby_url = serverurl + API_VERSION + 'account-management/delete-hobby';
 export let get_hobbies_url = serverurl + API_VERSION + 'account-management/get-hobbies';
 
+export let get_profile_picture_url = serverurl + API_VERSION + 'account-management/get-profile-picture';
+
 export let check_completed_profile = serverurl + API_VERSION + 'account-management/check-completed-profile';
 export let get_complete_profile = serverurl + API_VERSION + 'account-management/user-profile';
 export let upload_document_url = serverurl + API_VERSION + 'account-management/upload-document';
@@ -44,6 +46,16 @@ export let fetch_candidate_positions_url = serverurl + API_VERSION + 'voting/fet
 export let fetch_candidate_position_url = serverurl + API_VERSION + 'voting/fetch-candidate-position';
 export let delete_candidate_position_url = serverurl + API_VERSION + 'voting/delete-candidate-position';
 export let approve_candidate_position_url = serverurl + API_VERSION + 'voting/approve-candidate-position';
+
+export let create_post_url = serverurl + API_VERSION + 'voting/create-post';
+export let create_comment_url = serverurl + API_VERSION + 'voting/create-comment';
+export let create_comment_child_url = serverurl + API_VERSION + 'voting/create-comment-child';
+export let delete_post_url = serverurl + API_VERSION + 'voting/delete-post';
+export let delete_comment_url = serverurl + API_VERSION + 'voting/delete-comment';
+export let delete_comment_child_url = serverurl + API_VERSION + 'voting/delete-comment-child';
+export let fetch_posts_url = serverurl + API_VERSION + 'voting/fetch-posts';
+export let create_like_url = serverurl + API_VERSION + 'voting/create-like';
+export let create_seen_url = serverurl + API_VERSION + 'voting/create-seen';
 
 
 

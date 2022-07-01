@@ -24,7 +24,7 @@ export class CommonHeaderComponent {
   }
   ngAfterViewInit(){
     this.remove();
-    this.fetchNotifications()
+    // this.fetchNotifications()
   }
   remove(){
     let button2 = document.getElementsByClassName('navbar-toggler');

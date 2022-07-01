@@ -3,14 +3,14 @@
       <div class="central-meta new-pst">
          <div class="new-postbox">
             <figure>
-               <img src="images/resources/admin2.jpg" alt="">
+               <img src={{serverurl}}{{profile_picture?.profile_picture}} alt="">
             </figure>
             <div class="newpst-input">
-               <form method="post">
-                  <textarea rows="2" placeholder="write something"></textarea>
+               <form [formGroup]="PostForm" enctype="multipart/form-data" (ngSubmit)="save_post()">
+                  <textarea rows="2" placeholder="write something" formControlName="post"></textarea>
                   <div class="attachments">
                      <ul>
-                        <li>
+                        <!-- <li>
                            <i class="fa fa-music"></i>
                            <label class="fileContainer">
                               <input type="file">
@@ -27,11 +27,11 @@
                            <label class="fileContainer">
                               <input type="file">
                            </label>
-                        </li>
+                        </li> -->
                         <li>
                            <i class="fa fa-camera"></i>
                            <label class="fileContainer">
-                              <input type="file">
+                              <input type="file" (change)="handleFileupload($event)">
                            </label>
                         </li>
                         <li>
@@ -44,6 +44,176 @@
          </div>
       </div><!-- add post new box -->
       <!-- <div class="loadMore"> -->
+      <div class="central-meta item" *ngFor="let post of posts">
+         <div class="user-post">
+            <div class="friend-info">
+               <figure>
+                  <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} loading="lazy" alt="">
+               </figure>
+               <div class="friend-name">
+                  <ins><span class="btn-link" style="text-decoration: none;font-weight: 500; font-size: 14.5px;"><b>{{post?.candidate?.first_name}} {{post?.candidate?.last_name}}</b></span></ins>
+                  <span>published: {{post?.date_created | date}}</span>
+               </div>
+               <div class="post-meta">
+                  <img src="{{serverurl}}{{post?.post_image?.image}}" alt="">
+                  <div class="we-video-info">
+                     <ul>
+                        <li>
+                           <span class="views" data-toggle="tooltip" title="views">
+                              <i class="fa fa-eye"></i>
+                              <ins>{{post?.post_seen}}</ins>
+                           </span>
+                        </li>
+                        <li>
+                           <span class="like" data-toggle="tooltip" title="like" (click)="like_post(post?.id)">
+                              <i class="fa fa-heart" *ngIf="post?.have_liked"></i><i class="fa fa-heart-o" *ngIf="!post?.have_liked"></i>
+                              <ins>{{post?.post_likes}}</ins>
+                           </span>
+                        </li>
+                        <li>
+                           <span class="comment" data-toggle="tooltip" title="Comments">
+                              <i class="fa fa-comments-o"></i>
+                              <ins>{{post?.post_comments?.length}}</ins>
+                           </span>
+                        </li>
+                        
+                        <!-- <li>
+                           <span class="dislike" data-toggle="tooltip" title="dislike">
+                              <i class="ti-heart-broken"></i>
+                              <ins>200</ins>
+                           </span>
+                        </li> -->
+                        <li class="social-media">
+                           <div class="menu">
+                           <div class="btn trigger"><i class="fa fa-share-alt"></i></div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-html5"></i></a></div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-facebook"></i></a></div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-google-plus"></i></a></div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-twitter"></i></a></div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-css3"></i></a></div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-instagram"></i></a>
+                              </div>
+                           </div>
+                              <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-dribbble"></i></a>
+                              </div>
+                           </div>
+                           <div class="rotater">
+                              <div class="btn btn-icon"><a href="#" title=""><i class="fa fa-pinterest"></i></a>
+                              </div>
+                           </div>
+
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="description">
+                     
+                     <p>
+                        {{post?.post}}
+                     </p>
+                  </div>
+               </div>
+            </div>
+            <div class="coment-area">
+               <ul class="we-comet">
+                  <li *ngFor="let comment of post?.post_comments">
+                     <div class="comet-avatar">
+                        <img src={{serverurl}}{{comment?.profile_picture?.profile_picture}} alt="">
+                     </div>
+                     <div class="we-comment">
+                        <div class="coment-head">
+                           <h5><a href="time-line.html" title="">{{comment?.commentor?.first_name}} {{comment?.commentor?.last_name}}</a></h5>
+                           <span>{{comment?.date_created | date}}</span>
+                           <span class="we-reply btn-link text-primary"  title="Reply"><i class="fa fa-reply" (click)="replyBox(comment?.id)"></i></span>
+                        </div>
+                        <p>{{comment?.comment}}</p>
+                        <div class="post-comt-box pt-2" *ngIf="reply_box_id == comment.id">
+                           <form [formGroup]="CommentForm" (ngSubmit)="save_comment_child()">
+                              <textarea placeholder="Post reply..." formControlName="comment" (keyup.enter)="save_comment_child()" ></textarea>
+                              <div class="add-smiles">
+                                 <span class="em em-expressionless" title="add icon"></span>
+                              </div>
+                              <div class="smiles-bunch">
+                                 <i class="em em---1"></i>
+                                 <i class="em em-smiley"></i>
+                                 <i class="em em-anguished"></i>
+                                 <i class="em em-laughing"></i>
+                                 <i class="em em-angry"></i>
+                                 <i class="em em-astonished"></i>
+                                 <i class="em em-blush"></i>
+                                 <i class="em em-disappointed"></i>
+                                 <i class="em em-worried"></i>
+                                 <i class="em em-kissing_heart"></i>
+                                 <i class="em em-rage"></i>
+                                 <i class="em em-stuck_out_tongue"></i>
+                              </div>
+                              <button type="submit"></button>
+                           </form>	
+                        </div>
+                     </div>
+                     <ul>
+                        <li *ngFor="let child of comment?.children">
+                           <div class="comet-avatar">
+                              <img src={{serverurl}}{{child?.profile_picture?.profile_picture}} alt="">
+                           </div>
+                           <div class="we-comment">
+                              <div class="coment-head">
+                                 <h5><a href="time-line.html" title="">{{child?.commentor?.first_name}} {{child?.commentor?.last_name}}</a></h5>
+                                 <span>{{child?.date_created | date}}</span>
+                                 <!-- <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a> -->
+                              </div>
+                              <p>{{child?.child}}</p>
+                           </div>
+                        </li>
+                     </ul>
+                  </li>
+                  <li>
+                     <a href="#" title="" class="showmore underline">more comments</a>
+                  </li>
+                  <li class="post-comment">
+                     <div class="comet-avatar">
+                        <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} alt="">
+                     </div>
+                     <div class="post-comt-box">
+                        <form [formGroup]="CommentForm" (ngSubmit)="save_comment()">
+                           <textarea placeholder="Post your comment" formControlName="comment" (keyup.enter)="save_comment(post?.id)" #commentbox></textarea>
+                           <div class="add-smiles">
+                              <span class="em em-expressionless" title="add icon"></span>
+                           </div>
+                           <div class="smiles-bunch">
+                              <i class="em em---1"></i>
+                              <i class="em em-smiley"></i>
+                              <i class="em em-anguished"></i>
+                              <i class="em em-laughing"></i>
+                              <i class="em em-angry"></i>
+                              <i class="em em-astonished"></i>
+                              <i class="em em-blush"></i>
+                              <i class="em em-disappointed"></i>
+                              <i class="em em-worried"></i>
+                              <i class="em em-kissing_heart"></i>
+                              <i class="em em-rage"></i>
+                              <i class="em em-stuck_out_tongue"></i>
+                           </div>
+                           <button type="submit"></button>
+                        </form>	
+                     </div>
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
       <div class="central-meta item">
          <div class="user-post">
             <div class="friend-info">

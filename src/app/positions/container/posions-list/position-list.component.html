@@ -11,7 +11,7 @@
                         Print/Export
                     </button>
 
-                    <button class="btn btn-success btn-sm text-white float-right col-2 ml-1 mr-1" (click)="CreatePositionModal.show()">
+                    <button class="btn btn-success btn-sm text-white float-right col-2 ml-1 mr-1" (click)="CreatePositionModal.show()" *ngIf="my_positions?.length == 0">
                         Apply
                     </button>
                </h5>

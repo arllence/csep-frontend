@@ -42,27 +42,27 @@
                            <td class="inTable">
                               <!-- <input type="radio" class="form-control" formControlName="" > -->
                               <table style="border:0px !important" class="candidates-table">
-                                 <tr>
+                                 <!-- <tr>
                                     <th width="20%">Picture</th>
                                     <th width="20%">Name</th>
                                     <th width="20%">Select</th>
-                                 </tr>
+                                 </tr> -->
                                  <!-- <div class="form-check" > -->
                                     <tr *ngFor="let candidate of position?.candidates;">
-                                       <td>
+                                       <td width="20%">
                                           <span class="profile_picture">
-                                             <figure style="width: 20% !important">
+                                             <figure style="width: 15% !important">
                                                 <img src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="">
                                              </figure>
                                           </span>   
                                        </td>
-                                       <td>
+                                       <td width="20%">
                                           <!-- <label class="form-check-label" for="{{candidate?.candidate?.id}}">                                                                      -->
                                              {{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}
                                           <!-- </label> -->
                                        </td>
-                                       <td>
-                                          <input class="form-contro" type="radio" value="{{candidate?.candidate?.id}}" id="{{candidate?.candidate?.id}}" (change)="handle_vote(position?.position, candidate?.candidate?.id)">
+                                       <td width="20%">
+                                          <input class="form-contro" type="radio" name="{{position?.position}}" value="{{candidate?.candidate?.id}}" id="{{candidate?.candidate?.id}}" (change)="handle_vote(position?.position, candidate?.candidate?.id)">
                                        </td>
                                     </tr>                                 
                                  <!-- </div> -->

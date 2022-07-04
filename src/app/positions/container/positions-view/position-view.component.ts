@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SweetalertService } from '../../../common-module/shared-service/sweetalerts.service';
 import { ToastService } from '../../../common-module/shared-service/toast.service';
 import { LoadingService } from '../../../common-module/shared-service/loading.service';
-import { approve_candidate_position_url, create_candidate_position_url, delete_candidate_position_url, fetch_candidate_positions_url, fetch_candidate_position_url, fetch_positions_url, serverurl, } from '../../../app.constants';
+import { approve_candidate_position_url, create_candidate_position_url, delete_candidate_position_url, fetch_all_candidate_positions_url, fetch_candidate_positions_url, fetch_candidate_position_url, fetch_positions_url, serverurl, } from '../../../app.constants';
 import { AuthenticationService } from '../../../authentication/services/authentication.service';
 import { AdministrationService } from '../../../administration/services/administration.service';
 import { subscribeToIterable } from 'rxjs/internal-compatibility';
@@ -74,7 +74,7 @@ export class PositionViewComponent implements OnInit {
   get_candidates(){
     const payload = { }
     this.loadingService.showloading();
-    this.administrationService.getrecords(fetch_candidate_positions_url,payload).subscribe((res) => {
+    this.administrationService.getrecords(fetch_all_candidate_positions_url,payload).subscribe((res) => {
       if(res) {
         console.log(res);        
         this.candidates = res;      

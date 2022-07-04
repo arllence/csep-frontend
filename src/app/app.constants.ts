@@ -43,6 +43,7 @@ export let upload_document_url = serverurl + API_VERSION + 'account-management/u
 export let fetch_positions_url = serverurl + API_VERSION + 'voting/fetch-positions';
 export let create_candidate_position_url = serverurl + API_VERSION + 'voting/create-candidate-position';
 export let fetch_candidate_positions_url = serverurl + API_VERSION + 'voting/fetch-candidate-positions';
+export let fetch_all_candidate_positions_url = serverurl + API_VERSION + 'voting/fetch-all-candidate-positions';
 export let fetch_candidate_position_url = serverurl + API_VERSION + 'voting/fetch-candidate-position';
 export let delete_candidate_position_url = serverurl + API_VERSION + 'voting/delete-candidate-position';
 export let approve_candidate_position_url = serverurl + API_VERSION + 'voting/approve-candidate-position';

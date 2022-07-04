@@ -51,7 +51,7 @@
                   <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} loading="lazy" alt="">
                </figure>
                <div class="friend-name">
-                  <ins><span class="btn-link" style="text-decoration: none;font-weight: 500; font-size: 14.5px;"><b>{{post?.candidate?.first_name}} {{post?.candidate?.last_name}}</b></span></ins>
+                  <ins><span class="btn-link" style="text-decoration: none;font-weight: 500; font-size: 14.5px;" (click)="view_candidate(post?.candidate?.id)"><b>{{post?.candidate?.first_name}} {{post?.candidate?.last_name}}</b></span></ins>
                   <span>published: {{post?.date_created | date}}</span>
                </div>
                <div class="post-meta">
@@ -134,7 +134,7 @@
                      </div>
                      <div class="we-comment">
                         <div class="coment-head">
-                           <h5><a href="time-line.html" title="">{{comment?.commentor?.first_name}} {{comment?.commentor?.last_name}}</a></h5>
+                           <h5><span class="btn-link" >{{comment?.commentor?.first_name}} {{comment?.commentor?.last_name}}</span></h5>
                            <span>{{comment?.date_created | date}}</span>
                            <span class="we-reply btn-link text-primary"  title="Reply"><i class="fa fa-reply" (click)="replyBox(comment?.id)"></i></span>
                         </div>
@@ -170,7 +170,7 @@
                            </div>
                            <div class="we-comment">
                               <div class="coment-head">
-                                 <h5><a href="time-line.html" title="">{{child?.commentor?.first_name}} {{child?.commentor?.last_name}}</a></h5>
+                                 <h5><span  class="btn-link">{{child?.commentor?.first_name}} {{child?.commentor?.last_name}}</span></h5>
                                  <span>{{child?.date_created | date}}</span>
                                  <!-- <a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a> -->
                               </div>

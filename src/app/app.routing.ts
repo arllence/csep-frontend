@@ -112,9 +112,9 @@ export const routes: Routes = [
         // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
       },
       {
-        path: 'my-assignments',
+        path: 'voting',
         loadChildren:
-        () => import('./my-assignments/module/my-assignments.module').then(m => m.MyAssignmentModule),
+        () => import('./voting/module/voting.module').then(m => m.VotingModule),
         canActivate: [AuthenticationGuard,VerifyEmailGuard],
         // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
       },

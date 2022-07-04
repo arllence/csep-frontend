@@ -51,6 +51,7 @@ export class HomePageComponent implements OnInit {
     // this.get_my_innovations();
     // this.get_general_counts();
     // this.get_junior_counts();
+
     this.check_completed_profile();    
   }
 

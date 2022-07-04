@@ -105,24 +105,10 @@ export const navItems: INavData[] = [
     // permission: [''],
   },
   {
-    name: 'Assignments',
-    url: '',
-    icon: 'fa fa-file-o',
-    permission: ['INNOVATOR','LEAD_INTERNAL_EVALUATOR'],
-    children: [
-      {
-        name: 'My Assignments',
-        url: '/my-assignments/list',
-        icon: 'fa fa-angle-double-right',
-        permission: ['INNOVATOR']
-      },
-      {
-        name: 'Assignments List',
-        url: '/assignments/list',
-        icon: 'fa fa-angle-double-right',
-        permission: ['EVALUATOR', 'LEAD_INNOVATION_MANAGER', 'LEAD_INTERNAL_EVALUATOR','CHIEF_EVALUATOR']
-      }
-    ]
+    name: 'Vote',
+    url: '/voting/vote',
+    icon: 'fa fa-id-card-o',
+    permission: ['VOTER','CANDIDATE'],
   },
   // {
   //   name: 'Analytics',

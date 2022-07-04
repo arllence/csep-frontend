@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { MyAssignmentsComponent } from '../container/my-assignments/my-assignments.component';
+import { VoteComponent } from '../container/vote/vote.component';
 
 import { NgxPermissionsGuard } from 'ngx-permissions';
 import { AuthenticationGuard } from '../../authentication/guards/authguard.guard';
 import { ChangePasswordGuard } from '../../authentication/guards/change-password.guard';
 // import { InnovationProfileComponent } from '../container/innovation-profile/innovation-profile.component';
-import { VerifyEmailGuard } from '../../authentication/guards/verify-email.guard';
 const routes: Routes = [
 
  
   
   {
-    path: 'list',
-    component: MyAssignmentsComponent,
+    path: 'vote',
+    component: VoteComponent,
     data: {
-      title: 'My Assignments',
+      title: 'Voting',
       permissions: {
-        only: ['INNOVATOR'],
+        only: ['VOTER','CANDIDATE'],
         redirectTo: '/500'
       }
     },
@@ -31,4 +30,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MyAssignmentModuleRoutingModule { }
+export class VotingModuleRoutingModule { }

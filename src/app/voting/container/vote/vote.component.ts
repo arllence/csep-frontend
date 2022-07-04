@@ -4,18 +4,18 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SweetalertService } from '../../../common-module/shared-service/sweetalerts.service';
 import { ToastService } from '../../../common-module/shared-service/toast.service';
 import { LoadingService } from '../../../common-module/shared-service/loading.service';
-import { serverurl, delete_assignment_url,get_innovations_url, create_assignment_url, get_innovator_assignments_url, create_assignment_response_url } from '../../../app.constants';
+import { serverurl, delete_assignment_url, create_assignment_response_url, fetch_candidates_url } from '../../../app.constants';
 import { AuthenticationService } from '../../../authentication/services/authentication.service';
 import { AdministrationService } from '../../../administration/services/administration.service';
 import { subscribeToIterable } from 'rxjs/internal-compatibility';
 import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 // import { NgxTagsInputModule } from 'ngx-tags-input';
 @Component({
-  selector: 'app-my-assignments',
-  templateUrl: './my-assignments.component.html',
-  styleUrls: ['./my-assignments.component.css']
+  selector: 'app-vote',
+  templateUrl: './vote.component.html',
+  styleUrls: ['./vote.component.css']
 })
-export class MyAssignmentsComponent implements OnInit {
+export class VoteComponent implements OnInit {
   AddAssignmentsForm: FormGroup;
   submitAssignmentsForm: FormGroup;
   assignments = [];
@@ -25,6 +25,10 @@ export class MyAssignmentsComponent implements OnInit {
   fileData: File;
   file_url = '';
   formData  =  new FormData();
+
+  candidates: any;
+  serverurl = serverurl
+  positions = []
  
   
   constructor(private formBuilder: FormBuilder,
@@ -48,38 +52,41 @@ export class MyAssignmentsComponent implements OnInit {
           assignment_id: new FormControl('', Validators.compose([Validators.required]))
         });
      
-        this.get_assignments();
+        this.get_candidates();
 
   }
 
-  handleFileupload(e) {
-    this.fileData = e.target.files[0];
-    console.log(this.fileData)
-    this.formData.append('document', this.fileData);
-    // const formData  =  new FormData();
-    // formData.append('document', this.fileData);
-  }
   
-  set_assignment_id(assignment_id){
-    this.submitAssignmentsForm.patchValue({"assignment_id":assignment_id})
-  }
- 
 
-
-
-  reset_form(){
-    this.file_url = '';
-    this.AddAssignmentsForm.reset();
-    this.submitAssignmentsForm.reset();
+  extract_positions(res){
+    for (let item of res) {
+      // let pos = {};
+      // pos[item.position] = ""
+      this.positions.push({"position": item.position, "candidate": ""})
+    }
   }
 
-  get_assignments(){
+  get_candidates(){
     const payload = { }
-    this.administrationService.getrecords(get_innovator_assignments_url,payload).subscribe((res) => {
-      if(res && res.length > 0) {
-        this.assignments = res;
+    this.administrationService.getrecords(fetch_candidates_url,payload).subscribe((res) => {
+      if(res) {
+        console.log(res);
+        this.extract_positions(res)
+        this.candidates = res;
       }
     })
+  }
+
+  handle_vote(position, candidate_id){
+    for (let item of this.positions){
+      if (item.position == position){
+        item.candidate = candidate_id
+      }
+    }
+  }
+
+  submit_vote(){
+    console.log(this.positions)
   }
 
 
@@ -93,7 +100,7 @@ export class MyAssignmentsComponent implements OnInit {
       this.administrationService.postrecord(create_assignment_response_url, this.formData).subscribe((res) => {
         if (res) {
           console.log(res);
-          this.get_assignments();
+          // this.get_assignments();
           this.toastService.showToastNotification('success', 'Assignment Response Submitted Successfully', '');
           this.submitAssignmentsForm.reset();  
         } 
@@ -132,7 +139,7 @@ export class MyAssignmentsComponent implements OnInit {
     this.loadingService.showloading();
     this.administrationService.postrecord(delete_assignment_url, payload).subscribe((res) => {
       if (res) {
-        this.get_assignments();
+        // this.get_assignments();
         this.toastService.showToastNotification('success', 'Assignment Deleted Successfully', '');
       } 
       this.loadingService.hideloading();

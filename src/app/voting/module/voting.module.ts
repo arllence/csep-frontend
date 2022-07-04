@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
-import { MyAssignmentsComponent } from '../container/my-assignments/my-assignments.component';
+import { VoteComponent } from '../container/vote/vote.component';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DynamicFormModule } from '../../dynamic-form/dynamic-form/dynamic-form.module';
 import { DynamicNestedFormModule } from '../../dynamic-nested-form/dynamic-nested-form.module';
 import { SharedModule } from '../../common-module/common-module/common-module.module';
-import { MyAssignmentModuleRoutingModule } from './my-assignments-routing.module';
+import { VotingModuleRoutingModule } from './voting-routing.module';
 // import { InnovationProfileComponent } from '../container/innovation-profile/innovation-profile.component';
 
 import { TagInputModule } from 'ngx-chips';
@@ -20,7 +20,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
 
 @NgModule({
   declarations: [
-    MyAssignmentsComponent,
+    VoteComponent,
   ],
 
   imports: [
@@ -31,7 +31,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     DynamicFormModule,
     DynamicNestedFormModule,
     ReactiveFormsModule,
-    MyAssignmentModuleRoutingModule,
+    VotingModuleRoutingModule,
 
     TagInputModule,
     QuillModule,
@@ -40,5 +40,5 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'
     AccordionModule
   ]
 })
-export class MyAssignmentModule { }
+export class VotingModule { }
 

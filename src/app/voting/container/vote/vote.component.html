@@ -1,12 +1,27 @@
+<style>
+   .inTable table{
+      border: 0px !important;
+   }
+   .inTable table td{
+      border: 0px !important;
+   }
+   .candidates-table th {
+      /* border: 0px !important; */
+      border-top-width: 0px !important;
+      border-left-width: 0px !important;
+      border-right-width: 0px !important;
+      border-bottom-width: 1px !important;
+   }
+</style>
 <section class="content pr-3 pl-3">
   <div class="row">
      <div class="col-lg-12">
         <div class="card ">
-           <div class="card-header bg-success text-white clearfix">
+           <div class="card-header">
               <h5>
                   <span class=" float-left">
-                     <i class="fa fa-files-o" aria-hidden="true"></i>
-                     Assignments
+                     <i class="fa fa-id-card-o" aria-hidden="true"></i> &nbsp;
+                     Vote
                   </span>
                </h5>
            </div>
@@ -16,33 +31,49 @@
                  <table class="wikitable table-bordered width100" id="table">
                     <thead>
                        <tr class="filters">
-                          <th>ID</th>
-                          <th>Innovation</th>
-                          <th>Subject</th>
-                          <th>Deadline</th>
-                          <th>Submitted On</th>
-                          <th>Status</th>
-                          <th>Actions</th>
+                          <th></th>
+                          <th>Position</th>
+                          <th>Candidates</th>
                        </tr>
-                       <tr *ngFor="let assignment of assignments; let i = index">
+                       <tr *ngFor="let position of candidates; let i = index">
+                          <!-- {{position | json}} -->
                            <td>{{i+1}}</td>
-                           <td>{{assignment?.innovation?.details?.innovation_name}}</td>
-                           <td>{{assignment?.title}}</td>
-                           <td>{{assignment?.deadline}}</td>
-                           <td>{{assignment?.date_created | date}}</td>
-                           <td>{{assignment?.assignment_status}}</td>
-                           <td>
-                              <button class="btn btn-sm btn-info m-1" (click)="view_assignment(assignment?.id); set_assignment_id(assignment?.id); addAssignmentModal.show()">View</button>
-                              <button class="btn btn-sm btn-warning m-1" (click)="set_assignment_id(assignment?.id); submitAssignmentModal.show()">Submit</button>
+                           <td>{{position?.position}}</td>
+                           <td class="inTable">
+                              <!-- <input type="radio" class="form-control" formControlName="" > -->
+                              <table style="border:0px !important" class="candidates-table">
+                                 <tr>
+                                    <th width="20%">Picture</th>
+                                    <th width="20%">Name</th>
+                                    <th width="20%">Select</th>
+                                 </tr>
+                                 <!-- <div class="form-check" > -->
+                                    <tr *ngFor="let candidate of position?.candidates;">
+                                       <td>
+                                          <span class="profile_picture">
+                                             <figure style="width: 20% !important">
+                                                <img src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="">
+                                             </figure>
+                                          </span>   
+                                       </td>
+                                       <td>
+                                          <!-- <label class="form-check-label" for="{{candidate?.candidate?.id}}">                                                                      -->
+                                             {{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}
+                                          <!-- </label> -->
+                                       </td>
+                                       <td>
+                                          <input class="form-contro" type="radio" value="{{candidate?.candidate?.id}}" id="{{candidate?.candidate?.id}}" (change)="handle_vote(position?.position, candidate?.candidate?.id)">
+                                       </td>
+                                    </tr>                                 
+                                 <!-- </div> -->
+                              </table>
                            </td>
                        </tr>
                     </thead>
                     <tbody>
                     </tbody>
                  </table>
-                 <div *ngIf="assignments?.length == 0" class="text-danger text-center">
-                     <h6><i class="fa fa-exclamation-circle" aria-hidden="true"></i> No Assignments Found.</h6>
-                </div>
+                 <button class="btn btn-behance" type="submit" (click)="submit_vote()">Vote</button>
               </div>
            </div>
         </div>

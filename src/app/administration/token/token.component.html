@@ -1,0 +1,45 @@
+<style>
+  .btn-success {
+    color: #fff !important;
+    background-color: #198754 !important;
+    border-color: #198754 !important;
+  }
+</style>
+<div class="animated fadeIn">
+  <div class="card">
+  
+    <div class="card-header">
+        Generate Tokens
+    </div>
+    <div class="card-body">
+      <form id="add-note-form" class="form-horizontal" [formGroup]="tokenForm">
+        <div class="form-group row">   
+          <div class="col-sm-12 col-lg-12" *ngIf="!to_user">
+            <label for="" class="block">
+              Generate for?
+              <span class="required-field text-danger">*</span>
+            </label>
+            <ng-select type='select' id="" class="required"
+               formControlName="target" (change)="listener_switcher($event)">
+               <ng-option selected disabled value="">Select Option</ng-option>
+               <ng-option value="all">All Users</ng-option>                       
+               <ng-option value="specific">Specific User</ng-option>                       
+            </ng-select>
+         </div>                 
+            <div class="col-sm-12 col-lg-12" *ngIf="to_user">
+                <label class="control-label" for="token">Registration Number</label>
+                <input type="text" class="form-control required" formControlName="target">                
+            </div>
+        </div> 
+        <div class="col-sm-12 col-lg-12 text-center pt-4">
+           <button type="submit" class="btn btn-behance col-6" (click)="generate_token()">Generate</button>                
+       </div> 
+      </form>
+      <div class="margin-top">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+        <app-common-loader></app-common-loader> -->

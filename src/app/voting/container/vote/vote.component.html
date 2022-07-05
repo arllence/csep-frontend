@@ -15,8 +15,55 @@
 </style>
 <section class="content pr-3 pl-3">
   <div class="row">
-     <div class="col-lg-12">
-        <div class="card ">
+      <div class="col-lg-12" *ngIf="already_voted">
+         <div class="card border-success">
+            <div class="card-header">
+               <h6>
+                   <span class=" float-left text-success">
+                      <i class="fa fa-handshake-o "></i> &nbsp;
+                      Already Voted
+                   </span>
+                </h6>
+            </div>
+            <br />
+            <div class="card-body">
+               <h6 class="text-success">
+                  Congratulations comrade! You have successfully performed one of the greatest duties of a comrade! Viva!
+               </h6>
+            </div>
+         </div>
+      </div>
+     
+     
+     
+     
+      <div class="col-lg-12" *ngIf="!already_voted">
+         <div class="card border-danger" *ngIf="!code_valid">
+            <div class="card-header">
+               <h5>
+                  <span class=" float-left">
+                     <i class="fa fa-lock"></i> &nbsp;
+                     Enter Your Voter Code
+                  </span>
+               </h5>
+            </div>
+            <br />
+            <div class="card-body">
+               <form id="add-note-form" class="form-horizontal" [formGroup]="tokenForm">
+                  <div class="form-group row">                    
+                     <div class="col-sm-12 col-lg-12">
+                        <label class="control-label" for="token">Code</label>
+                        <input type="number" class="form-control required" formControlName="token">                
+                     </div>
+                  </div> 
+                  <div class="col-sm-12 col-lg-12 text-center">
+                     <button type="submit" class="btn btn-behance col-6" (click)="verify_code()">Verify Code</button>                
+               </div> 
+            </form>
+            </div>
+         </div>
+               
+        <div class="card border-success" *ngIf="code_valid">
            <div class="card-header">
               <h5>
                   <span class=" float-left">
@@ -73,7 +120,12 @@
                     <tbody>
                     </tbody>
                  </table>
-                 <button class="btn btn-behance" type="submit" (click)="submit_vote()">Vote</button>
+                 <div class="text-center pt-3">
+                     <button class="btn btn-behance col-6" type="submit" (click)="submit_vote()">
+                        <i class="fa fa-check"></i>
+                        Vote
+                     </button>
+                 </div>
               </div>
            </div>
         </div>
@@ -84,141 +136,8 @@
 
 
 
-<!-- modal -->
-<div bsModal #addAssignmentModal="bs-modal" class="modal fade" >
-   <div class="modal-dialog modal-primary" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i> &nbsp;
-             View Assignment 
-                          
-           </h5>
-         <button type="button" class="close" (click)="addAssignmentModal.hide(); reset_form()" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-       <div class="modal-body container">
-         <form id="add-assignment-form" [formGroup]="AddAssignmentsForm" enctype="multipart/form-data">
-            <div class="form-group row">
-               <div class="col-sm-12">                                    
-                  <label class="control-label" for="title">
-                  Assignment Title
-                  </label>
-               </div>
-               <div class="col-sm-12">                                    
-                  <input type="text" value="" required class="form-control required" formControlName="title" id="title" placeholder="" >
-               </div>
-            </div>
-            <div class="form-group row">
-               <div class="col-sm-12">                                    
-                  <label class="control-label" for="innovation_id">
-                  Innovation Name
-                  </label>
-               </div>
-               <div class="col-sm-12">
-                  <div class="form-group row">                    
-                     <div class="col-sm-12">                                    
-                        <input type="text" value="" required class="form-control required" formControlName="innovation" id="innovation" placeholder="" >
-                     </div>
-                 </div>                 
-               </div>
-            </div>
-            <div class="form-group row">
-               <div class="col-sm-12">                                    
-                  <label class="control-label" for="deadline">
-                  Assignment Due Date
-                  </label>
-               </div>
-               <div class="col-sm-12">
-                  <div class="input-group">
-                     <div class="input-group-append">
-                        <span class="input-group-text">
-                        <i class="livicon" data-name="calendar" data-size="16" data-c="#007cdc" data-hc="#c1272d" data-loop="true"></i>
-                        </span>
-                     </div>
-                     <input class="form-control required" value="" required min="2025-09-15" type="date" formControlName="deadline" placeholder="" >
-                  </div>
-               </div>
-            </div>
-            <div class="form-group row">
-               <div class="col-sm-12">                                    
-                  <label class="control-label" for="file">
-                  Assignment file
-                  </label>
-               </div>
-               <div class="col-sm-12 mb-1">
-                  <p *ngIf="file_url !== ''"><a href="{{file_url}}" >Download Assignment File</a></p>
-                  <p *ngIf="!file_url" class="text-warning">No File Available</p>
-               </div>
-            </div>
-            <div class="form-group row">
-               <div class="col-sm-12">
-                  <label class="control-label" for="description">
-                  Assignment Description
-                  </label>
-               </div>
-               <div class="col-sm-12">
-                  <quill-editor formControlName="description" class="content-editor" [placeholder]="'Type here ...'" > </quill-editor>
-               </div>
-            </div>
-         </form>
-       </div>        
-       <br><br><br><br>
-       <div class="modal-footer ">
-         <button class="btn btn-warning" (click)="addAssignmentModal.hide(); submitAssignmentModal.show()">Submit</button>
-         <button  type="submit"  (click)="addAssignmentModal.hide(); reset_form()" aria-label="Close" class="btn btn-secondary col-md-4 m-1">Close</button>       
-       </div>
-     </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
 
 
 
 
-<!-- modal -->
-<div bsModal #submitAssignmentModal="bs-modal" class="modal fade" >
-   <div class="modal-dialog modal-primary" role="document">
-     <div class="modal-content">
-       <div class="modal-header">
-         <h5 class="modal-title">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i> &nbsp;
-             Submit Assignment                           
-           </h5>
-         <button type="button" class="close" (click)="submitAssignmentModal.hide(); reset_form()" aria-label="Close">
-           <span aria-hidden="true">&times;</span>
-         </button>
-       </div>
-       <div class="modal-body container">
-         <form id="add-assignment-form" [formGroup]="submitAssignmentsForm" enctype="multipart/form-data">
-            <div class="form-group row">
-               <div class="col-sm-12">                                    
-                  <label class="control-label" for="file">
-                  Attach file
-                  </label>
-               </div>
-               <div class="col-sm-12 mb-1">
-                  <input type="file" class="required" id="file" formControlName="file"  (change)="handleFileupload($event)">
-               </div>
-            </div>
-            <div class="form-group row">
-               <div class="col-sm-12">
-                  <label class="control-label" for="description">
-                  Assignment Response
-                  </label>
-               </div>
-               <div class="col-sm-12">
-                  <quill-editor formControlName="response" class="content-editor" [placeholder]="'Type here ...'" > </quill-editor>
-               </div>
-            </div>
-         </form>
-       </div>        
-       <br><br><br><br>
-       <div class="modal-footer ">
-         
-         <button  type="submit"  (click)="add_assignment_response(); submitAssignmentModal.hide(); reset_form()" aria-label="Close" class="btn btn-info col-md-6 m-1">Submit</button>       
-       </div>
-     </div><!-- /.modal-content -->
-   </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

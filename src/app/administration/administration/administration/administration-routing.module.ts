@@ -8,6 +8,7 @@ import { StaffDetailsComponent } from '../../staff-details/staff-details.compone
 import { ChangePasswordGuard } from '../../../authentication/guards/change-password.guard';
 import { AuthenticationGuard } from '../../../authentication/guards/authguard.guard';
 import { NgxPermissionsGuard } from 'ngx-permissions';
+import { TokenComponent } from '../../token/token.component';
 const routes: Routes = [
 
   {
@@ -28,7 +29,7 @@ const routes: Routes = [
     data: {
       title: 'Staff Listing',
       permissions: {
-        only: ['USER_MANAGER', 'TEAM_LEADER','INNOVATOR'],
+        only: ['USER_MANAGER'],
         redirectTo: '/500'
       }
     },
@@ -40,13 +41,24 @@ const routes: Routes = [
     data: {
       title: 'Staff Details',
       permissions: {
-        only: ['USER_MANAGER', 'TEAM_LEADER','INNOVATOR'],
+        only: ['USER_MANAGER'],
         redirectTo: '/500'
       }
     },
     canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
   },
-  
+  {
+    path: 'generate-tokens',
+    component: TokenComponent,
+    data: {
+      title: 'Generate Tokens',
+      permissions: {
+        only: ['USER_MANAGER'],
+        redirectTo: '/500'
+      }
+    },
+    canActivate: [AuthenticationGuard, ChangePasswordGuard, NgxPermissionsGuard],
+  },
 
 
 

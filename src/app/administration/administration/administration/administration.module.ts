@@ -12,6 +12,7 @@ import { SharedModule } from '../../../common-module/common-module/common-module
 
 import { DynamicNestedFormModule } from '../../../dynamic-nested-form/dynamic-nested-form.module';
 import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-form.module';
+import { TokenComponent } from '../../token/token.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { DynamicFormModule } from '../../../dynamic-form/dynamic-form/dynamic-fo
     StaffregistrationComponent,
     StafflistingComponent,
     StaffDetailsComponent,
+    TokenComponent,
 
 
 

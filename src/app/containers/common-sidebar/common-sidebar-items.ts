@@ -133,6 +133,12 @@ export const navItems: INavData[] = [
         url: '/administration/staff-registration',
         icon: 'fa fa-user-plus',
         permission: ['USER_MANAGER']
+      },
+      {
+        name: 'Tokens',
+        url: '/administration/generate-tokens',
+        icon: 'fa fa-user-plus',
+        permission: ['USER_MANAGER']
       }
     ]
 

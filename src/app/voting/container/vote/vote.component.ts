@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SweetalertService } from '../../../common-module/shared-service/sweetalerts.service';
 import { ToastService } from '../../../common-module/shared-service/toast.service';
 import { LoadingService } from '../../../common-module/shared-service/loading.service';
-import { serverurl, delete_assignment_url, create_assignment_response_url, fetch_candidates_url } from '../../../app.constants';
+import { serverurl,fetch_candidates_url, create_voter_token_url, check_voter_token_url, create_vote_url, check_has_voted_url } from '../../../app.constants';
 import { AuthenticationService } from '../../../authentication/services/authentication.service';
 import { AdministrationService } from '../../../administration/services/administration.service';
 import { subscribeToIterable } from 'rxjs/internal-compatibility';
@@ -16,19 +16,12 @@ import { NgbNavChangeEvent } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./vote.component.css']
 })
 export class VoteComponent implements OnInit {
-  AddAssignmentsForm: FormGroup;
-  submitAssignmentsForm: FormGroup;
-  assignments = [];
-  formState = 'add';
-  form_data: any;
-  innovations: any;
-  fileData: File;
-  file_url = '';
-  formData  =  new FormData();
-
+  tokenForm: FormGroup;
   candidates: any;
   serverurl = serverurl
   positions = []
+  code_valid: boolean = false;
+  already_voted = false;
  
   
   constructor(private formBuilder: FormBuilder,
@@ -38,21 +31,12 @@ export class VoteComponent implements OnInit {
       public administrationService: AdministrationService,
       public authenticationService: AuthenticationService) {
 
-        this.AddAssignmentsForm = this.formBuilder.group({
-          innovation: new FormControl({value: '', disabled: true}, Validators.compose([Validators.required])),
-          title: new FormControl({value: '', disabled: true}, Validators.compose([Validators.required])),
-          deadline: new FormControl({value: '', disabled: true}, Validators.compose([Validators.required])),
-          file: new FormControl({value: '', disabled: true}, ),
-          description: new FormControl({value: '', disabled: true}, Validators.compose([Validators.required]))
-        });
-
-        this.submitAssignmentsForm = this.formBuilder.group({
-          file: new FormControl('', ),
-          response: new FormControl('', Validators.compose([Validators.required])),
-          assignment_id: new FormControl('', Validators.compose([Validators.required]))
+        this.tokenForm = this.formBuilder.group({
+          token: new FormControl('', Validators.compose([Validators.required]))
         });
      
         this.get_candidates();
+        this.has_voted();
 
   }
 
@@ -86,61 +70,81 @@ export class VoteComponent implements OnInit {
   }
 
   submit_vote(){
-    console.log(this.positions)
+    let err = false;
+    for (let item of this.positions){
+      if (item.candidate == ""){
+        err = true;
+        this.toastService.showToastNotification('error', item.position + ' Is Required!', '');
+      }
+    }
+    if (!err) {
+      this.sweetalertService.showConfirmation('','Do you wish to proceed?').then((res) => {
+        this.loadingService.showloading();
+        this.administrationService.postrecord(create_vote_url, this.positions).subscribe((res) => {
+          if (res) {
+            console.log(res);
+            this.already_voted = true;
+            this.toastService.showToastNotification('success', 'Successful', '');
+            this.tokenForm.reset();  
+          } 
+          this.loadingService.hideloading();
+        });
+      });
+    }
+    
+    
   }
 
 
   
-  add_assignment_response(){
-    if (this.submitAssignmentsForm.valid) {
-      const payload = this.submitAssignmentsForm.value;
+  verify_code(){
+    if (this.tokenForm.valid) {
+      const payload = this.tokenForm.value;
       console.log(payload)
-      this.formData.append('payload', JSON.stringify(payload));
       this.loadingService.showloading();
-      this.administrationService.postrecord(create_assignment_response_url, this.formData).subscribe((res) => {
+      this.administrationService.postrecord(create_voter_token_url, payload).subscribe((res) => {
         if (res) {
           console.log(res);
-          // this.get_assignments();
-          this.toastService.showToastNotification('success', 'Assignment Response Submitted Successfully', '');
-          this.submitAssignmentsForm.reset();  
+          this.code_valid = true;
+          this.toastService.showToastNotification('success', 'Successful', '');
+          this.tokenForm.reset();  
         } 
         this.loadingService.hideloading();
       });
       
     } else {
-      console.log(this.submitAssignmentsForm.value)
+      console.log(this.tokenForm.value)
       this.toastService.showToastNotification('error', 'Correct the errors highlighted to proceed', '');
-      this.administrationService.markFormAsDirty(this.submitAssignmentsForm);
+      this.administrationService.markFormAsDirty(this.tokenForm);
 
     }
   }
 
+  has_voted(){
+    const payload = {}
 
-  view_assignment(id){
-    for(let assignment of this.assignments){
-      if (assignment.id == id){
-        this.formState = 'edit';
-        const innovation = assignment.innovation.details.innovation_name;
-        if(assignment.file && assignment.file.trim()){
-          this.file_url = serverurl + assignment.file;
-        }
-        // assignment.file = "";
-        this.AddAssignmentsForm.patchValue(assignment);
-        this.AddAssignmentsForm.patchValue({"innovation": innovation});
-        break;
-      }      
-    }
-  }
-
-  delete_assignment(id){
-    const payload = {
-      "assignment_id": id
-    }
     this.loadingService.showloading();
-    this.administrationService.postrecord(delete_assignment_url, payload).subscribe((res) => {
+    this.administrationService.getrecords(check_has_voted_url, payload).subscribe((res) => {
       if (res) {
-        // this.get_assignments();
-        this.toastService.showToastNotification('success', 'Assignment Deleted Successfully', '');
+        if (res['status']){
+          this.already_voted = true;
+        } else {
+          this.is_voter();
+        }
+      } 
+      this.loadingService.hideloading();
+    });
+  }
+
+  is_voter(){
+    const payload = {}
+
+    this.loadingService.showloading();
+    this.administrationService.getrecords(check_voter_token_url, payload).subscribe((res) => {
+      if (res) {
+        if (res['status']){
+          this.code_valid = true;
+        }
       } 
       this.loadingService.hideloading();
     });

@@ -3,7 +3,8 @@
       <div class="central-meta new-pst">
          <div class="new-postbox">
             <figure>
-               <img src={{serverurl}}{{profile_picture?.profile_picture}} alt="">
+               <img src={{serverurl}}{{profile_picture?.profile_picture}} alt="" *ngIf="profile_picture?.profile_picture">
+               <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!profile_picture?.profile_picture">
             </figure>
             <div class="newpst-input">
                <form [formGroup]="PostForm" enctype="multipart/form-data" (ngSubmit)="save_post()">
@@ -48,7 +49,8 @@
          <div class="user-post">
             <div class="friend-info">
                <figure>
-                  <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} loading="lazy" alt="">
+                  <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} loading="lazy" alt="" *ngIf="post?.profile_picture?.profile_picture">
+                  <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!post?.profile_picture?.profile_picture">
                </figure>
                <div class="friend-name">
                   <ins><span class="btn-link" style="text-decoration: none;font-weight: 500; font-size: 14.5px;" (click)="view_candidate(post?.candidate?.id)"><b>{{post?.candidate?.first_name}} {{post?.candidate?.last_name}}</b></span></ins>
@@ -130,7 +132,8 @@
                <ul class="we-comet">
                   <li *ngFor="let comment of post?.post_comments">
                      <div class="comet-avatar">
-                        <img src={{serverurl}}{{comment?.profile_picture?.profile_picture}} alt="">
+                        <img src={{serverurl}}{{comment?.profile_picture?.profile_picture}} alt="" *ngIf="comment?.profile_picture?.profile_picture">
+                        <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!comment?.profile_picture?.profile_picture">
                      </div>
                      <div class="we-comment">
                         <div class="coment-head">
@@ -166,7 +169,8 @@
                      <ul>
                         <li *ngFor="let child of comment?.children">
                            <div class="comet-avatar">
-                              <img src={{serverurl}}{{child?.profile_picture?.profile_picture}} alt="">
+                              <img src={{serverurl}}{{child?.profile_picture?.profile_picture}} alt="" *ngIf="child?.profile_picture?.profile_picture">
+                              <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!child?.profile_picture?.profile_picture">
                            </div>
                            <div class="we-comment">
                               <div class="coment-head">
@@ -184,7 +188,8 @@
                   </li>
                   <li class="post-comment">
                      <div class="comet-avatar">
-                        <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} alt="">
+                        <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} alt="" *ngIf="post?.profile_picture?.profile_picture">
+                        <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!post?.profile_picture?.profile_picture">
                      </div>
                      <div class="post-comt-box">
                         <form [formGroup]="CommentForm" (ngSubmit)="save_comment()">

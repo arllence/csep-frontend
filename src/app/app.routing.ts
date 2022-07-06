@@ -91,27 +91,6 @@ export const routes: Routes = [
         // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
       },
       {
-        path: 'profile',
-        loadChildren:
-        () => import('./innovation-profile/module/innovation-profile.module').then(m => m.InnovationProfileModule),
-        canActivate: [AuthenticationGuard,VerifyEmailGuard],
-        // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
-      },
-      {
-        path: 'dashboard',
-        loadChildren:
-        () => import('./innovation-dashboard/module/innovation-dashboard.module').then(m => m.InnovationDashboardModule),
-        canActivate: [AuthenticationGuard,VerifyEmailGuard],
-        // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
-      },
-      {
-        path: 'assignments',
-        loadChildren:
-        () => import('./assignments-list/module/assignments-list.module').then(m => m.AssignmentListModule),
-        canActivate: [AuthenticationGuard,VerifyEmailGuard],
-        // canActivate: [AuthenticationGuard,VerifyEmailGuard, ChangePasswordGuard],
-      },
-      {
         path: 'voting',
         loadChildren:
         () => import('./voting/module/voting.module').then(m => m.VotingModule),

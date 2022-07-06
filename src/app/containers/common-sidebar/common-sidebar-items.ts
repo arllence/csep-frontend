@@ -66,7 +66,7 @@ export const navItems: INavData[] = [
     name: 'Positions',
     url: '',
     icon: 'fa fa-rocket',
-    // permission: [''],
+    permission: ['CANDIDATE','USER_MANAGER'],
     children: [
       {
         name: 'My Positions',
@@ -82,13 +82,12 @@ export const navItems: INavData[] = [
       },
      
     ]
-
   },
   {
     name: 'Reports',
     url: '',
     icon: 'fa fa-book',
-    permission: ['JUNIOR_OFFICER','INTERNAL_EVALUATOR','LEAD_INNOVATION_MANAGER','SUBJECT_MATTER_EVALUATOR', 'EXTERNAL_EVALUATOR','CHIEF_EVALUATOR'],
+    permission: [''],
     children: [
       {
         name: 'Submissions',
@@ -109,6 +108,12 @@ export const navItems: INavData[] = [
     url: '/voting/vote',
     icon: 'fa fa-id-card-o',
     permission: ['VOTER','CANDIDATE'],
+  },
+  {
+    name: 'results',
+    url: '/voting/results',
+    icon: 'fa fa-clipboard',
+    permission: ['VOTER','CANDIDATE','USER_MANAGER'],
   },
   // {
   //   name: 'Analytics',

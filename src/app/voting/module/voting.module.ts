@@ -17,10 +17,12 @@ import { QuillModule } from 'ngx-quill'
 import { ChartsModule } from 'ng2-charts';
 import { NgxPrintModule } from 'ngx-print';
 import { AccordionModule } from 'ngx-bootstrap/accordion'
+import { ResultsComponent } from '../container/results/results.component';
 
 @NgModule({
   declarations: [
     VoteComponent,
+    ResultsComponent
   ],
 
   imports: [

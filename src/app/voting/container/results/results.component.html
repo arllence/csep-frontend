@@ -20,116 +20,65 @@
             <div class="card-header">
                <h6>
                    <span class=" float-left text-success">
-                      <i class="fa fa-handshake-o "></i> &nbsp;
-                      Already Voted
+                      <i class="fa fa-bar-chart"></i> &nbsp;
+                      Results
                    </span>
                 </h6>
             </div>
             <br />
             <div class="card-body">
-               <h6 class="text-success">
-                  Congratulations comrade! You have successfully performed one of the greatest duties of a comrade! Viva!
-               </h6>
+               <div class="table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
+                  <table class="wikitable table-bordered width100" id="table">
+                     <thead>
+                        <tr class="filters">
+                           <th></th>
+                           <th>Position</th>
+                           <th>Candidates Progress</th>
+                        </tr>
+                        <tr *ngFor="let position of candidates; let i = index">
+                           <!-- {{position | json}} -->
+                            <td>{{i+1}}</td>
+                            <td>{{position?.position}}</td>
+                            <td class="inTable">
+                               <!-- <input type="radio" class="form-control" formControlName="" > -->
+                               <table style="border:0px !important" class="candidates-table">
+                                  <!-- <tr>
+                                     <th width="20%">Picture</th>
+                                     <th width="20%">Name</th>
+                                     <th width="20%">Select</th>
+                                  </tr> -->
+                                  <!-- <div class="form-check" > -->
+                                     <tr *ngFor="let candidate of position?.candidates;">
+                                        <td width="20%">
+                                           <span class="profile_picture">
+                                              <figure style="width: 15% !important">
+                                                 <img src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="">
+                                              </figure>
+                                           </span>   
+                                        </td>
+                                        <td width="20%">
+                                           <!-- <label class="form-check-label" for="{{candidate?.candidate?.id}}">                                                                      -->
+                                              {{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}
+                                           <!-- </label> -->
+                                        </td>
+                                        <td width="20%">
+                                          {{candidate?.results}}
+                                        </td>
+                                     </tr>                                 
+                                  <!-- </div> -->
+                               </table>
+                            </td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     </tbody>
+                  </table>
+                  
+               </div>
             </div>
          </div>
       </div>
      
-     
-     
-     
-      <div class="col-lg-12" *ngIf="!already_voted">
-         <div class="card border-danger" *ngIf="!code_valid">
-            <div class="card-header">
-               <h5>
-                  <span class=" float-left">
-                     <i class="fa fa-lock"></i> &nbsp;
-                     Enter Your Voter Code
-                  </span>
-               </h5>
-            </div>
-            <br />
-            <div class="card-body">
-               <form id="add-note-form" class="form-horizontal" [formGroup]="tokenForm">
-                  <div class="form-group row">                    
-                     <div class="col-sm-12 col-lg-12">
-                        <label class="control-label" for="token">Code</label>
-                        <input type="number" class="form-control required" formControlName="token">                
-                     </div>
-                  </div> 
-                  <div class="col-sm-12 col-lg-12 text-center">
-                     <button type="submit" class="btn btn-behance col-6" (click)="verify_code()">Verify Code</button>                
-               </div> 
-            </form>
-            </div>
-         </div>
-               
-        <div class="card border-success" *ngIf="code_valid">
-           <div class="card-header">
-              <h5>
-                  <span class=" float-left">
-                     <i class="fa fa-id-card-o" aria-hidden="true"></i> &nbsp;
-                     Vote
-                  </span>
-               </h5>
-           </div>
-           <br />
-           <div class="card-body">
-              <div class="table-responsive-lg table-responsive-md table-responsive-sm table-responsive">
-                 <table class="wikitable table-bordered width100" id="table">
-                    <thead>
-                       <tr class="filters">
-                          <th></th>
-                          <th>Position</th>
-                          <th>Candidates</th>
-                       </tr>
-                       <tr *ngFor="let position of candidates; let i = index">
-                          <!-- {{position | json}} -->
-                           <td>{{i+1}}</td>
-                           <td>{{position?.position}}</td>
-                           <td class="inTable">
-                              <!-- <input type="radio" class="form-control" formControlName="" > -->
-                              <table style="border:0px !important" class="candidates-table">
-                                 <!-- <tr>
-                                    <th width="20%">Picture</th>
-                                    <th width="20%">Name</th>
-                                    <th width="20%">Select</th>
-                                 </tr> -->
-                                 <!-- <div class="form-check" > -->
-                                    <tr *ngFor="let candidate of position?.candidates;">
-                                       <td width="20%">
-                                          <span class="profile_picture">
-                                             <figure style="width: 15% !important">
-                                                <img src={{serverurl}}{{candidate?.profile_picture?.profile_picture}} alt="">
-                                             </figure>
-                                          </span>   
-                                       </td>
-                                       <td width="20%">
-                                          <!-- <label class="form-check-label" for="{{candidate?.candidate?.id}}">                                                                      -->
-                                             {{candidate?.candidate?.first_name}} {{candidate?.candidate?.last_name}}
-                                          <!-- </label> -->
-                                       </td>
-                                       <td width="20%">
-                                          <input class="form-contro" type="radio" name="{{position?.position}}" value="{{candidate?.candidate?.id}}" id="{{candidate?.candidate?.id}}" (change)="handle_vote(position?.position, candidate?.candidate?.id)">
-                                       </td>
-                                    </tr>                                 
-                                 <!-- </div> -->
-                              </table>
-                           </td>
-                       </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                 </table>
-                 <div class="text-center pt-3">
-                     <button class="btn btn-behance col-6" type="submit" (click)="submit_vote()">
-                        <i class="fa fa-check"></i>
-                        Vote
-                     </button>
-                 </div>
-              </div>
-           </div>
-        </div>
-     </div>
   </div>
   <!-- row-->
 </section>

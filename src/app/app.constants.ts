@@ -48,6 +48,7 @@ export let fetch_candidate_position_url = serverurl + API_VERSION + 'voting/fetc
 export let delete_candidate_position_url = serverurl + API_VERSION + 'voting/delete-candidate-position';
 export let approve_candidate_position_url = serverurl + API_VERSION + 'voting/approve-candidate-position';
 export let fetch_candidates_url = serverurl + API_VERSION + 'voting/fetch-candidates';
+export let fetch_candidates_results_url = serverurl + API_VERSION + 'voting/fetch-candidates-results';
 
 export let create_post_url = serverurl + API_VERSION + 'voting/create-post';
 export let create_comment_url = serverurl + API_VERSION + 'voting/create-comment';

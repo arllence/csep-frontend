@@ -57,7 +57,7 @@ export const navItems: INavData[] = [
     permission: [''],
   },
   {
-    name: 'Dashboard',
+    name: 'Feed',
     url: '/landing/home',
     icon: 'fa fa-home',
     // permission: [''],

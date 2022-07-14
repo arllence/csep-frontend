@@ -1,6 +1,6 @@
 <div class="row">
    <div class="col-lg-7">
-      <div class="central-meta new-pst">
+      <div class="central-meta new-pst" *ngxPermissionsOnly="['CANDIDATE']">
          <div class="new-postbox">
             <figure>
                <img src={{serverurl}}{{profile_picture?.profile_picture}} alt="" *ngIf="profile_picture?.profile_picture">
@@ -128,7 +128,7 @@
                   </div>
                </div>
             </div>
-            <div class="coment-area">
+            <div class="coment-area m-0 p-0">
                <ul class="we-comet">
                   <li *ngFor="let comment of post?.post_comments">
                      <div class="comet-avatar">
@@ -186,10 +186,10 @@
                   <li>
                      <!-- <a href="#" title="" class="showmore underline">more comments</a> -->
                   </li>
-                  <li class="post-comment">
+                  <li class="post-comment m-0 p-0">
                      <div class="comet-avatar">
-                        <img src={{serverurl}}{{post?.profile_picture?.profile_picture}} alt="" *ngIf="post?.profile_picture?.profile_picture">
-                        <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!post?.profile_picture?.profile_picture">
+                        <img src={{serverurl}}{{profile_picture?.profile_picture}} alt="" *ngIf="profile_picture?.profile_picture">
+                        <img src="assets/img/avatars/dp-avatar.png" alt="" *ngIf="!profile_picture?.profile_picture">
                      </div>
                      <div class="post-comt-box">
                         <form [formGroup]="CommentForm" (ngSubmit)="save_comment()">

@@ -60,25 +60,13 @@ export class CommonProfileComponent implements OnInit {
       bio: new FormControl('', Validators.compose([Validators.required])),
       gender: new FormControl('', Validators.compose([Validators.required])),
       email: new FormControl('', Validators.compose([Validators.required])),
-      phone: new FormControl('',),
-      phonecode: new FormControl('',),
-      // id_number: new FormControl('',),
+      phone: new FormControl('', Validators.compose([Validators.required])),
+      phonecode: new FormControl('',Validators.compose([Validators.required])),
       age_group: new FormControl('', Validators.compose([Validators.required])),
       disability: new FormControl('', Validators.compose([Validators.required])),
-      country: new FormControl('', Validators.compose([Validators.required])),
-      state: new FormControl('', Validators.compose([Validators.required])),
-      city: new FormControl('', Validators.compose([Validators.required])),
-      address: new FormControl('', Validators.compose([Validators.required])),
-      postal: new FormControl('', Validators.compose([Validators.required])),
-      level_of_education: new FormControl('',),
-      institution_name: new FormControl('',),
-      course_name: new FormControl('',),
-      // grade: new FormControl('',),
-      study_summary: new FormControl('',),
-      guardian_name: new FormControl('',),
-      guardian_contact: new FormControl('',),
-      guardian_id_number: new FormControl('',),
-      employment: new FormControl('', Validators.compose([Validators.required])),
+      level_of_education: new FormControl('', Validators.compose([Validators.required])),
+      institution_name: new FormControl('', Validators.compose([Validators.required])),
+      course_name: new FormControl('', Validators.compose([Validators.required])),
       skills: new FormControl('', Validators.compose([Validators.required]))
     });
 
@@ -215,24 +203,13 @@ export class CommonProfileComponent implements OnInit {
           "bio": res['profile_info']['bio'],
           "gender": res['profile_info']['gender'],
           "phone": res['profile_info']['phone'],
-          // "id_number": res['profile_info']['id_number'],
           "age_group": res['profile_info']['age_group'],
           "disability": res['profile_info']['disability'],
-          "country": res['profile_info']['country'],
-          "state": res['profile_info']['state'],
-          "city": res['profile_info']['city'],
-          "address": res['profile_info']['physical_address'],
-          "postal": res['profile_info']['postal_code'],
           "level_of_education": res['profile_info']['education_level'],
           "employment": res['profile_info']['employment_status'],
           "skills": user_skills,
           "course_name": res['education']['course_name'],
-          // "grade": res['education']['grade'],
           "institution_name": res['education']['institution_name'],
-          "study_summary": res['education']['study_summary'],
-          "guardian_name": res['guardian']['name'],
-          "guardian_contact": res['guardian']['contact'],
-          "guardian_id_number": res['guardian']['id_number'],
           
        }
         try {
@@ -303,23 +280,13 @@ export class CommonProfileComponent implements OnInit {
   changer(nav,id){
     if(id == 1){
       nav.select(id);
-    } else if(id == 2){
-      // let controls = [];
-      let controls = ['first_name','last_name','bio','gender','email','phonecode','phone','age_group','disability'];
-      if(this.is_underage){
-        controls = ['first_name','last_name','bio','gender','email','guardian_id_number','guardian_name', 'guardian_contact','age_group','disability',];
-      } 
-      const results = this.get_values(controls);
-      if(results){
-        nav.select(id);
-      }
     } else if(id == 3){
-      let controls = ['country','city','address','postal'];
+      let controls = ['first_name','last_name','bio','gender','email','phonecode','phone','age_group','disability'];
       const results = this.get_values(controls);
       if(results){
         nav.select(id);
       }
-    }
+    } 
   }
  
 

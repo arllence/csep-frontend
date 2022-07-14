@@ -266,7 +266,7 @@ export class CommonProfileComponent implements OnInit {
     if(controls.length !== values.length){
       for (const name of controls){
         const control = this.CreateProfileForm.get(name);
-        if(!control.value.trim() ){
+        if(control.value === undefined || !control.value.trim() ){
           control.markAsDirty({ onlySelf: true });
           this.toastService.showToastNotification('error', name.toUpperCase() + ' Is Required', '');
         }

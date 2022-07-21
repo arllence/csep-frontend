@@ -22,6 +22,7 @@ export class GenericProfileViewComponent implements OnInit {
   serverurl = serverurl
   picture_link: string;
   candidate_id: string;
+  msgForm: FormGroup;
 
   
   constructor(private formBuilder: FormBuilder,
@@ -35,9 +36,14 @@ export class GenericProfileViewComponent implements OnInit {
         if(this.candidate_id){
           this.get_complete_profile();
         }
+        this.msgForm = this.formBuilder.group({
+          to_user: new FormControl('', Validators.compose([Validators.required])),
+          message: new FormControl('', Validators.compose([Validators.required])),
+        });
   }
 
   get_complete_profile(){
+    // this.msgForm.patchValue({"to_user": this.candidate_id});
     const payload = {
       "candidate_id": this.candidate_id
     }

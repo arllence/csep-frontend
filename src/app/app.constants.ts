@@ -69,6 +69,8 @@ export let check_has_voted_url = serverurl + API_VERSION + 'voting/check-has-vot
 export let get_notifications_url = serverurl + API_VERSION + 'voting/get-notifications';
 export let mark_notifications_as_read_url = serverurl + API_VERSION + 'voting/mark-notifications-as-read';
 
+export let get_message_count_url = serverurl + API_VERSION + 'voting/count-messages';
+
 
 
 

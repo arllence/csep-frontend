@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
-  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url, get_notifications_url, mark_notifications_as_read_url
+  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url, get_notifications_url, mark_notifications_as_read_url, get_message_count_url
 } from '../../app.constants';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -28,6 +28,8 @@ export class HomePageComponent implements OnInit {
   @ViewChild('commentbox') commentbox: ElementRef;
   notification_number: number;
   notifications: any;
+  view_msgs = false;
+  msgs_number: any;
 
   constructor(
     public administrationService: AdministrationService,
@@ -51,10 +53,15 @@ export class HomePageComponent implements OnInit {
   ngOnInit() {
     this.check_completed_profile(); 
     this.fetchNotifications();   
+    this.countMessages();
   }
 
   handleFileupload(e) {
     this.fileData = e.target.files[0];
+  }
+
+  clicked_msgs(){
+    this.view_msgs = true;
   }
   
   save_post(){
@@ -215,15 +222,17 @@ export class HomePageComponent implements OnInit {
     });
   }
 
+  countMessages() {
+    const payload = {}
+    this.administrationService.getrecords(get_message_count_url,payload).subscribe((res) => {
+      // console.log(res);
+      this.msgs_number = res;
+      
+    });
+  }
+
 
  
-  fetch_notices(){
-    // let payload = {};
-    // this.loadingService.showloading();
-    // this.administrationService.getrecords(list_notifications_url,payload).subscribe((res)=>{
-    //   this.all_notices = res;
-    //   this.loadingService.hideloading();
-    // });
-  }
+
 
 }

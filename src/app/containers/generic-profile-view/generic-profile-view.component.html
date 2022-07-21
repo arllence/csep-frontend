@@ -39,6 +39,7 @@
                                             <button class="btn btn-success text-white m-r-10" styleSheetFile="assets/css/custom_table.css" printSectionId="print_profile" ngxPrint *ngxPermissionsOnly="['USER_MANAGER']">
                                                 <i class="fa fa-id-badge mr-1"></i>Print/Export
                                             </button>
+                                            <button class="btn btn-info" (click)="messagesModal.show()">Send Message</button>
                                         </div>
                                     </div>
                                 </div>
@@ -686,6 +687,35 @@
         </div>
     </div>
 </section>
+
+<!--Messaging Info modal -->
+<div bsModal #messagesModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-primary modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header m-0 p-1 ">
+                <h6 class="modal-title m-0 p-0">
+                    messages          
+                </h6>
+                <button type="button" class="close" (click)="messagesModal.hide();" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container">
+              <div class="default-page-content p-1 mb-1 rounded" style="background-color: rgb(238, 227, 210); border: 1px solid #ccc;" >
+                <form [formGroup]="msgForm" (ngSubmit)="send_msg()">
+                    <textarea class="form-control" placeholder="write your message" formControlName="message"></textarea>
+                    
+                    <div>
+                        <button type="submit" class="btn btn-success">Send</button>
+                    </div>                    
+                 </form>
+              </div>
+            </div>      
+            
+        </div><!-- /.modal-dialog -->
+    </div>
+  </div>
+  <!-- /.modal -->
 
 
 

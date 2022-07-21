@@ -60,12 +60,14 @@ export let fetch_posts_url = serverurl + API_VERSION + 'voting/fetch-posts';
 export let create_like_url = serverurl + API_VERSION + 'voting/create-like';
 export let create_seen_url = serverurl + API_VERSION + 'voting/create-seen';
 
-
 export let create_voter_token_url = serverurl + API_VERSION + 'voting/create-voter-token';
 export let check_voter_token_url = serverurl + API_VERSION + 'voting/check-voter-token';
 export let award_token_url = serverurl + API_VERSION + 'voting/award-token';
 export let create_vote_url = serverurl + API_VERSION + 'voting/create-vote';
 export let check_has_voted_url = serverurl + API_VERSION + 'voting/check-has-voted';
+
+export let get_notifications_url = serverurl + API_VERSION + 'voting/get-notifications';
+export let mark_notifications_as_read_url = serverurl + API_VERSION + 'voting/mark-notifications-as-read';
 
 
 
@@ -156,8 +158,8 @@ export let delete_assignment_url = serverurl + API_VERSION + 'evaluation/delete-
 
 export let create_assignment_response_url = serverurl + API_VERSION + 'evaluation/create-assignment-response';
 
-export let get_notifications_url = serverurl + API_VERSION + 'evaluation/get-notifications';
-export let mark_notifications_as_read_url = serverurl + API_VERSION + 'evaluation/mark-notifications-as-read';
+
+
 
 export let general_counts_url = serverurl + API_VERSION + 'analytics/general-counts';
 export let junior_counts_url = serverurl + API_VERSION + 'analytics/junior-counts';

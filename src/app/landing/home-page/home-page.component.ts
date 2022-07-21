@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
-  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url
+  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url, get_notifications_url, mark_notifications_as_read_url
 } from '../../app.constants';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -26,6 +26,8 @@ export class HomePageComponent implements OnInit {
   posts: any;
   reply_box_id = null;
   @ViewChild('commentbox') commentbox: ElementRef;
+  notification_number: number;
+  notifications: any;
 
   constructor(
     public administrationService: AdministrationService,
@@ -47,12 +49,8 @@ export class HomePageComponent implements OnInit {
     }
 
   ngOnInit() {
-    // this.fetch_notices();
-    // this.get_my_innovations();
-    // this.get_general_counts();
-    // this.get_junior_counts();
-
-    this.check_completed_profile();    
+    this.check_completed_profile(); 
+    this.fetchNotifications();   
   }
 
   handleFileupload(e) {
@@ -199,6 +197,24 @@ export class HomePageComponent implements OnInit {
       }
     })
   }
+
+  fetchNotifications() {
+    const payload = {}
+    this.administrationService.getrecords(get_notifications_url,payload).subscribe((res) => {
+      // console.log(res);
+      this.notification_number = res.length;
+      this.notifications = res;
+      
+    });
+  }
+
+  markNotifications() {
+    const payload = {}
+    this.administrationService.getrecords(mark_notifications_as_read_url,payload).subscribe((res) => {
+      this.notification_number = 0;    
+    });
+  }
+
 
  
   fetch_notices(){

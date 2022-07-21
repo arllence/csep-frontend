@@ -18,11 +18,6 @@
     <!-- </strong> -->
     <span class="text-primary"> &nbsp;| {{role}} &nbsp; </span>
 
-    <span class="fa fa-bell btn-link" (click)="notificationsModal.show(); markNotifications()">
-      <span *ngIf="notification_number != 0" class="text-danger">{{notification_number}}</span>
-    </span>
-
-
     <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
         <!-- <img src="assets/kenya.png" class="img-avatar" alt="more settings"/> -->

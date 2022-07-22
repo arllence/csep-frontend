@@ -694,8 +694,24 @@
                </button>
            </div>
            <div class="modal-body container">
-             <div class="default-page-content p-1 mb-1 rounded" style="background-color: rgb(238, 227, 210); border: 1px solid #ccc;" *ngFor="let notice of notifications">
-                 {{notice.notification}}
+             <div class="default-page-content p-1 mb-1 rounded" style="background-color: rgb(238, 227, 210); border: 1px solid #ccc;" *ngFor="let msg of messages">
+                 
+                  <div class="row">
+                     <div class="col-3">From: {{msg?.from_user?.first_name}}</div>
+                     <div class="col-7">{{msg?.message}} <br> <small>Received: {{msg?.date_created | date:'medium'}}</small></div>
+                     <div class="col-2">
+                        <span class="btn-link" (click)="view_conversation(msg?.c_id)">View All</span>
+                        <span class="btn-link" (click)="reply(msg?.from_user?.id,msg?.id,msg?.c_id)">Reply</span>
+                     </div>
+                  </div>
+                  <form [formGroup]="msgForm" (ngSubmit)="send_msg()" *ngIf="msg?.id == msg_id">
+                     <div class="form-group">
+                         <textarea class="form-control rounded" placeholder="write your message" formControlName="message" cols="5"></textarea>
+                     </div>                    
+                     <div class="form-group text-center">
+                         <button type="submit" class="btn btn-success btn-block rounded">Send</button>
+                     </div>                    
+                  </form>
              </div>
            </div>      
            
@@ -703,5 +719,6 @@
    </div>
  </div>
  <!-- /.modal -->
+
 
          

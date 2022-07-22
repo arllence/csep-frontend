@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
-  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url, get_notifications_url, mark_notifications_as_read_url, get_message_count_url
+  serverurl, general_counts_url, junior_counts_url, check_completed_profile, get_profile_picture_url, create_post_url, fetch_posts_url, create_comment_url, create_comment_child_url, create_like_url, get_notifications_url, mark_notifications_as_read_url, get_message_count_url, fetch_messages_url, send_message_url, fetch_conversation_url
 } from '../../app.constants';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
@@ -30,6 +30,9 @@ export class HomePageComponent implements OnInit {
   notifications: any;
   view_msgs = false;
   msgs_number: any;
+  messages: any;
+  msgForm: FormGroup;
+  msg_id: any;
 
   constructor(
     public administrationService: AdministrationService,
@@ -46,6 +49,11 @@ export class HomePageComponent implements OnInit {
         comment: new FormControl('', Validators.compose([Validators.required])),
         post: new FormControl('', Validators.compose([Validators.required])),
       });
+      this.msgForm = this.formBuilder.group({
+        to_user: new FormControl('', Validators.compose([Validators.required])),
+        message: new FormControl('', Validators.compose([Validators.required])),
+        c_id: new FormControl(''),
+      });
       this.get_profile_picture();
       this.get_posts();
     }
@@ -54,6 +62,7 @@ export class HomePageComponent implements OnInit {
     this.check_completed_profile(); 
     this.fetchNotifications();   
     this.countMessages();
+    this.get_messages();
   }
 
   handleFileupload(e) {
@@ -62,6 +71,10 @@ export class HomePageComponent implements OnInit {
 
   clicked_msgs(){
     this.view_msgs = true;
+  }
+  reply(to_user,msg_id,c_id){
+    this.msgForm.patchValue({"to_user":to_user,"c_id":c_id});
+    this.msg_id = msg_id;
   }
   
   save_post(){
@@ -203,6 +216,43 @@ export class HomePageComponent implements OnInit {
         this.posts = res;
       }
     })
+  }
+
+  get_messages(){
+    const payload = {}
+    this.administrationService.getrecords(fetch_messages_url,payload).subscribe((res) => {
+      if(res) {
+        console.log(res);
+        this.messages = res;
+        this.countMessages();
+      }
+    })
+  }
+  view_conversation(c_id){
+    const payload = {
+      "c_id":c_id,
+    }
+    this.administrationService.getrecords(fetch_conversation_url,payload).subscribe((res) => {
+      if(res) {
+        console.log(res);
+        this.messages = res;
+      }
+    })
+  }
+  send_msg(){
+    const payload = this.msgForm.value;
+    this.loadingService.showloading();
+    this.administrationService.postrecord(send_message_url, payload).subscribe((res) => {
+      if (res) {
+        this.msgForm.reset();
+        this.msg_id = null;
+        this.get_messages();
+        this.countMessages();
+        this.toastService.showToastNotification('success', 'Success', '');
+      } 
+    });
+    this.loadingService.hideloading();
+
   }
 
   fetchNotifications() {

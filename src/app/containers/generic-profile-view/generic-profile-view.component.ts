@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { SweetalertService } from '../../common-module/shared-service/sweetalerts.service';
 import { ToastService } from '../../common-module/shared-service/toast.service';
 import { LoadingService } from '../../common-module/shared-service/loading.service';
-import { serverurl, get_complete_profile,  } from '../../app.constants';
+import { serverurl, get_complete_profile, send_message_url,  } from '../../app.constants';
 import { AuthenticationService } from '../../authentication/services/authentication.service';
 import { AdministrationService } from '../../administration/services/administration.service';
 import { ViewChild } from '@angular/core';
@@ -37,13 +37,12 @@ export class GenericProfileViewComponent implements OnInit {
           this.get_complete_profile();
         }
         this.msgForm = this.formBuilder.group({
-          to_user: new FormControl('', Validators.compose([Validators.required])),
+          to_user: new FormControl(this.candidate_id, Validators.compose([Validators.required])),
           message: new FormControl('', Validators.compose([Validators.required])),
         });
   }
 
   get_complete_profile(){
-    // this.msgForm.patchValue({"to_user": this.candidate_id});
     const payload = {
       "candidate_id": this.candidate_id
     }
@@ -74,6 +73,19 @@ export class GenericProfileViewComponent implements OnInit {
         }    
       }
     })
+  }
+
+  send_msg(){
+    const payload = this.msgForm.value;
+    this.loadingService.showloading();
+    this.administrationService.postrecord(send_message_url, payload).subscribe((res) => {
+      if (res) {
+        this.msgForm.reset();
+        this.toastService.showToastNotification('success', 'Success', '');
+      } 
+    });
+    this.loadingService.hideloading();
+
   }
  
 

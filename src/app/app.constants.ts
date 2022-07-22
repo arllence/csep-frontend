@@ -70,6 +70,9 @@ export let get_notifications_url = serverurl + API_VERSION + 'voting/get-notific
 export let mark_notifications_as_read_url = serverurl + API_VERSION + 'voting/mark-notifications-as-read';
 
 export let get_message_count_url = serverurl + API_VERSION + 'voting/count-messages';
+export let fetch_conversation_url = serverurl + API_VERSION + 'voting/fetch-conversation';
+export let fetch_messages_url = serverurl + API_VERSION + 'voting/fetch-messages';
+export let send_message_url = serverurl + API_VERSION + 'voting/send-message';
 
 
 

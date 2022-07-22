@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
-                                        <div class="pull-right cover-btn float-right" *ngxPermissionsOnly="['USER_MANAGER']">
+                                        <div class="pull-right cover-btn float-right">
                                             <button class="btn btn-success text-white m-r-10" styleSheetFile="assets/css/custom_table.css" printSectionId="print_profile" ngxPrint *ngxPermissionsOnly="['USER_MANAGER']">
                                                 <i class="fa fa-id-badge mr-1"></i>Print/Export
                                             </button>
@@ -702,11 +702,13 @@
             </div>
             <div class="modal-body container">
               <div class="default-page-content p-1 mb-1 rounded" style="background-color: rgb(238, 227, 210); border: 1px solid #ccc;" >
+                <p class="m-0 pb-2">Message To: {{profile_info?.user.first_name}}</p>
                 <form [formGroup]="msgForm" (ngSubmit)="send_msg()">
-                    <textarea class="form-control" placeholder="write your message" formControlName="message"></textarea>
-                    
-                    <div>
-                        <button type="submit" class="btn btn-success">Send</button>
+                    <div class="form-group">
+                        <textarea class="form-control rounded" placeholder="write your message" formControlName="message" cols="5"></textarea>
+                    </div>                    
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-success btn-block rounded" (click)="messagesModal.hide();">Send</button>
                     </div>                    
                  </form>
               </div>
